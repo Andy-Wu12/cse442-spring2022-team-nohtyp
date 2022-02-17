@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="./src/css/styles.css">
+    <title>LOGIN/SIGNUP</title>
+    <link rel="stylesheet" href="src/css/login.css">
     <link rel="stylesheet" href="./src/css/bootstrap.min.css">
 </head>
 <body>
@@ -10,10 +11,10 @@
         <a class="navbar-brand" href="#">
             <img src="./src/img/logo.svg" width="30" height="30" class="logo d-inline-block align-middle" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -23,7 +24,8 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,15 +44,52 @@
         <div class="right_content">
             <div class="input-box">
                 <div>
-                    <input type="text" class="ant-input input" placeholder="Email / Phone" value="">
+                    <img src="src/img/user.png" class="icon_before_input" alt="icon_before_input">
+                    <label for="email_phone_input"></label>
+                    <input type="text" id="email_phone_input" class="ant-input input" placeholder="Email / Phone" value="">
                 </div>
-                <input type="password" class="ant-input input" maxlength="20" placeholder="Password">
-                <input type="password" class="ant-input input" maxlength="20" placeholder="Confirm Password">
+                <div>
+                    <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                    <label for="password_input"></label>
+                    <input type="password" id="password_input" class="ant-input input" maxlength="20" placeholder="Password">
+                </div>
+                <div>
+                    <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                    <label for="confirm_password_input"></label>
+                    <input type="password" id="confirm_password_input" class="ant-input input" maxlength="20" placeholder="Confirm Password">
+                </div>
             </div>
             <!--            <button disabled="" type="button"-->
             <!--                    class="ant-btn loginBtn ant-btn-primary"><span>Sign Up</span></button>-->
         </div>
-        <button type="button" class="btn btn-login login-style">Sign Up</button>
+        <div id="same_pwd_msg" class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            Welcome
+        </div>
+        <div id="diff_pwd_msg" class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            Passwords do not match
+        </div>
+        <button type="button" id="btn-signup" class="btn btn-signup login-style">Sign Up</button>
+    </div>
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light p-4">
+                <h4 class="text-dark">Collapsed content</h4>
+                <span class="text-muted">Toggleable via the navbar brand.</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-light bg-light" id="menu-button">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
     </div>
 </div>
 <script src="./src/js/homepage.js"></script>
