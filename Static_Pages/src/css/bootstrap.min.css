@@ -49,4 +49,50 @@ fieldset[disabled] .btn-signup.active {
   color: #1C5CBC; 
   background-color: #FFFFFF; 
 }
+
+.btn-signup {
+  color: #FFFFFF;
+  background-color: #1C5CBC;
+  border-color: #FFFFFF;
+}
+
+.btn-signup:hover,
+.btn-signup:focus,
+.btn-signup:active,
+.btn-signup.active,
+.open .dropdown-toggle.btn-signup {
+  color: #FFFFFF;
+  background-color: #1c5cbc;
+  border-color: #FFFFFF;
+}
+
+.btn-signup:active,
+.btn-signup.active,
+.open .dropdown-toggle.btn-signup {
+  background-image: none;
+}
+
+.btn-signup.disabled,
+.btn-signup[disabled],
+fieldset[disabled] .btn-signup,
+.btn-signup.disabled:hover,
+.btn-signup[disabled]:hover,
+fieldset[disabled] .btn-signup:hover,
+.btn-signup.disabled:focus,
+.btn-signup[disabled]:focus,
+fieldset[disabled] .btn-signup:focus,
+.btn-signup.disabled:active,
+.btn-signup[disabled]:active,
+fieldset[disabled] .btn-signup:active,
+.btn-signup.disabled.active,
+.btn-signup[disabled].active,
+fieldset[disabled] .btn-signup.active {
+  background-color: #1C5CBC;
+  border-color: #FFFFFF;
+}
+
+.btn-signup .badge {
+  color: #1C5CBC;
+  background-color: #FFFFFF;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

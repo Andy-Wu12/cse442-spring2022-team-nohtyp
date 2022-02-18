@@ -40,13 +40,16 @@
     </nav>
     <h1 class="section_header">Get the ultimate<br data-mutiny="true">to-do list and time management tool</h1>
     <div class="login-box">
-        <div class="login-text"><span class="">Log In</span><b>·</b><span class="active">Sign Up</span></div>
-        <div class="right_content">
+        <div class="login-text">
+            <span id="login_title_btn">Log In</span><b>·</b><span class="active" id="signup_title_btn">Sign Up</span>
+        </div>
+        <div class="right_content" id="sign_up_content">
             <div class="input-box">
                 <div>
                     <img src="src/img/user.png" class="icon_before_input" alt="icon_before_input">
-                    <label for="email_phone_input"></label>
-                    <input type="text" id="email_phone_input" class="ant-input input" placeholder="Email / Phone" value="">
+                    <label>
+                        <input type="text" class="ant-input input email-input" placeholder="Email / Phone" value="">
+                    </label>
                 </div>
                 <div id="email_msg" class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert"
@@ -60,20 +63,23 @@
                     <label for="password_input"></label>
                     <input type="password" id="password_input" class="ant-input input" maxlength="20" placeholder="Password">
                 </div>
-                <div>
+                <div id="confirm_password_input">
                     <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
-                    <label for="confirm_password_input"></label>
-                    <input type="password" id="confirm_password_input" class="ant-input input" maxlength="20" placeholder="Confirm Password">
+                    <label>
+                        <input type="password" class="ant-input input" maxlength="20" placeholder="Confirm Password">
+                    </label>
+                </div>
+                <div id="pwd_msg" class="">
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">
+                        &times;
+                    </button>
                 </div>
             </div>
+            <button type="button" id="btn-forgotPwd" class="btn btn-signup forgotPwd">Forgot Password?</button>
+            <button type="button" id="btn-signup" class="btn btn-signup login-style">Sign Up</button>
+            <button type="button" id="btn-login" class="btn btn-signup login-style">Log In</button>
         </div>
-        <div id="pwd_msg" class="">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-        </div>
-        <button type="button" id="btn-signup" class="btn btn-signup login-style">Sign Up</button>
     </div>
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">

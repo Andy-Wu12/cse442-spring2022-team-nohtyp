@@ -76,6 +76,19 @@ body {
     background-color: #1c5cbc;
 }
 
+.login-container .login-box .forgotPwd {
+    width: 100%;
+    height: 45px;
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    font-weight: 600;
+    background-color: #a6adaa;
+}
+
 ::placeholder {
     color: #a6adaa;
     font-size: 16px;
@@ -87,10 +100,6 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    /*background-image: url("../img/homepage_time.jpg");*/
-    /*background-size: 200px 100px;*/
-    /*background-repeat: no-repeat;*/
-    background-color: #80ced6;
 }
 
 .section_header {
@@ -119,10 +128,10 @@ body {
     right: 0;
 }
 
-#pwd_msg{
+#pwd_msg, #email_msg, #btn-forgotPwd, #btn-login{
     display: none;
 }
 
-#email_msg{
-    display: none;
+button#btn-signup{
+    margin-top: 31px;
 }
