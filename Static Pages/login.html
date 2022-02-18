@@ -48,6 +48,13 @@
                     <label for="email_phone_input"></label>
                     <input type="text" id="email_phone_input" class="ant-input input" placeholder="Email / Phone" value="">
                 </div>
+                <div id="email_msg" class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    Wrong Email Format
+                </div>
                 <div>
                     <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
                     <label for="password_input"></label>
@@ -59,22 +66,12 @@
                     <input type="password" id="confirm_password_input" class="ant-input input" maxlength="20" placeholder="Confirm Password">
                 </div>
             </div>
-            <!--            <button disabled="" type="button"-->
-            <!--                    class="ant-btn loginBtn ant-btn-primary"><span>Sign Up</span></button>-->
         </div>
-        <div id="same_pwd_msg" class="alert alert-success alert-dismissable">
+        <div id="pwd_msg" class="">
             <button type="button" class="close" data-dismiss="alert"
                     aria-hidden="true">
                 &times;
             </button>
-            Welcome
-        </div>
-        <div id="diff_pwd_msg" class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-            Passwords do not match
         </div>
         <button type="button" id="btn-signup" class="btn btn-signup login-style">Sign Up</button>
     </div>
@@ -92,6 +89,7 @@
         </nav>
     </div>
 </div>
+<script src="./src/js/jquery-3.6.0.min.js"></script>
 <script src="./src/js/homepage.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

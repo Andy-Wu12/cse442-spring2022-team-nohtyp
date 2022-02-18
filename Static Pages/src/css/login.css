@@ -119,10 +119,10 @@ body {
     right: 0;
 }
 
-#diff_pwd_msg{
+#pwd_msg{
     display: none;
 }
 
-#same_pwd_msg{
+#email_msg{
     display: none;
 }
