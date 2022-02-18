@@ -1,0 +1,36 @@
+/* This file is for anything that's not page specific
+    like background color, form design/layout, etc
+    that we want to keep consistent throughout all pages */
+
+body {
+    background-color: rgba(255, 255, 255, 0.89);
+}
+
+/* Tooltips to provide definitions/context for what users should do */
+.tooltip-container {
+    font-size: 2rem;
+    color: dodgerblue;
+    position: relative;
+    display: inline-block;
+    border-bottom: 2px dotted dodgerblue;
+}
+
+/* Tooltip text */
+.tooltip-container .tooltip-text {
+    visibility:  hidden;
+    width: 25em;
+    font-size: 12pt;
+    color: #fff;
+    background-color: dodgerblue;
+    text-align: center;
+    padding: 5px 0 5px 0;
+    border-radius: 6px;
+    /* Position tooltip below header */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Make the tooltip appear on hover */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+}
