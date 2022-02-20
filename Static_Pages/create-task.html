@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/create.css">
+
+    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>
+    <script src="./src/js/create-form.js"></script>
+
+    <meta charset="UTF-8">
+    <title> APP NAME </title>
+</head>
+
+<!-- There is definitely a better way to do this other than copying the CARD static page over and changing CARD to TASK -->
+<body class="create-page">
+    <div class="create-header-div">
+        <div class="tooltip-container">
+            Create a TASK
+            <span class="tooltip-text">
+                A task is an activity or event that needs to be kept track of. <br><br>
+                For example, a task can be a homework / project due date, an interview reminder, etc.
+            </span>
+        </div>
+    </div>
+    <br><br>
+    <form class="create-task-form" id="create-task-form" onsubmit="return validateCreationForm('create-task-form')">
+        <label for="name"> Task name <span style="color: red">*</span>: </label><br>
+        <input type="text" id="name" class="create-form-input" minlength="1"><br><br>
+        <label for="desc"> Description<span style="color: red">*</span>: </label><br>
+        <textarea form="create-task-form" id="desc" class="create-form-input" minlength="1" rows="5" cols="50"></textarea><br>
+        <!-- Both due date and notes are optional fields -->
+        <label for="dueDate"> Due date: </label><br>
+        <input type="text" id="dueDate" class="create-form-input"><br><br>
+        <label for="notes"> Extra notes: </label><br>
+        <textarea form="create-task-form" id="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
+        <!--  Assign to card is optional for creating a task -->
+        <label for="assign-card"> Assign to card: </label><br>
+        <input type="text" id="assign-card" class="create-form-input" placeholder="name of card/label"><br><br>
+        <button id="submit-create-card"> Add task </button>
+    </form>
+
+    <!-- Redirect to create-card -->
+    <a class="redirect-button" href="./create-card.html"> Create a new card instead </a>
+
+</body>
+
+</html>
