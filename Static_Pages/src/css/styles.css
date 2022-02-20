@@ -18,7 +18,7 @@ body {
 /* Tooltip text */
 .tooltip-container .tooltip-text {
     visibility:  hidden;
-    width: 25em;
+    width: 10rem;
     font-size: 12pt;
     color: #fff;
     background-color: dodgerblue;
@@ -34,3 +34,4 @@ body {
 .tooltip-container:hover .tooltip-text {
     visibility: visible;
 }
+

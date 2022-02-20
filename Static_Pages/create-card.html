@@ -3,36 +3,45 @@
 <head>
     <link rel="stylesheet" href="./src/css/styles.css">
     <link rel="stylesheet" href="./src/css/create.css">
+
+    <!--  Jquery import needs to come first to be used in files following it  -->
+    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>
+    <script src="./src/js/create-form.js"></script>
+
     <meta charset="UTF-8">
     <title> APP NAME </title>
 </head>
 
-<body>
+<body class="create-page">
     <div class="create-header-div">
         <div class="tooltip-container">
             Create a CARD
             <span class="tooltip-text">
-                A card is a way to label, store, and keep track of a set of tasks. <br>
-                For example, a card can be created to keep track of tasks related to homeworks. <br>
+                A card is a way to label, store, and keep track of a set of tasks. <br><br>
+                For example, a card can be created to keep track of tasks related to homeworks. <br><br>
                 You can separate these further into separate cards that keep track of specific courses instead.
             </span>
         </div>
     </div>
-
-    <form id="create-card-form">
-        <label for="cardname"> Card name<span style="color: red">*</span>: </label><br>
-        <input type="text" id="cardname"><br><br>
-        <label for="desc"> Description: </label><br>
-        <textarea form="create-card-form" id="desc" rows="5" cols="50">
-        </textarea><br>
+    <br><br>
+    <form class="create-card-form" id="create-card-form" onsubmit="return validateCreationForm('create-card-form')">
+        <label for="name"> Card name <span style="color: red">*</span>: </label><br>
+        <input type="text" id="name" class="create-form-input" minlength="1"><br><br>
+        <label for="desc"> Description<span style="color: red">*</span>: </label><br>
+        <textarea form="create-card-form" id="desc" class="create-form-input" minlength="1" rows="5" cols="50"></textarea><br>
         <!-- Both due date and notes are optional fields -->
-        <label for="due"> Due date: </label><br>
-        <input type="text" id="due"><br><br>
+        <label for="dueDate"> Due date: </label><br>
+        <input type="text" id="dueDate" class="create-form-input"><br><br>
         <label for="notes"> Extra notes: </label><br>
-        <textarea form="create-card-form" id="notes" rows="5" cols="50">
-        </textarea><br>
+        <textarea form="create-card-form" id="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
         <button id="submit-create-card"> Show me my card! </button>
     </form>
+
+    <div class="submit-error-message">
+        <h2 id="error-message-container">
+
+        </h2>
+    </div>
 
 </body>
 
