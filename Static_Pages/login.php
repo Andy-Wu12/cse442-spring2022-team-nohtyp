@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="login-container">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <img src="./src/img/logo.svg" width="30" height="30" class="logo d-inline-block align-middle" alt="">
@@ -43,43 +44,41 @@
         <div class="login-text">
             <span id="login_title_btn">Log In</span><b>·</b><span class="active" id="signup_title_btn">Sign Up</span>
         </div>
-        <div class="right_content" id="sign_up_content">
-            <div class="input-box">
-                <div>
-                    <img src="src/img/user.png" class="icon_before_input" alt="icon_before_input">
-                    <label>
-                        <input type="text" class="ant-input input email-input" placeholder="Email / Phone" value="">
-                    </label>
+        <form id="form" action="/Static_Pages/php/signup.php" method="post">
+            <div class="right_content" id="sign_up_content">
+                <div class="input-box">
+                    <div>
+                        <img src="src/img/user.png" class="icon_before_input" alt="icon_before_input">
+                        <label>
+                            <input type="text" id="email_phone_input" class="ant-input input email-input"
+                                   placeholder="Email / Phone" name="email_phone_input" value="">
+                        </label>
+                    </div>
+                    <div id="password_input">
+                        <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                        <label for="password_input">
+                            <input type="password" class="ant-input input" name="password_input" maxlength="20"
+                                   placeholder="Password">
+                        </label>
+                    </div>
+                    <div id="confirm_password_input">
+                        <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                        <label>
+                            <input type="password" name="confirm_password_input" class="ant-input input" maxlength="20"
+                                   placeholder="Confirm Password">
+                        </label>
+                    </div>
+                    <div id="pwd_msg" class="">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
                 </div>
-                <div id="email_msg" class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">
-                        &times;
-                    </button>
-                    Wrong Email Format
-                </div>
-                <div>
-                    <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
-                    <label for="password_input"></label>
-                    <input type="password" id="password_input" class="ant-input input" maxlength="20" placeholder="Password">
-                </div>
-                <div id="confirm_password_input">
-                    <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
-                    <label>
-                        <input type="password" class="ant-input input" maxlength="20" placeholder="Confirm Password">
-                    </label>
-                </div>
-                <div id="pwd_msg" class="">
-                    <button type="button" class="close" data-dismiss="alert"
-                            aria-hidden="true">
-                        &times;
-                    </button>
-                </div>
+                <button type="button" id="btn-forgotPwd" class="btn btn-signup forgotPwd">Forgot Password?</button>
+                <input type="submit" value="Sign Up" id="btn-signup" class="btn btn-signup login-style">
             </div>
-            <button type="button" id="btn-forgotPwd" class="btn btn-signup forgotPwd">Forgot Password?</button>
-            <button type="button" id="btn-signup" class="btn btn-signup login-style">Sign Up</button>
-            <button type="button" id="btn-login" class="btn btn-signup login-style">Log In</button>
-        </div>
+        </form>
     </div>
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
@@ -89,21 +88,20 @@
             </div>
         </div>
         <nav class="navbar navbar-light bg-light" id="menu-button">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
     </div>
 </div>
-<script src="./src/js/jquery-3.6.0.min.js"></script>
+<script src="./src/js/jquery-3.6.0.js"></script>
 <script src="./src/js/homepage.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+<script src="./src/js/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+<script src="./src/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 </body>

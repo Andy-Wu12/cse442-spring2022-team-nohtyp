@@ -128,10 +128,10 @@ body {
     right: 0;
 }
 
-#pwd_msg, #email_msg, #btn-forgotPwd, #btn-login{
+#pwd_msg, #btn-forgotPwd {
     display: none;
 }
 
-button#btn-signup{
+button#btn-signup {
     margin-top: 31px;
 }
