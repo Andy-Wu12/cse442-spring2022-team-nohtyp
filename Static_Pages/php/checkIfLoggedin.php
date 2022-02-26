@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 echo $_SESSION["email"];
             } else if ($_GET["param"] == "clearsession") {
                 setcookie("loginCookie", "", time() - 1);
-                header("Location: ../login.php");
+                header("Location: ../login.html");
             }
         } else {
             echo "Already logged in";

@@ -4,7 +4,7 @@ function redirectIfLoggedIn() {
         url: "./php/checkIfloggedin.php",
         success: function (resp) {
             if (!resp.includes("Already logged in")) {
-                window.location.replace("./login.php")
+                window.location.replace("./login.html")
             }
         }
     });
@@ -18,7 +18,7 @@ function getSessionEmail() {
         async: false,
         success: function (resp) {
             if (resp === "Not logged in") {
-                window.location.replace("./login.php")
+                window.location.replace("./login.html")
             }
             else{
                 email = resp
