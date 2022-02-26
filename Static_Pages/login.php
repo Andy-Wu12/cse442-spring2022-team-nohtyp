@@ -44,7 +44,7 @@
         <div class="login-text">
             <span id="login_title_btn">Log In</span><b>·</b><span class="active" id="signup_title_btn">Sign Up</span>
         </div>
-        <form id="form" action="/Static_Pages/php/signup.php" method="post">
+        <form id="form" action="./php/signup.php" method="post">
             <div class="right_content" id="sign_up_content">
                 <div class="input-box">
                     <div>

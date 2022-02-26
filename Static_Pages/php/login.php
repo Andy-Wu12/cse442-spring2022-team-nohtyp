@@ -19,6 +19,13 @@ function userPwdExists($mysqli, $email, $password): bool
     return $rows == 1;
 }
 
+function updateCookie($mysqli, $email, $cookie)
+{
+    $stmt = $mysqli->prepare("UPDATE user SET cookie = ? WHERE email = ?");
+    $stmt->bind_param("ss", $cookie, $email);
+    $stmt->execute();
+}
+
 $res = "Login Success";
 $servername = "128.205.36.4";
 $username = "ywang298";
@@ -32,11 +39,17 @@ if ($mysqli->connect_error) {
 if (!empty($_POST)) {
     $email = $_POST["email_phone_input"];
     $password = $_POST["password_input"];
-    if(!emailExists($mysqli, $email)){
+    if (!emailExists($mysqli, $email)) {
         $res = "Email Doesn't Exist";
-    }
-    else if (!userPwdExists($mysqli, $email, $password)) {
+    } else if (!userPwdExists($mysqli, $email, $password)) {
         $res = "Wrong Password";
+    } else {
+        //Successful Login
+        session_start();
+        $_SESSION['email'] = $email;
+        $cookie = hash("sha256", $email);
+        setcookie("loginCookie", $cookie, time() + 3600);
+        updateCookie($mysqli, $email, $cookie);
     }
 }
 echo $res;

@@ -8,32 +8,37 @@
 </head>
 
 <body>
-    <div class="create-header-div">
-        <div class="tooltip-container">
-            Create a CARD
-            <span class="tooltip-text">
+<div>
+    <a id="username_header"></a>
+    <button id="logout_btn">LOGOUT</button>
+</div>
+<div class="create-header-div">
+    <div class="tooltip-container">
+
+        Create a CARD
+        <span class="tooltip-text">
                 A card is a way to label, store, and keep track of a set of tasks. <br>
                 For example, a card can be created to keep track of tasks related to homeworks. <br>
                 You can separate these further into separate cards that keep track of specific courses instead.
             </span>
-        </div>
     </div>
+</div>
 
-    <form id="create-card-form">
-        <label for="cardname"> Card name<span style="color: red">*</span>: </label><br>
-        <input type="text" id="cardname"><br><br>
-        <label for="desc"> Description: </label><br>
-        <textarea form="create-card-form" id="desc" rows="5" cols="50">
+<form id="create-card-form">
+    <label for="cardname"> Card name<span style="color: red">*</span>: </label><br>
+    <input type="text" id="cardname"><br><br>
+    <label for="desc"> Description: </label><br>
+    <textarea form="create-card-form" id="desc" rows="5" cols="50">
         </textarea><br>
-        <!-- Both due date and notes are optional fields -->
-        <label for="due"> Due date: </label><br>
-        <input type="text" id="due"><br><br>
-        <label for="notes"> Extra notes: </label><br>
-        <textarea form="create-card-form" id="notes" rows="5" cols="50">
+    <!-- Both due date and notes are optional fields -->
+    <label for="due"> Due date: </label><br>
+    <input type="text" id="due"><br><br>
+    <label for="notes"> Extra notes: </label><br>
+    <textarea form="create-card-form" id="notes" rows="5" cols="50">
         </textarea><br>
-        <button id="submit-create-card"> Show me my card! </button>
-    </form>
-
+    <button id="submit-create-card"> Show me my card!</button>
+</form>
+<script src="./src/js/jquery-3.6.0.js"></script>
+<script src="src/js/session.js"></script>
 </body>
-
 </html>
