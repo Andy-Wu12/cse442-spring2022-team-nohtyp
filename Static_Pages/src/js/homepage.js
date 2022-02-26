@@ -27,6 +27,10 @@ function signUp_logIn(event) {
                         showMsg("Email already exists")
                     } else {
                         showMsg("Welcome!", "alert alert-success alert-dismissable")
+                        setTimeout(()=>{
+                            login_title_btn.click()
+                            password_input.val("")
+                        }, 1000)
                     }
                 }
             });
@@ -47,6 +51,9 @@ function signUp_logIn(event) {
             success: function (resp) {
                 if (resp === "Login Success") {
                     showMsg("Welcome!", "alert alert-success alert-dismissable")
+                    setTimeout(()=>{
+                        window.location.replace("./user-home.html")
+                    }, 1000)
                 } else {
                     showMsg(resp)
                 }
@@ -96,7 +103,7 @@ const setBtnActive = (event) => {
         $("#btn-forgotPwd").css("display", "block")
         $("#confirm_password_input").css("display", "none")
         $("#pwd_msg").css("display", "none")
-        form.attr("action", "/Static_Pages/php/login.php")
+        form.attr("action", "./php/login.php")
         signup_btn.val("Log In")
         password_input.off("input")
         confirm_password_input.off("input")
@@ -108,7 +115,7 @@ const setBtnActive = (event) => {
         $("#btn-forgotPwd").css("display", "none")
         $("#confirm_password_input").css("display", "block")
         $("#pwd_msg").css("display", "none")
-        form.attr("action", "/Static_Pages/php/signup.php")
+        form.attr("action", "./php/signup.php")
         signup_btn.val("Sign Up")
         password_input.on("input", checkPwdMatch)
         confirm_password_input.on("input", checkPwdMatch)
