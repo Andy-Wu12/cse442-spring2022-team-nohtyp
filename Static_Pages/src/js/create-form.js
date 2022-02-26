@@ -14,6 +14,16 @@ function validateCreationForm(idName) {
         let formInputFields = document.getElementsByClassName(formInputClassName);
         console.log(formInputFields);
         parseData(formInputFields);
+
+        // Form-specific alert - ONLY A PLACEHOLDER IDEA FOR NOW
+        switch (idName) {
+            case "create-card-form":
+                alert("Card created!");
+                break;
+            case "create-task-form":
+                alert("Task created!");
+                break;
+        }
         return true;
     }
 
