@@ -8,24 +8,17 @@
 </head>
 <body>
     <!-- Each card has a title, description, tasks and a delete button -->
-    <h1>Card 1
-
+    <h1>
+        <form>
+            <span contenteditable="true">Card 1</span>
+            <input type="button" value="Update Title">
+        </form>
     </h1>
 
-    <p>Description here.</p>
-    <ul>
-        <li><input type="text" value="task 1"> <input type="button" value="Delete Task"></li>
-        <li><input type="text" value="task 2"> <input type="button" value="Delete Task"></li>
-    </ul>
-
     <form>
-        <input type="button" value="Delete Card">
+        <span contenteditable="true">Description here.</span>
+        <input type="button" value="Update">
     </form>
-
-    <h1>Card 2</h1>
-
-
-    <p>Description here.</p>
 
     <ul>
         <li><input type="text" value="task 1"> <input type="button" value="Delete Task"></li>
@@ -36,9 +29,31 @@
         <input type="button" value="Delete Card">
     </form>
 
-    <!-- <form>
-        <input type="text" value="Enter Card Title">
-    </form> -->
+
+    <!-- 2nd Static Example -->
+    <h1>
+        <form>
+            <span contenteditable="true">Card 2</span>
+            <input type="button" value="Update Title">
+        </form>
+    </h1>
+
+
+    <form>
+        <span contenteditable="true">Description here.</span>
+        <input type="button" value="Update">
+    </form>
+
+    <ul>
+        <li><input type="text" value="task 1"> <input type="button" value="Delete Task"></li>
+        <li><input type="text" value="task 2"> <input type="button" value="Delete Task"></li>
+    </ul>
+
+    <form>
+        <input type="button" value="Delete Card">
+    </form>
+
+    <!-- Redirects -->
     <br><br>
     <a class=redirect-button href="./create-card.html"> Create a new card </a>
     <a class=redirect-button href="./create-task.html"> Create a new task </a>
