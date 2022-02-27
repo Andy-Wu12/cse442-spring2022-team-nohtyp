@@ -1,0 +1,283 @@
+<!doctype html><html><head><style type="text/css">/*
+ * Reference: https://codepen.io/erikterwan/pen/EVzeRP?editors=0101
+ * Need to adapt to placing the menu on the right, reference is a guide
+ */
+
+body{
+  margin: 0;
+  padding: 0;
+  
+  /* make it look decent enough */
+  background: #F7F7F7;
+  color: #232323;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+
+  overflow-x: hidden;
+}
+
+a{
+  text-decoration: none;
+  color: #777777;
+}
+
+
+.center{
+  display: flex;
+  align-items: center;
+  height: 200px;
+  padding: 70px 0;
+}
+
+#screen-header-div{
+  width: 98%;
+  padding: 10px;
+  border: 5px solid gray;
+  border-style: hidden;
+  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+
+  position: absolute;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 40px;
+  top: 40%;
+  transform: translate(0, -50);
+
+}
+
+#menu-toggle
+{
+  display: block;
+  position: absolute;
+  color: #000;
+  top: 50px;
+  right: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menu-toggle a
+{
+  justify-content: right;
+  text-decoration: none;
+  color: #777777;
+  
+  transition: color 0.3s ease;
+}
+
+#menu-toggle a:hover
+{
+  color: dodgerblue;
+}
+
+#menu-toggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+#menu-toggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #232323;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menu-toggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menu-toggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menu-toggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menu-toggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menu-toggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 0;
+  padding: 50px;
+  padding-top: 125px;
+  right: -100px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menu-toggle input:checked ~ ul
+{
+  transform: none;
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  #menu {
+    transform: none;
+    opacity: 0;
+
+    transition: opacity 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style></head><body><html>
+ <head>
+ <meta charset="utf-8" />
+  <title>User Home Page</title>
+ </head> 
+ <body>
+    <!--Example side menu reference: https://codepen.io/erikterwan/pen/EVzeRP?editors=0100 -->
+ <nav role="navigation">
+  <div id="navbar">
+		<center style="font-size: 25px">
+			<h3>App Name</h3>
+		</center>
+	<div id="menu-toggle">
+		<!--
+	    A fake / hidden checkbox is used as click reciever,
+	    so you can use the :checked selector on it.
+	    -->
+		<input type="checkbox" />
+	
+		<!--
+	    Some spans to act as a hamburger.
+	    
+	    They are acting like a real hamburger,
+	    not that McDonalds stuff.
+	    -->
+		<span></span>
+		<span></span>
+		<span></span>
+	
+		<!--
+	    Too bad the menu has to be inside of the button
+	    but hey, it's pure CSS magic.
+	    -->
+		<ul id="menu">
+			<a href="#">
+				<li>Create Stack/Card/Task</li>
+			</a>
+			<a href="#">
+				<li>Read Stacks/Cards/Tasks</li>
+			</a>
+			<a href="#">
+				<li>Update Stacks/Cards/Tasks</li>
+			</a>
+			<a href="#">
+				<li>Delete Stack/Card/Tasks</li>
+			</a>
+			<a href="#">
+				<li>Logout</li>
+			</a>
+		</ul>
+  </div>
+
+
+
+  
+  </div>
+ </nav>
+ <div id="screen-header-div">
+	 <header>
+		 <center>
+			 <h1>Welcome Username </h1>
+		 </center>
+	 </header>
+ </div>
+ </body>
+</html><script type="text/javascript"> </script></body><html>
