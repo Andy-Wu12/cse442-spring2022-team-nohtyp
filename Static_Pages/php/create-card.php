@@ -10,18 +10,19 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-echo "post found!";
+session_start();
 $name = $_POST["name"];
 $desc = $_POST["desc"];
 $due_date = $_POST["dueDate"];
 $notes = $_POST["notes"];
 
-// $email = $_SESSION['email']
-$email = "t@t.com";
+$email = $_SESSION['email'];
 
 $stmt = $mysqli->prepare("INSERT INTO cards(name, description, due_date, extra_notes, email) VALUES (?, ?, ?, ?, ?)");
-// echo $mysqli->error;
+echo $mysqli->error;
 $stmt->bind_param("sssss", $name, $desc, $due_date, $notes, $email);
 $stmt->execute();
+
+header("Location: ../RUD.html");
 
 $mysqli->close();
