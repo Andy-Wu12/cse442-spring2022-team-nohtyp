@@ -3,12 +3,15 @@ export function redirectByLoginStatus() {
         type: 'get',
         url: "./php/session.php",
         success: function (resp) {
-            if (resp.includes("Not logged in")) {
-                if (!window.location.href.includes("login.html"))
+            const resp_obj = JSON.parse(resp)
+            if (resp_obj["logged_in"] === "false") {
+                if (!window.location.href.includes("login.html")) {
                     window.location.replace("./login.html")
-            } else if (resp.includes("Already logged in")) {
-                if (window.location.href.includes("login.html") || !window.location.href.includes(".html"))
+                }
+            } else if (resp_obj["logged_in"] === "true") {
+                if (window.location.href.includes("login.html") || !window.location.href.includes(".html")) {
                     window.location.replace("./user-home.html")
+                }
             }
         }
     });
@@ -21,10 +24,9 @@ export function getSessionEmail() {
         url: "./php/session.php?param=email",
         async: false,
         success: function (resp) {
-            if (resp === "Not logged in") {
-                email = "Not logged in"
-            } else {
-                email = resp
+            const resp_obj = JSON.parse(resp)
+            if (resp_obj["logged_in"] === "true") {
+                email = resp_obj["email"]
             }
         }
     });
