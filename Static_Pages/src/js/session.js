@@ -7,7 +7,7 @@ export function redirectByLoginStatus() {
                 if (!window.location.href.includes("login.html"))
                     window.location.replace("./login.html")
             } else if (resp.includes("Already logged in")) {
-                if (window.location.href.includes("login.html"))
+                if (window.location.href.includes("login.html") || !window.location.href.includes(".html"))
                     window.location.replace("./user-home.html")
             }
         }
@@ -22,7 +22,7 @@ export function getSessionEmail() {
         async: false,
         success: function (resp) {
             if (resp === "Not logged in") {
-                window.location.replace("./login.html")
+                email = "Not logged in"
             } else {
                 email = resp
             }
