@@ -1,5 +1,11 @@
 <?php
 
+function getUserEmail(): string
+{
+	$email = echo'<script src="../src/js/session.js">getSessionEmail();</script>';
+	echo $email;
+	return $email;
+}
 $res = "Creation successful!";
 $servername = "128.205.36.4";
 $username = "awu46";
