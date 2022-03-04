@@ -23,19 +23,20 @@
         </div>
     </div>
     <br><br>
-    <form class="create-task-form" id="create-task-form" onsubmit="return validateCreationForm('create-task-form')">
+    <form class="create-task-form" id="create-task-form" onsubmit="return validateCreationForm('create-task-form')"
+          action="./php/create-task.php" method="post">
         <label for="name"> Task name <span style="color: red">*</span>: </label><br>
-        <input type="text" id="name" class="create-form-input" minlength="1"><br><br>
+        <input type="text" id="name" name="name" class="create-form-input" minlength="1"><br><br>
         <label for="desc"> Description<span style="color: red">*</span>: </label><br>
-        <textarea form="create-task-form" id="desc" class="create-form-input" minlength="1" rows="5" cols="50"></textarea><br>
+        <textarea form="create-task-form" id="desc" name="desc" class="create-form-input" minlength="1" rows="5" cols="50"></textarea><br>
         <!-- Both due date and notes are optional fields -->
         <label for="dueDate"> Due date: </label><br>
-        <input type="text" id="dueDate" class="create-form-input"><br><br>
+        <input type="text" id="dueDate" name="dueDate" class="create-form-input"><br><br>
         <label for="notes"> Extra notes: </label><br>
-        <textarea form="create-task-form" id="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
+        <textarea form="create-task-form" id="notes" name="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
         <!--  Assign to card is optional for creating a task -->
         <label for="assign-card"> Assign to card: </label><br>
-        <input type="text" id="assign-card" class="create-form-input" placeholder="name of card/label"><br><br>
+        <input type="text" id="assign-card" name="cardName" class="create-form-input" placeholder="name of card/label"><br><br>
         <button id="submit-create-card"> Add task </button>
     </form>
 
