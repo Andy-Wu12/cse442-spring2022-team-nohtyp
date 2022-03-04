@@ -1,3 +1,5 @@
+import {redirectByLoginStatus} from "./session.js";
+
 function showMsg(html, class_name = "alert alert-danger alert-dismissable") {
     pwd_msg.attr("class", class_name)
     pwd_msg.html(html)
@@ -27,7 +29,7 @@ function signUp_logIn(event) {
                         showMsg("Email already exists")
                     } else {
                         showMsg("Welcome!", "alert alert-success alert-dismissable")
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             login_title_btn.click()
                             password_input.val("")
                         }, 1000)
@@ -51,7 +53,7 @@ function signUp_logIn(event) {
             success: function (resp) {
                 if (resp === "Login Success") {
                     showMsg("Welcome!", "alert alert-success alert-dismissable")
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         window.location.replace("./user-home.html")
                     }, 1000)
                 } else {
@@ -132,10 +134,14 @@ const signup_title_btn = $("#signup_title_btn")
 const form = $("#form")
 let state = "signup"
 
+$(document).ready(function () {
 // signup_btn.on("click", signUp)
-$('.email-input').on("input", checkEmailFormat)
-form.on("submit", signUp_logIn)
-password_input.on("input", checkPwdMatch)
-confirm_password_input.on("input", checkPwdMatch)
-login_title_btn.on("click", setBtnActive)
-signup_title_btn.on("click", setBtnActive)
+        redirectByLoginStatus()
+        $('.email-input').on("input", checkEmailFormat)
+        form.on("submit", signUp_logIn)
+        password_input.on("input", checkPwdMatch)
+        confirm_password_input.on("input", checkPwdMatch)
+        login_title_btn.on("click", setBtnActive)
+        signup_title_btn.on("click", setBtnActive)
+    }
+)
