@@ -5,14 +5,10 @@ export function redirectByLoginStatus() {
         success: function (resp) {
             if (resp.includes("Not logged in")) {
                 if (!window.location.href.includes("login.html"))
-                    setTimeout(() => {
-                        window.location.replace("./login.html")
-                    }, 1500)
+                    window.location.replace("./login.html")
             } else if (resp.includes("Already logged in")) {
                 if (window.location.href.includes("login.html"))
-                    setTimeout(() => {
-                        window.location.replace("./user-home.html")
-                    }, 1500)
+                    window.location.replace("./user-home.html")
             }
         }
     });
@@ -43,10 +39,3 @@ export function clearSession() {
     });
     location.reload();
 }
-
-// $(document).ready(function () {
-//     redirectIfLoggedIn()
-//     const userEmail = getSessionEmail()
-//     $("#username_header").html(userEmail)
-//     $("#logout_btn").on("click", clearSession)
-// });

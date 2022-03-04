@@ -40,7 +40,7 @@
 				<li> <a href="create-card.html"> Create Card </a> </li>
 				<li> <a href="create-task.html"> Create Task </a> </li>
 				<li> <a href="RUD.html"> Show My Cards and Tasks </a> </li>
-				<li> <a href="login.html"> Logout </a> </li>
+				<li> <a href="login.html" id="logout_btn"> Logout </a> </li>
 			</ul>
 	  </div>
 	</div>
@@ -48,9 +48,12 @@
  <div id="screen-header-div">
 	 <header>
 		 <div style="text-align: center;">
-			 <h1>Welcome Username </h1>
+			 <h1 id = "welcome_msg"></h1>
 		 </div>
 	 </header>
  </div>
+    <script src="./src/js/jquery-3.6.0.js"></script>
+    <script type="module" src="./src/js/session.js"></script>
+    <script type="module" src="./src/js/user-home.js"></script>
  </body>
 </html>
