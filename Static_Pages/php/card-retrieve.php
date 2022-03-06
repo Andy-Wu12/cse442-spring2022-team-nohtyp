@@ -28,9 +28,9 @@ if ($results->num_rows > 0){
         $_SESSION["Card_$index"] = $row["name"];    // Used for hardcoded stuff
         $index += 1
     }
-// else{
-//     echo "Database is empty <br>";
-// }   
+else{
+    echo "Database is empty <br>";
+}   
 }
 
 

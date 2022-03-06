@@ -19,13 +19,13 @@
         echo "This ", "string ", "was ", "made ", "with multiple parameters.";
         echo "$x";
     ?>
-    <!-- <?php
+    <?php
         $x = "test var";
         echo "<p>$x</p>";
-    ?> -->
+    ?>
     
     <?php include './php/testing.php'; echo $x;?>
-
+    
     <input type="text" name="name" value="<?php include './php/testing.php';?>">
     <br>
     <!-- Testing pulling from the database -->
