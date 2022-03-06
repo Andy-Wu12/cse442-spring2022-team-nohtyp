@@ -7,13 +7,31 @@
     <title>Cards</title>
 </head>
 <body>
+    <!-- testing php stuff -->
+    <?php
+        echo "<p>test one</p>";
+    ?>
+    
+    <?php include './php/testing.php'; echo $x;?>
+
+    <input type="text" name="name" value="<?php include './php/testing.php';?>">
+    <br>
+    <!-- Testing pulling from the database -->
+    <input type="text" name="name" value="<?php include './php/card-retrieve.php';?>"> 
+    <br>
+
+    <input type="text" name="name" value="<?php include './php/card-retrive.php';?>"> 
+    <br>
+
+    
     <!-- Each card has a title, description, tasks and a delete button -->
-    <h1>
-        <form>
-            <span contenteditable="true">Card 1</span>
+    <!-- <h1>
+        <form> 
+            <span contenteditable="true">Card 1</span><br>
+            <input type="text" name="card_title" value="<?php include './php/card-retrieve.php'; print_tasks(Card_1);?>">
             <input type="button" value="Update Title">
         </form>
-    </h1>
+    </h1> -->
 
     <form>
         <span contenteditable="true">Description here.</span>
