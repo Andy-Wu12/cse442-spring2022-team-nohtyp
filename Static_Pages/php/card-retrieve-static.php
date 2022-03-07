@@ -21,18 +21,22 @@ $results = $mysqli->query($sql);
 // $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 // echo "<p>" . count($results) . "</p>";
 // echo '<pre>'; print_r($results); echo '</pre>';
-$card_name = "";
-$card_desc = "";
+$card_name = "No Card here.";
+$card_desc = "No tasks";
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
       echo "Name: " . $row["name"] . "<br>";
+      $card_name = $row["name"];
+      $card_desc = $row["description"];
+      break;
     }
   } else {
-    echo "0 results";
+    echo "No Cards";
   }
-
+  
+$mysqli->close();
 // // Retrieve info
 // // Does not handle the case where there is no card
 // // This only works if the card name is passed as the parameter in "name" instead of the label

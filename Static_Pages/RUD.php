@@ -1,6 +1,6 @@
 <?php
 session_start();
-include './php/card-retrieve-static.php';
+// include './php/card-retrieve-static.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +14,12 @@ include './php/card-retrieve-static.php';
 <body>
     
     <!-- Card title -->
-    <!-- <h1>
+    <h1>
         <form id="update_title" action="./php/card-update.php" method="post">  
-            <input type="text" name="card_title" value="<?php #include './php/card-retrieve-static.php'; echo $card_name;?>">
+            <input type="text" name="card_title" value="<?php include './php/card-retrieve-static.php'; echo $card_name;?>">
             <input type="submit" name="submit" value="Update Title">
         </form>
-    </h1> -->
+    </h1>
 
     <!-- Card description -->
     
