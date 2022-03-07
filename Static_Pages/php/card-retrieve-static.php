@@ -19,7 +19,7 @@ $sql = "SELECT * FROM cards ORDER BY id DESC LIMIT 0, 1";    # only using the la
 $results = $mysqli->query($sql);
 
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-echo "$results->num_rows"
+echo "$results->num_rows";
 if ($results->num_rows > 0){
     while($row = $results->fetch_assoc()){
         echo "id: " . $row["id"]. " - Name: " . $row["name"]"<br>";
