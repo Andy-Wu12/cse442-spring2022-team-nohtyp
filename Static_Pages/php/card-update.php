@@ -25,10 +25,10 @@ $found_results = false;
 $latest_id = 0;
 if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $results->fetch_row()) {
-      $old_name = $row[0];
-      $old_name = $row[1];
-      $latest_id = $row[2];
+    while($row = $results->fetch_assoc()) {
+      $old_name = $row["name"];
+      $old_name = $row["description"];
+      $latest_id = $row["cardID"];
       $found_results = true;
       break;
     }
