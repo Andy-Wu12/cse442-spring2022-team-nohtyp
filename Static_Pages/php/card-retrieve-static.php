@@ -25,9 +25,9 @@ $card_desc = "No description.";
 
 if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $results->fetch_assoc()) {
-      $card_name = $row["name"];
-      $card_desc = $row["description"];
+    while($row = $results->fetch_row()) {
+      $card_name = $row[0];
+      $card_desc = $row[1];
       break;
     }
   } else {
