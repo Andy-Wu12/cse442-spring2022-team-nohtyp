@@ -15,11 +15,11 @@ if ($mysqli->connect_error) {
 session_start();
 
 // Retrieve card info 
-$sql = "SELECT * FROM cards ORDER BY id DESC LIMIT 0, 1";    # only using the latest card name and description for now
+$sql = "SELECT * FROM cards";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-echo "$results->num_rows";
+echo "<p>$results->num_rows</p>";
 // if ($results->num_rows > 0){
 //     while($row = $results->fetch_assoc()){
 //         echo "id: " . $row["id"]. " - Name: " . $row["name"]"<br>";
