@@ -13,7 +13,7 @@ session_start();
 <body>
     <?php
     include './php/card-retrieve-static.php';
-    echo $results->fetch();
+    echo $results->num_rows;
     ?>
     
     <!-- Card title -->
