@@ -24,19 +24,14 @@ $results = $mysqli->query($sql);
 $card_name = "";
 $card_desc = "";
 
-if ($results->num_rows > 0){
-    while($row = $results->fetch_assoc()){
-        echo "<p>" . $row["name"] . "</p>"
-        // $card_tasks += array($row["name"] => array());
-        // $card_name = $row["name"];    // Used for hardcoded stuff
-        // $card_desc = $row["description"];
-        // echo "<p>card name is $card_name and card_desc is $card_desc</p>"
-        // break;
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "Name: " . $row["name"] . "<br>";
     }
-else{
-    echo "No cards in database. <br>";
-}   
-}
+  } else {
+    echo "0 results";
+  }
 
 // // Retrieve info
 // // Does not handle the case where there is no card
