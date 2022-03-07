@@ -19,7 +19,7 @@ session_start();
     <!-- Card title -->
     <h1>
         <form id="update_title" action="./php/card-update.php" method="post">  
-            <input type="text" name="card_title" value="<?php include './php/card-retrieve-static.php'; echo $card_name;?>">
+            <input type="text" name="card_title" value="<?php include './php/card-retrieve-static.php'; echo $card_name;?>"><br>
             <input type="text" name="card_desc" value="<?php include './php/card-retrieve-static.php'; echo $card_desc;?>">
             <input type="submit" name="submit" value="Update">
         </form>

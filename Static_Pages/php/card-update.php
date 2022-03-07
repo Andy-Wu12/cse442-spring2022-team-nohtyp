@@ -16,7 +16,7 @@ session_start();
 $sql = "SELECT name, description FROM cards";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
-// $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 // echo "<p>" . count($results) . "</p>";
 // echo '<pre>'; print_r($results); echo '</pre>';
 $old_name = "No card here.";
