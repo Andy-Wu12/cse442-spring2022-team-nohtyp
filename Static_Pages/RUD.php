@@ -20,16 +20,17 @@ session_start();
     <h1>
         <form id="update_title" action="./php/card-update.php" method="post">  
             <input type="text" name="card_title" value="<?php include './php/card-retrieve-static.php'; echo $card_name;?>">
-            <input type="submit" name="submit" value="Update Title">
+            <input type="text" name="card_desc" value="<?php include './php/card-retrieve-static.php'; echo $card_desc;?>">
+            <input type="submit" name="submit" value="Update">
         </form>
     </h1>
 
     <!-- Card description -->
     
-    <form id="update_desc" action="./php/card-update.php" method="post">
-        <input type="text" name="card_desc" value="<?php include './php/card-retrieve-static.php'; echo $card_desc;?>">
+    <!-- <form id="update_desc" action="./php/card-update.php" method="post">
+        <input type="text" name="card_desc" value="<?php #include './php/card-retrieve-static.php'; echo $card_desc;?>">
         <input type="submit" name="submit" value="Update Description">
-    </form>
+    </form> -->
 
     <!-- Tasks -->
     <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
