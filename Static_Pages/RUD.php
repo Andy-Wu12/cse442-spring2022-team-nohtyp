@@ -1,7 +1,5 @@
 <?php
 session_start();
-include './php/card-retrieve-static.php';
-status();
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +11,10 @@ status();
     <title>Cards</title>
 </head>
 <body>
+    <?php
+    include './php/card-retrieve-static.php';
+    status();
+    ?>
     
     <!-- Card title -->
     <h1>
