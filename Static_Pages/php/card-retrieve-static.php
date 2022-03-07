@@ -19,18 +19,19 @@ $sql = "SELECT * FROM cards ORDER BY id DESC LIMIT 0, 1";    # only using the la
 $results = $mysqli->query($sql);
 
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-echo "test here"
-// if ($results->num_rows > 0){
-//     while($row = $results->fetch_assoc()){
-//         $card_tasks += array($row["name"] => array());
-//         $_SESSION["card_name"] = $row["name"];    // Used for hardcoded stuff
-//         $_SESSION["card_description"] = $row["description"];
-//         break;
-//     }
-// else{
-//     echo "No cards in database. <br>";
-// }   
-// }
+echo "$results->num_rows"
+if ($results->num_rows > 0){
+    while($row = $results->fetch_assoc()){
+        echo "id: " . $row["id"]. " - Name: " . $row["name"]"<br>";
+        // $card_tasks += array($row["name"] => array());
+        // $_SESSION["card_name"] = $row["name"];    // Used for hardcoded stuff
+        // $_SESSION["card_description"] = $row["description"];
+        // break;
+    }
+else{
+    echo "No cards in database. <br>";
+}   
+}
 
 // // Retrieve info
 // // Does not handle the case where there is no card
