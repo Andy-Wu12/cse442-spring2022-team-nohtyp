@@ -13,7 +13,7 @@ if ($mysqli->connect_error) {
 }
 session_start();
 
-$sql = "SELECT name, description, cardID FROM cards ORDER BY cardID";    # only using the latest card name and description for now
+$sql = "SELECT name, description FROM cards";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
 // $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
@@ -35,8 +35,8 @@ if ($results->num_rows > 0) {
   } else {
     ;
   }
-$new_name = $_POST["card_title"];
-$new_desc = $_POST["card_desc"];
+$new_name = htmlspecialchars($_POST["card_title"]);
+$new_desc = htmlspecialchars($_POST["card_desc"]);
 
 $sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
 if ($found_results){
