@@ -26,7 +26,7 @@ $card_desc = "";
 
 if ($results->num_rows > 0){
     while($row = $results->fetch_assoc()){
-        echo "<p>" . $row . "</p>"
+        echo "<p>" . $row["name"] . "</p>"
         // $card_tasks += array($row["name"] => array());
         // $card_name = $row["name"];    // Used for hardcoded stuff
         // $card_desc = $row["description"];
