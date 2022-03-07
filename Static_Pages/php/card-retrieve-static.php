@@ -14,7 +14,7 @@ if ($mysqli->connect_error) {
 session_start();
 
 // Retrieve card info 
-$sql = "SELECT name, description FROM cards";    # only using the latest card name and description for now
+$sql = "SELECT * FROM cards ORDER BY cardID DESC LIMIT 1";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
 // $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
@@ -22,13 +22,14 @@ $results = $mysqli->query($sql);
 // echo '<pre>'; print_r($results); echo '</pre>';
 $card_name = "No card here.";
 $card_desc = "No description.";
+$latest_id = 0;
 
 if ($results->num_rows > 0) {
     // output data of each row
     while($row = $results->fetch_assoc()) {
-      $card_name = $row["name"];
-      $card_desc = $row["description"];
-      break;
+        $card_name = $row["name"];
+        $card_desc = $row["description"];
+        break;
     }
   } else {
     ;
