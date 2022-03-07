@@ -11,10 +11,7 @@ session_start();
     <title>Cards</title>
 </head>
 <body>
-    <?php
-    include './php/card-retrieve-static.php';
-    echo $results->num_rows;
-    ?>
+    
     
     <!-- Card title -->
     <h1>
