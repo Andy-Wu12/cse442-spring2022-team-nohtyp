@@ -20,18 +20,18 @@ $results = $mysqli->query($sql);
 
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 echo "$results->num_rows";
-if ($results->num_rows > 0){
-    while($row = $results->fetch_assoc()){
-        echo "id: " . $row["id"]. " - Name: " . $row["name"]"<br>";
-        // $card_tasks += array($row["name"] => array());
-        // $_SESSION["card_name"] = $row["name"];    // Used for hardcoded stuff
-        // $_SESSION["card_description"] = $row["description"];
-        // break;
-    }
-else{
-    echo "No cards in database. <br>";
-}   
-}
+// if ($results->num_rows > 0){
+//     while($row = $results->fetch_assoc()){
+//         echo "id: " . $row["id"]. " - Name: " . $row["name"]"<br>";
+//         // $card_tasks += array($row["name"] => array());
+//         // $_SESSION["card_name"] = $row["name"];    // Used for hardcoded stuff
+//         // $_SESSION["card_description"] = $row["description"];
+//         // break;
+//     }
+// else{
+//     echo "No cards in database. <br>";
+// }   
+// }
 
 // // Retrieve info
 // // Does not handle the case where there is no card
