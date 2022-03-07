@@ -15,19 +15,20 @@ if ($mysqli->connect_error) {
 session_start();
 
 // Retrieve card info 
-$sql = "SELECT name, description FROM cards ORDER BY cardID DESC LIMIT 0, 1";    # only using the latest card name and description for now
+$sql = "SELECT name, description FROM cards ORDER BY cardID";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
-$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+// $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 
 $card_name = "";
 $card_desc = "";
 
 if ($results->num_rows > 0){
     while($row = $results->fetch_assoc()){
-        $card_tasks += array($row["name"] => array());
+        // $card_tasks += array($row["name"] => array());
         $card_name = $row["name"];    // Used for hardcoded stuff
         $card_desc = $row["description"];
+        echo "<p>card name is $card_name and card_desc is $card_desc</p>"
         break;
     }
 else{
