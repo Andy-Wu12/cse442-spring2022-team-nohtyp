@@ -23,9 +23,9 @@ $old_name = "No card here.";
 $old_desc = "No description.";
 $found_results = false;
 $latest_id = 0;
-if ($result->num_rows > 0) {
+if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while($row = $results->fetch_assoc()) {
       $old_name = $row["name"];
       $old_name = $row["description"];
       $latest_id = $row["cardID"];

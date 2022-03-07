@@ -24,9 +24,9 @@ $results = $mysqli->query($sql);
 $card_name = "No card here.";
 $card_desc = "No description.";
 
-if ($result->num_rows > 0) {
+if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while($row = $results->fetch_assoc()) {
       $card_name = $row["name"];
       $card_desc = $row["description"];
       break;
