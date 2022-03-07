@@ -22,18 +22,19 @@ include './php/card-retrieve-static.php';
     </h1>
 
     <!-- Card description -->
-    <form id="update_desc" action="./php/card-update.php" method="post">
-        <input type="text" name="card_desc" value="<?php echo $_SESSION["card_description"];?>">
+    
+    <!-- <form id="update_desc" action="./php/card-update.php" method="post">
+        <input type="text" name="card_desc" value="<?php #echo $_SESSION["card_description"];?>">
         <input type="submit" name="submit" value="Update Description">
-    </form>
+    </form> -->
 
     <!-- Tasks -->
-    <form id="update_tasks" action="./php/card-update.php" method="post">
+    <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
         <ul>
-        <?php include './php/card-retrieve-static.php';print_tasks($_SESSION["card_name"]); ?>
+        <?php #include './php/card-retrieve-static.php';print_tasks($_SESSION["card_name"]); ?>
         </ul>
         <input type="submit" name="submit" value="Update Tasks">
-    </form>
+    </form> -->
 
     <!-- <ul>
         <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
