@@ -23,10 +23,10 @@ session_start();
 
     <!-- Card description -->
     
-    <!-- <form id="update_desc" action="./php/card-update.php" method="post">
-        <input type="text" name="card_desc" value="<?php #include './php/card-retrieve-static.php'; echo $card_desc;?>">
+    <form id="update_desc" action="./php/card-update.php" method="post">
+        <input type="text" name="card_desc" value="<?php include './php/card-retrieve-static.php'; echo $card_desc;?>">
         <input type="submit" name="submit" value="Update Description">
-    </form> -->
+    </form>
 
     <!-- Tasks -->
     <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
@@ -36,10 +36,10 @@ session_start();
         <input type="submit" name="submit" value="Update Tasks">
     </form> -->
 
-    <!-- <ul>
+    <ul>
         <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
         <li><input type="text" value="task 2"> <input type="submit" name="submit" value="Delete Task"></li>
-    </ul> -->
+    </ul>
 
     <form>
         <input type="button" value="Delete Card">

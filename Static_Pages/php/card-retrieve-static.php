@@ -33,9 +33,9 @@ if ($result->num_rows > 0) {
       break;
     }
   } else {
-    echo "No Cards";
+    ;
   }
-  
+
 $mysqli->close();
 // // Retrieve info
 // // Does not handle the case where there is no card
