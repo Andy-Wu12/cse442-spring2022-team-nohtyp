@@ -13,7 +13,7 @@ session_start();
 <body>
     <?php
     include './php/card-retrieve-static.php';
-    status();
+    echo $results;
     ?>
     
     <!-- Card title -->

@@ -34,9 +34,6 @@ if ($results->num_rows > 0) {
     ;
   }
 
-function status(){
-    echo '<p>$GLOBAL["results"]</p>';
-}
 
 $mysqli->close();
 // // Retrieve info
