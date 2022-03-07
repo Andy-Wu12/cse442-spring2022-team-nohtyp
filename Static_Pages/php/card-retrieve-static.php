@@ -10,7 +10,6 @@ $mysqli = new mysqli($servername, $username, $password, $database);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
-    echo "<p>connection failed</p>";
 }
 session_start();
 
@@ -34,6 +33,10 @@ if ($results->num_rows > 0) {
   } else {
     ;
   }
+
+function status(){
+    echo $GLOBAL["results"];
+}
 
 $mysqli->close();
 // // Retrieve info
