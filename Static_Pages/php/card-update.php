@@ -2,8 +2,8 @@
 # Updates the card name, card description, and tasks
 $res = "Creation successful!";
 $servername = "128.205.36.4";
-$username = "felipega";
-$password = "50315438";
+$username = "awu46";
+$password = "50335350";
 $database = "cse442_2022_spring_team_c_db";
 
 $mysqli = new mysqli($servername, $username, $password, $database);
