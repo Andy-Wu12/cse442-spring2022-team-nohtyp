@@ -43,5 +43,7 @@ if ($found_results){
     $mysqli->query($sql);
 }
 
+header("Location: ../RUD.php");
+
 $mysqli->close();
 ?>
