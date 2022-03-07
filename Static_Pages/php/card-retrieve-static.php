@@ -19,22 +19,23 @@ $sql = "SELECT name, description FROM cards ORDER BY cardID";    # only using th
 $results = $mysqli->query($sql);
 
 // $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-
+echo "<p>" . count($results) . "</p>";
+echo '<pre>'; print_r($results); echo '</pre>';
 $card_name = "";
 $card_desc = "";
 
-if ($results->num_rows > 0){
-    while($row = $results->fetch_assoc()){
-        // $card_tasks += array($row["name"] => array());
-        $card_name = $row["name"];    // Used for hardcoded stuff
-        $card_desc = $row["description"];
-        echo "<p>card name is $card_name and card_desc is $card_desc</p>"
-        break;
-    }
-else{
-    echo "No cards in database. <br>";
-}   
-}
+// if ($results->num_rows > 0){
+//     while($row = $results->fetch_assoc()){
+//         // $card_tasks += array($row["name"] => array());
+//         $card_name = $row["name"];    // Used for hardcoded stuff
+//         $card_desc = $row["description"];
+//         echo "<p>card name is $card_name and card_desc is $card_desc</p>"
+//         break;
+//     }
+// else{
+//     echo "No cards in database. <br>";
+// }   
+// }
 
 // // Retrieve info
 // // Does not handle the case where there is no card
