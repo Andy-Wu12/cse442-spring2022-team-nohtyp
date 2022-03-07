@@ -12,6 +12,19 @@ function getEmailWithCookie($mysqli, $cookie): string
     return $email;
 }
 
+function getTasksWithEmail($mysqli, $email): array
+{
+    $myArray = array();
+    $stmt = $mysqli->prepare("SELECT name, description, email, due_date FROM tasks WHERE email = ? ORDER BY due_date");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+        $myArray[] = $row;
+    }
+    return $myArray;
+}
+
 session_start();
 $res = "Login Success";
 $servername = "128.205.36.4";
@@ -30,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             } else if ($_GET["param"] == "clearsession") {
                 setcookie("loginCookie", "", time() - 1);
                 header("Location: ../login.html");
+            } else if ($_GET["param"] == "tasks") {
+                $resp["tasks"] = getTasksWithEmail($mysqli, $_SESSION["email"]);
             }
         }
     } else {

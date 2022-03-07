@@ -41,3 +41,15 @@ export function clearSession() {
     });
     location.reload();
 }
+
+export function getTasks() {
+    $.ajax({
+        type: 'get',
+        async: false,
+        url: "./php/session.php?param=tasks",
+        success: function (resp) {
+            const resp_obj = JSON.parse(resp)
+            console.log(resp_obj["tasks"])
+        }
+    });
+}
