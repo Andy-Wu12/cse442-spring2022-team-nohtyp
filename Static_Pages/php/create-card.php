@@ -23,6 +23,6 @@ echo $mysqli->error;
 $stmt->bind_param("sssss", $name, $desc, $due_date, $notes, $email);
 $stmt->execute();
 
-header("Location: ../RUD.html");
+header("Location: ../RUD.php");
 
 $mysqli->close();

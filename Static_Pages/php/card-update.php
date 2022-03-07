@@ -1,5 +1,5 @@
 <?php
-
+# Updates the card name, card description, and tasks
 $res = "Creation successful!";
 $servername = "128.205.36.4";
 $username = "felipega";
