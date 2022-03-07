@@ -14,12 +14,12 @@ if ($mysqli->connect_error) {
 }
 session_start();
 
-// // Retrieve card info 
-// $sql = "SELECT * FROM cards ORDER BY id DESC LIMIT 0, 1";    # only using the latest card name and description for now
-// $results = $mysqli->query($sql);
+// Retrieve card info 
+$sql = "SELECT * FROM cards ORDER BY id DESC LIMIT 0, 1";    # only using the latest card name and description for now
+$results = $mysqli->query($sql);
 
-// $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-
+$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+echo "test here"
 // if ($results->num_rows > 0){
 //     while($row = $results->fetch_assoc()){
 //         $card_tasks += array($row["name"] => array());
