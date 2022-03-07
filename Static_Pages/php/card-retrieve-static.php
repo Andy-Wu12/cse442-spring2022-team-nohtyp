@@ -21,13 +21,12 @@ $results = $mysqli->query($sql);
 // $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 // echo "<p>" . count($results) . "</p>";
 // echo '<pre>'; print_r($results); echo '</pre>';
-$card_name = "No Card here.";
-$card_desc = "No tasks";
+$card_name = "No card here.";
+$card_desc = "No description.";
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      echo "Name: " . $row["name"] . "<br>";
       $card_name = $row["name"];
       $card_desc = $row["description"];
       break;
