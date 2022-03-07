@@ -1,7 +1,7 @@
-<?php
-session_start();
-include './php/card-retrieve-static.php';
-?>
+<!-- <?php
+// session_start();
+// include './php/card-retrieve-static.php';
+?> -->
 
 <!DOCTYPE html>
 
