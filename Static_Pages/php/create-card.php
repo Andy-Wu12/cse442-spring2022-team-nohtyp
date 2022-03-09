@@ -11,18 +11,42 @@ if ($mysqli->connect_error) {
 }
 
 session_start();
+$valid_form_submission = True;
+
 $name = $_POST["name"];
 $desc = $_POST["desc"];
-$due_date = $_POST["dueDate"];
 $notes = $_POST["notes"];
 
 $email = $_SESSION['email'];
 
-$stmt = $mysqli->prepare("INSERT INTO cards(name, description, due_date, extra_notes, email) VALUES (?, ?, ?, ?, ?)");
+// Find cards with same name. If none, execute insert, else show alert and redirect back to form page
+$select_stmt = $mysqli->prepare("SELECT * FROM cards WHERE name = ? AND email = ?");
 echo $mysqli->error;
-$stmt->bind_param("sssss", $name, $desc, $due_date, $notes, $email);
-$stmt->execute();
+$select_stmt->bind_param("ss", $name, $email);
+$select_stmt->execute();
+$select_stmt->store_result();
+echo $mysqli->error;
+echo $mysqli->num_rows;
 
-header("Location: ../RUD.html");
+// If name already exists for user...
+if($select_stmt->num_rows > 0) {
+	$valid_form_submission = False;
+}
+
+if($valid_form_submission) {
+// 	echo "valid form!";
+	$stmt = $mysqli->prepare("INSERT INTO cards(name, description, extra_notes, email) VALUES (?, ?, ?, ?)");
+	echo $mysqli->error;
+	$stmt->bind_param("ssss", $name, $desc, $notes, $email);
+	$stmt->execute();
+	header("Location: ../RUD.html");
+}
+else {
+	// Trigger alert describing unique name issue and redirect back to form once user confirms
+	echo '<script type="text/javascript">
+	alert("You cannot have more than one card of the same name! (Case sensitive)");
+	window.location.href = "../create-card.html"</script>';
+}
+
 
 $mysqli->close();
