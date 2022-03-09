@@ -18,25 +18,20 @@ $notes = $_POST["notes"];
 $card_name = $_POST["cardName"]; // Force unique (case-insensitive) card names for each individual
 
 $email = $_SESSION['email'];
-$card_id = NULL; // Card name should be used to find corresponding unique cardID
+$card_id = null; // Card name should be used to find corresponding unique cardID
 
 if($card_name != "") {
-	$card_stmt = $mysqli->prepare("SELECT * FROM cards WHERE name = ? AND email = ?");
+	$card_stmt = $mysqli->prepare("SELECT cards.cardID FROM cards WHERE name = ? AND email = ?");
     $card_stmt->bind_param("ss", $card_name, $email);
     $card_stmt->execute();
     $card_stmt->store_result();
 
-    $result = $card_stmt->get_result();
-
+    $card_stmt->bind_result($id);
     // Assume card doesn't exist unless you find it in db
-    $card_exists = False;
-    if($result->num_rows > 0) {
-        $card_exists = True;
-        // Find way to do this w/o while loop.
-        // There will only ever be one row since no duplicate card_names allowed
-        while($row = $result->fetch()) {
-            $card_id = $row["cardID"];
-            break;
+    if($card_stmt->num_rows > 0) {
+        while($card_stmt->fetch()) {
+//             printf("%d", $id);
+            $card_id = $id;
         }
     }
     else {
@@ -47,9 +42,12 @@ if($card_name != "") {
     }
 }
 
+if($due_date == "") {
+	$due_date = null;
+}
+
 $stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_notes, card_id, email) VALUES (?, ?, ?, ?, ?, ?)");
-// echo $mysqli->error;
-$stmt->bind_param("ssssis", $name, $desc, $due_date, $notes, $card_id, $email);
+$stmt->bind_param("ssssss", $name, $desc, $due_date, $notes, $card_id, $email);
 $stmt->execute();
 
 header("Location: ../RUD.html");
