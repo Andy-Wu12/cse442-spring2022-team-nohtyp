@@ -21,12 +21,12 @@ $email = $_SESSION['email'];
 
 // Find cards with same name. If none, execute insert, else show alert and redirect back to form page
 $select_stmt = $mysqli->prepare("SELECT * FROM cards WHERE name = ? AND email = ?");
-echo $mysqli->error;
+// echo $mysqli->error;
 $select_stmt->bind_param("ss", $name, $email);
 $select_stmt->execute();
 $select_stmt->store_result();
-echo $mysqli->error;
-echo $mysqli->num_rows;
+// echo $mysqli->error;
+// echo $mysqli->num_rows;
 
 // If name already exists for user...
 if($select_stmt->num_rows > 0) {
@@ -36,7 +36,7 @@ if($select_stmt->num_rows > 0) {
 if($valid_form_submission) {
 // 	echo "valid form!";
 	$stmt = $mysqli->prepare("INSERT INTO cards(name, description, extra_notes, email) VALUES (?, ?, ?, ?)");
-	echo $mysqli->error;
+// 	echo $mysqli->error;
 	$stmt->bind_param("ssss", $name, $desc, $notes, $email);
 	$stmt->execute();
 	header("Location: ../RUD.html");
