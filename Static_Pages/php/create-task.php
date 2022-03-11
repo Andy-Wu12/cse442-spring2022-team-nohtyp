@@ -46,7 +46,7 @@ if($due_date == "") {
 	$due_date = null;
 }
 
-$stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_notes, card_id, email) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_notes, cardID, email) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssss", $name, $desc, $due_date, $notes, $card_id, $email);
 $stmt->execute();
 
