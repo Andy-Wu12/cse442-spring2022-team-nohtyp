@@ -219,107 +219,10 @@ ul.callbacks_tabs.callbacks1_tabs {
   right: 0;
  }
  x/*-- responsive-mediaquries --*/
-@media(max-width:1024px){
-	.caption {
-		width: 63%;
-		top: 31%;
-		left: 19%;
-	}
-}
-@media(max-width:768px){
-	.caption {
-		width: 70%;
-		top: 22%;
-		left: 13%;
-	}
-	.caption h3{
-		font-size:1.5em;
-	}
-	a.morebtn {
-		width: 26%;
-	}
-	.callbacks_nav {
-	  	top: 55%;
-	 }
-}
-@media(max-width:640px){
-	.caption {
-		width: 70%;
-		top: 12%;
-		left: 13%;
-	}
-	.caption h3{
-		font-size:1.5em;
-	}
-	a.morebtn {
-		width: 30%;
-	}
-	.callbacks_tabs a:after {
-		height: 10px;
-		width: 10px;
-	}
-}
-@media(max-width:480px){
-	.caption {
-		width: 70%;
-		top: 14%;
-		left: 13%;
-	}
-	.callbacks_nav {
-	  	top: 60%;
-	 }
-	.caption p{
-		height:25px;
-		overflow:hidden;
-		margin:0.5em 0;
-	}
-	.caption h3{
-		font-size:1.4em;
-	}
-	a.morebtn {
-		width: 40%;
-		font-size:0.8em;
-	}
-	.callbacks_tabs a:after {
-		height:4px;
-		width: 4px;
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-		bottom: 10px;
-		left: 4px;
-	}
-}
-@media(max-width:320px){
-	.caption {
-		width: 70%;
-		top: 14%;
-		left: 13%;
-	}
-	.callbacks_nav {
-	  	top: 63%;
-	 }
-	.caption p{
-		height:25px;
-		overflow:hidden;
-		margin:0.2em 0;
-	}
-	.caption h3{
-		font-size:1em;
-	}
-	a.morebtn {
-		width: 50%;
-		font-size: 0.8em;
-		padding:0.6em 0.5em; 
-	}
-	.callbacks_tabs a:after {
-		height:4px;
-		width: 4px;
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-		bottom: 10px;
-		left: 4px;
-	}
-}
+
+
+
+
 .banner-content{
 margin:1em 0;
 border-top:2px solid #C4C4C4;
@@ -1239,3 +1142,4 @@ padding: 3em 0 1em 0;
 min-height: 150px;
 }
 }
+/* <!-- https://blog.csdn.net/zousenshan  using for css  --> */
