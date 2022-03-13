@@ -42,7 +42,8 @@ export function clearSession() {
     location.reload();
 }
 
-export function getTasks() {
+export function getJsonTasksArray() {
+    let jsonTasksArray = []
     $.ajax({
         type: 'get',
         async: false,
@@ -50,6 +51,8 @@ export function getTasks() {
         success: function (resp) {
             const resp_obj = JSON.parse(resp)
             console.log(resp_obj["tasks"])
+            jsonTasksArray = resp_obj["tasks"]
         }
     });
+    return jsonTasksArray
 }
