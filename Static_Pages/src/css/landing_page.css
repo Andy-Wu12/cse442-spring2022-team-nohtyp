@@ -41,7 +41,7 @@ margin:0 5px;
 .top-menu ul li span{
 	width: 29px;
 	height: 27px;
-	background: url('../images/splits.png') no-repeat 0px 0px;
+	background: url('../img/splits.png') no-repeat 0px 0px;
 	display:inline-block;
 }
 .top-menu li span.pic1 {
@@ -210,7 +210,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   text-decoration: none;
   height: 61px;
   width: 38px;
-  background:transparent url("../images/splits.png") no-repeat -11px -122px;
+  background:transparent url("../img/splits.png") no-repeat -11px -122px;
   margin-top: -45px;
   }
 .callbacks_nav.next {
@@ -285,7 +285,7 @@ font-size:0.8em;
 color:#3C3C3C;
 }
 .contact-info a span{
-background:url(../images/splits.png) no-repeat -128px -14px;
+background:url(../img/splits.png) no-repeat -128px -14px;
 display:inline-block;
 height: 10px;
 width: 19px;
@@ -339,7 +339,7 @@ color:#82699D;
 .social-icons a span{
 	width:39px;
 	height:39px;
-	background:url('../images/splits.png') no-repeat 0px 0px;
+	background:url('../img/splits.png') no-repeat 0px 0px;
 	display:block;
 	float:right;
 }
@@ -480,7 +480,7 @@ ul.pagenation li a:hover{
 	width:8px;
 	height:8px;
 	display:inline-block;
-	background:url(../images/arrow.png) no-repeat 0px 0px;
+	background:url(../img/arrow.png) no-repeat 0px 0px;
 	margin-right:0.4em;
 }
 .services-right h3{
@@ -847,7 +847,7 @@ top: 60%;
 left: -3px;
 height: 44px;
 width: 29px;
-background: transparent url("../images/splits.png") no-repeat -4px -68px;
+background: transparent url("../img/splits.png") no-repeat -4px -68px;
 background-size: 301%;
 }
 .callbacks_nav.next {
@@ -906,7 +906,7 @@ top: 70%;
 left: 0px;
 height: 31px;
 width: 20px;
-background: transparent url("../images/splits.png") no-repeat -7px -69px;
+background: transparent url("../img/splits.png") no-repeat -7px -69px;
 background-size: 408%;
 }
 .callbacks_nav.next {
@@ -1025,7 +1025,7 @@ padding: 44px 44px 4px 60px;
 .callbacks_nav {
 height: 27px;
 width: 17px;
-background: transparent url("../images/splits.png") no-repeat -5px -48px;
+background: transparent url("../img/splits.png") no-repeat -5px -48px;
 background-size: 357%;
 margin: 0;
 top: 39%;
