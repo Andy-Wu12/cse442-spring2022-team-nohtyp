@@ -1,16 +1,56 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./src/css/styles.css">
-    <title> APP Name </title>
+	<link rel="stylesheet" href="./src/css/user_landing_styles.css">
+
+	 <meta charset="utf-8" />
+	<title>User Home Page</title>
 </head>
+
 <body>
-    <h1> WELCOME [USER'S NAME] </h1>
-    <a class="redirect-button" href="./create-card.html"> Create a new card </a>
-    <a class="redirect-button" href="./create-task.html"> Create a new task </a>
-    <a class="redirect-button" href="./RUD.html"> Show me my tasks </a>
-    <br><br>
-    <a class="redirect-button" href="./login.html"> Logout </a>
-</body>
+    <!--Example side menu reference: https://codepen.io/erikterwan/pen/EVzeRP?editors=0100 -->
+ <nav role="navigation">
+	<div id="navbar">
+		<div style="font-size: 25px; text-align: center;">
+			<h3>Taskify</h3>
+		</div>
+		<div id="menu-toggle">
+			<!--
+			A fake / hidden checkbox is used as click reciever,
+			so you can use the :checked selector on it.
+			-->
+			<input type="checkbox" />
+
+			<!--
+			Some spans to act as a hamburger.
+
+			They are acting like a real hamburger,
+			not that McDonalds stuff.
+			-->
+			<span></span>
+			<span></span>
+			<span></span>
+
+			<!--
+			Too bad the menu has to be inside of the button
+			but hey, it's pure CSS magic.
+			-->
+			<ul id="menu">
+				<li> <a href="create-card.html"> Create Card </a> </li>
+				<li> <a href="create-task.html"> Create Task </a> </li>
+				<li> <a href="RUD.html"> Show My Cards and Tasks </a> </li>
+				<li> <a href="login.html"> Logout </a> </li>
+			</ul>
+	  </div>
+	</div>
+ </nav>
+ <div id="screen-header-div">
+	 <header>
+		 <div style="text-align: center;">
+			 <h1>Welcome Username </h1>
+		 </div>
+	 </header>
+ </div>
+ </body>
 </html>
