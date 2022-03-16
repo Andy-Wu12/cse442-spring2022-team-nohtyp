@@ -1,4 +1,9 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+
+
 function emailExists($mysqli, $email): bool
 {
 //    echo $email;
@@ -39,11 +44,18 @@ if (!empty($_POST)) {
 //    echo "<h2>password: " . $_POST["password_input"] . "</h2>";
 //    echo "<h2>confirm_password: " . $_POST["confirm_password_input"] . "</h2>";
     $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
-    $password = $_POST["password_input"];
+    $password = password_hash($_POST["password_input"], PASSWORD_DEFAULT);
+
+    echo $password;
+
     $email = $_POST["email_phone_input"];
     if (!emailExists($mysqli, $email)) {
         $stmt->bind_param("ss", $password, $email);
+        echo $stmt->error;
+        echo $mysqli->error;
         $stmt->execute();
+        echo $stmt->error;
+        echo $mysqli->error;
     } else {
 //        echo " EMAIL ALREADY EXISTS";
         $res = 1;
