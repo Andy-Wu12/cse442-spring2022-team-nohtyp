@@ -11,12 +11,21 @@ function emailExists($mysqli, $email): bool
 
 function userPwdExists($mysqli, $email, $password): bool
 {
-    $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ? and password = ?");
-    $stmt->bind_param("ss", $email, $password);
+    $pwd = "";
+
+    $stmt = $mysqli->prepare("SELECT user.password FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
+    $stmt->bind_result($pwd);
+
     $rows = $stmt->num_rows;
-    return $rows == 1;
+    if($rows == 1) {
+        $stmt->fetch();
+        // echo password_verify($password, $pwd);
+        return password_verify($password, $pwd);
+    }
+    return false;
 }
 
 function updateCookie($mysqli, $email, $cookie)
