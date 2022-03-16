@@ -1,9 +1,4 @@
 <?php
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-error_reporting(-1);
-
-
 function emailExists($mysqli, $email): bool
 {
 //    echo $email;
@@ -51,11 +46,7 @@ if (!empty($_POST)) {
     $email = $_POST["email_phone_input"];
     if (!emailExists($mysqli, $email)) {
         $stmt->bind_param("ss", $password, $email);
-        echo $stmt->error;
-        echo $mysqli->error;
         $stmt->execute();
-        echo $stmt->error;
-        echo $mysqli->error;
     } else {
 //        echo " EMAIL ALREADY EXISTS";
         $res = 1;
