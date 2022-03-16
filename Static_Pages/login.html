@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <title>LOGIN/SIGNUP</title>
+    <link rel="stylesheet" href="src/css/login.css">
+    <link rel="stylesheet" href="./src/css/bootstrap.min.css">
+    
+    <div class='light x1'></div>
+    <div class='light x2'></div>
+    <div class='light x3'></div>
+    <div class='light x4'></div>
+    <div class='light x5'></div>
+    <div class='light x6'></div>
+    <div class='light x7'></div>
+    <div class='light x8'></div>
+    <div class='light x9'></div>
+    <div class='light x10'></div>
+    <div class='light x20'></div>
+    <div class='light x30'></div>
+    <div class='light x40'></div>
+    <div class='light x50'></div>
+    <div class='light x60'></div>
+    <div class='light x70'></div>
+    <div class='light x80'></div>
+    <div class='light x90'></div>
+
+
+
+ 
+  
+    
+<style type="text/css">
+    
+    
+     body {
+        background-image: url("./src/img/background.jpg" );
+     }
+     #loading{
+         animation: rotation 2s infinite linear;
+     }
+
+     @keyframes rotation{
+         from{
+             transform: rotate(0deg);
+         }
+         to{
+             transform: rotate(359deg);
+         }
+     }
+     
+
+    </style>
+
+
+</head>
+<div class="login-container">
+    <!-- <h1 class="section_header">Get the ultimate<br data-mutiny="true">to-do list and time management tool</h1> -->
+    <div class="login-box">
+        <div class="login-text">
+            <img id="loading" src="./src/img/logo.png" ; alt="Trulli" width="45" height="45" >  <span id="login_title_btn">Log In</span><b>·</b><span class="active" id="signup_title_btn">Sign Up</span>
+        </div>
+        <form id="form" action="./php/signup.php" method="post">
+            <div class="right_content" id="sign_up_content">
+                <div class="input-box">
+                
+                    <div>
+                
+                        <img src="src/img/user.png" class="icon_before_input" alt="icon_before_input">
+                        <label>
+                            <input type="text" id="email_phone_input" class="ant-input input email-input"
+                                   placeholder="Email / Phone" name="email_phone_input" value="">
+                        </label>
+                    </div>
+                    <div id="password_input">
+                        <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                        <label for="password_input">
+                            <input type="password" class="ant-input input" name="password_input" maxlength="20"
+                                   placeholder="Password">
+                        </label>
+                    </div>
+                    <div id="confirm_password_input">
+                        <img src="src/img/password.png" class="icon_before_input" alt="icon_before_input">
+                        <label>
+                            <input type="password" name="confirm_password_input" class="ant-input input" maxlength="20"
+                                   placeholder="Confirm Password">
+                        </label>
+                    </div>
+                    <div id="pwd_msg" class="">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                </div>
+                <button type="button" id="btn-forgotPwd" class="btn btn-signup forgotPwd">Forgot Password?</button>
+                <input type="submit" value="Sign Up" id="btn-signup" class="btn btn-signup login-style">
+            </div>
+        </form>
+    </div>
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light p-4">
+                <h4 class="text-dark">Collapsed content</h4>
+                <span class="text-muted">Toggleable via the navbar brand.</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-light bg-light" id="menu-button">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+</div>
+<script src="./src/js/jquery-3.6.0.js"></script>
+<script type="module" src="./src/js/session.js"></script>
+<script type="module" src="./src/js/login_page.js"></script>
+<script src="./src/js/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="./src/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

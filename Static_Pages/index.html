@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<link href="./src/css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+<link href="./src/css/landing_page.css" rel="stylesheet" type="text/css" media="all"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./src/js/jquery.min.js"></script>
+<script src="./src/js/session.js"></script>
+<link href='http://fonts.useso.com/css?family=Amaranth:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Signika+Negative:300,400,600,700|Amaranth:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	
+<div class="header">
+	 <div class="container">
+	     <div class="top-header">
+			 <div class="logo">
+				 	<!-- <a href="index.html"><img src="images/logo1.png" width = "45" height = "45" /></a> -->
+			 </div>
+			  <div class="top-menu">
+				<span class="menu"> </span>
+				<ul>
+					 <li class="active"><span class="pic1"></span><a href="login.html">login</a></li>
+					
+						<div class="clearfix"></div>
+				 </ul>
+				  
+				 <script>
+				 $("span.menu").click(function(){
+				 $(".top-menu ul").slideToggle("slow" , function(){
+				 });
+				 });
+				 </script>
+				 
+			 </div>
+			 <div class="clearfix"></div>
+		  </div>
+	 </div>
+	      <div class="header-banner">
+		     <script src="src/js/responsiveslides.min.js"></script>
+		     <script>
+			 $(function () {
+			  $("#slider").responsiveSlides({
+				auto: true,
+				nav: true,
+				speed: 500,
+				namespace: "callbacks",
+				pager: true,
+			  });
+			 });
+			 </script>
+			  <div class="container2">
+				 <div class="slider">
+				     <div class="callbacks_container">
+						 <ul class="rslides" id="slider">
+						 <li>
+							<div class="sale-box">
+							<span class="on_sale title_shop">NEW</span>
+							</div>
+						  <img src="src/img/2.jpg" alt="">
+						  <div class="caption">
+							<h1>simple</h1>
+							<p>easy to use</p>	          	
+						  </div>
+						   </li>
+						 <li>
+						 <div class="sale-box">
+							<span class="on_sale title_shop">NEW</span>
+							</div>
+						  <img src="src/img/1.png" alt="">
+							 <div class="caption">
+							 <h1>reliable</h1>
+							<p>no plugins</p>	
+							 </div>
+						 </li>
+						 <li>
+						 <div class="sale-box">
+							<span class="on_sale title_shop">NEW</span>
+							</div>
+						  <img src="src/img/3.png" alt="">
+						  <div class="caption">
+							 <h1>Free</h1>
+							 <p></p>		          	
+						  </div>
+						 </li>
+						  </ul>
+							</div>
+					 </div>
+			     </div>	
+			 </div>	
+</div>
+
+<div class="container">
+	 <div class="banner-content">
+	 <p><span>DotPlan </span></p>
+	 </div>
+</div>
+
+<div class="content">
+	 <div class="container">
+	 <div class="col-md-5 contact-img">
+		<br>&nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp &nbsp &nbsp&nbsp  &nbsp &nbsp<img src="src/img/logo1.png" alt="logo" />
+	 </div>
+	 <div class="col-md-7 contact-info">
+	 <h3>About DotPlan</h3>
+	 <p>Effective time management begins with clear on exactly how you manage your time on your tasks. If you are struggling to manage time then DotPlan app will help you go further, it has simple user interface that easily customizable based on what you need for everyday use.  </p>
+		<!-- <a href="#">Read more<span></span></a> -->
+	 </div>
+	 <div class="clearfix"></div>
+	 </div>
+</div>
+
+<div class="fotter">
+	 <div class="container">
+		 <p class="copyright">Copyright &copy; 2022 nohTyp All rights reserved.</p>
+		
+		 <div class="clearfix"></div>
+	 </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+.create-header-div {
+    text-align: center;
+}
+
+/* Make wildcard selector for BOTH "create" forms */
+form[class^="create-"] {
+    text-align: center;
+}
+
+.create-page {
+    background-color: black;
+    color: white;
+}
+
