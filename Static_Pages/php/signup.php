@@ -41,14 +41,12 @@ if (!empty($_POST)) {
     $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
     $password = password_hash($_POST["password_input"], PASSWORD_DEFAULT);
 
-    echo $password;
-
     $email = $_POST["email_phone_input"];
     if (!emailExists($mysqli, $email)) {
         $stmt->bind_param("ss", $password, $email);
         $stmt->execute();
     } else {
-//        echo " EMAIL ALREADY EXISTS";
+    //    echo " EMAIL ALREADY EXISTS";
         $res = 1;
     }
 }
