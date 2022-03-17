@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $res = "Creation successful!";
 $servername = "128.205.36.4";
 $username = "awu46";
@@ -19,14 +15,38 @@ $name = $_POST["name"];
 $desc = $_POST["desc"];
 $due_date = $_POST["dueDate"];
 $notes = $_POST["notes"];
-
-$card_name = $_POST["cardName"]; // Force unique card names for each individual
-$card_id = 12; // Card name should be used to find corresponding unique ID global to all users
+$card_name = $_POST["cardName"]; // Force unique (case-insensitive) card names for each individual
 
 $email = $_SESSION['email'];
+$card_id = null; // Card name should be used to find corresponding unique cardID
 
-$stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_notes, card_id, email) VALUES (?, ?, ?, ?, ?, ?)");
-// echo $mysqli->error;
+if($card_name != "") {
+	$card_stmt = $mysqli->prepare("SELECT cards.cardID FROM cards WHERE name = ? AND email = ?");
+    $card_stmt->bind_param("ss", $card_name, $email);
+    $card_stmt->execute();
+    $card_stmt->store_result();
+
+    $card_stmt->bind_result($id);
+    // Assume card doesn't exist unless you find it in db
+    if($card_stmt->num_rows > 0) {
+        while($card_stmt->fetch()) {
+//             printf("%d", $id);
+            $card_id = $id;
+        }
+    }
+    else {
+        // Trigger alert describing card_name issue and redirect back to form once user confirms
+        echo '<script type="text/javascript">
+        alert("Cannot assign task to a card that doesn\'t exist!");
+        window.location.href = "../create-task.html"</script>';
+    }
+}
+
+if($due_date == "") {
+	$due_date = null;
+}
+
+$stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_notes, cardID, email) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssss", $name, $desc, $due_date, $notes, $card_id, $email);
 $stmt->execute();
 

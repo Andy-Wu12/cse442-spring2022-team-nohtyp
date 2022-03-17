@@ -38,9 +38,12 @@ if ($results->num_rows > 0) {
 $new_name = htmlspecialchars($_POST["card_title"]);
 $new_desc = htmlspecialchars($_POST["card_desc"]);
 
-$sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
+$stmt = $mysqli->prepare("UPDATE cards SET name= ?, description=?  WHERE cardID=?")
+$mysqli->bind_param('ssi', $new_name, $new_desc, $latest_id);
+// $sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
 if ($found_results){
-    $mysqli->query($sql);
+    // $mysqli->query($sql);
+    $mysqli->execute();
 }
 
 header("Location: ../RUD.php");

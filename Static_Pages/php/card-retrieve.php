@@ -21,12 +21,12 @@ $results = $mysqli->query($sql);
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 
 if ($results->num_rows > 0){
-    $index = 0
+    $index = 0;
     while($row = $results->fetch_assoc()){
         // echo "id: " . $row["id"]. " - Name: " . $row["name"]. "Description: " . $row["description"]. "<br>";
         $card_tasks[$row["name"]] = array();
         $_SESSION["Card_$index"] = $row["name"];    // Used for hardcoded stuff
-        $index += 1
+        $index += 1;
     }
 else{
     echo "No cards in database. <br>";
@@ -49,7 +49,7 @@ if ($results->num_rows > 0){
         }
     }
 else{
-    echo "No tasks in database. <br>"
+    echo "No tasks in database. <br>";
 }
 }
 
@@ -57,12 +57,12 @@ else{
 
 // Print all tasks associated with a card name
 function print_tasks($card_name){
-    $tasks = $GLOBAL['card_tasks'][$card_name]
-    echo "<ul>"
+    $tasks = $GLOBAL['card_tasks'][$card_name];
+    echo "<ul>";
     foreach ($tasks as $task){
-        echo "<li>" . $task . "</li>"
+        echo "<li>" . $task . "</li>";
     }
-    echo "</ul>"
+    echo "</ul>";
 }
 
 

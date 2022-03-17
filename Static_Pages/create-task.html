@@ -4,14 +4,13 @@
     <link rel="stylesheet" href="./src/css/styles.css">
     <link rel="stylesheet" href="./src/css/create.css">
 
-    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>
+<!--    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>-->
     <script src="./src/js/create-form.js"></script>
 
     <meta charset="UTF-8">
-    <title> APP NAME </title>
+    <title> . Plan - Create a task </title>
 </head>
 
-<!-- There is definitely a better way to do this other than copying the CARD static page over and changing CARD to TASK -->
 <body class="create-page">
     <div class="create-header-div">
         <div class="tooltip-container">
@@ -31,7 +30,7 @@
         <textarea form="create-task-form" id="desc" name="desc" class="create-form-input" minlength="1" rows="5" cols="50"></textarea><br>
         <!-- Both due date and notes are optional fields -->
         <label for="dueDate"> Due date: </label><br>
-        <input type="text" id="dueDate" name="dueDate" class="create-form-input"><br><br>
+        <input type="datetime-local" id="dueDate" name="dueDate" class="create-form-input"><br><br>
         <label for="notes"> Extra notes: </label><br>
         <textarea form="create-task-form" id="notes" name="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
         <!--  Assign to card is optional for creating a task -->
