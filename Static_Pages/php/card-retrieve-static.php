@@ -17,7 +17,7 @@ session_start();
 $sql = "SELECT * FROM cards ORDER BY cardID DESC LIMIT 1";    # only using the latest card name and description for now
 $results = $mysqli->query($sql);
 
-$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+$card_tasks = array(-1 => "test"); # associative array -> (card_name => [tasks 1, task 2, ....])
 // echo "<p>" . count($results) . "</p>";
 // echo '<pre>'; print_r($results); echo '</pre>';
 $card_name = "No card here.";
@@ -27,28 +27,27 @@ $latest_id = 0;
 if ($results->num_rows > 0) {
     // output data of each row
     while ($row = $results->fetch_assoc()) {
-        $card_tasks[$row["cardID"]] = array(); // This breaks if two cards have the same name
+        $latest_id = $row["cardID"];
+        $card_tasks[$latest_id] = array(); // This breaks if two cards have the same name
         $card_name = $row["name"];
         $card_desc = $row["description"];
-        $latest_id = $row["cardID"];
         break;
     }
 }
-$stmt = $mysqli->prepare("SELECT * FROM tasks WHERE card_id = ?");
+$stmt = $mysqli->prepare("SELECT name, description, extra_notes FROM tasks WHERE cardID = ?");
 $stmt->bind_param("s", $latest_id);
 $stmt->execute();
 $stmt->store_result();
-
+$stmt->bind_result($name, $description, $extra_notes);
 if ($stmt->num_rows > 0){
-    ;
-}
-
-# Task Retrieval
-if ($results->num_rows > 0) {
-    while ($row = $results->fetch_assoc()) {
-        ;
+    while ($row = $stmt->fetch()) {
+        array_push($card_tasks[$latest_id], array($name, $description));
+        // echo "description is $description <br>";
+        // echo "name is $name <br>";
     }
 }
+
+
 
 $mysqli->close();
 

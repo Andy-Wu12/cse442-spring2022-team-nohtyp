@@ -29,8 +29,16 @@ session_start();
                 <input type='type' name='card_title' value='$card_name'><br>
                 <input type='type' name='card_desc' value='$card_desc'>
                 <input type='submit' name='submit' value='Update'>
-</form></h1>";
+            </form></h1>";
 
+    echo "<dl>";
+    foreach ($card_tasks[$latest_id] as $value){
+        // echo "<dt>$value[0]</dt>";
+        // echo "<dd>-$value[1]</dd>";
+        echo "  <dt>$value[0]</dt>";
+        echo "  <dd>$value[1]</dd>";
+    }
+    echo "</dl>";
 
     ?>
     <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
@@ -39,11 +47,11 @@ session_start();
         </ul>
         <input type="submit" name="submit" value="Update Tasks">
     </form> -->
-
+<!-- 
     <ul>
         <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
         <li><input type="text" value="task 2"> <input type="submit" name="submit" value="Delete Task"></li>
-    </ul>
+    </ul> -->
 
 
 
