@@ -32,8 +32,25 @@ session_start();
             </form></h1>";
 
     // This displays tasks correctly
-    if (count(card_tasks[$latest_id]) == 0){
-        echo "<p>No tasks for this card.<p><br>";
+//     if (count($card_tasks[$latest_id]) == 0){
+//         echo "<p>No tasks for this card.<p><br>";
+//     } else{
+//         echo "<dl>";
+//         foreach ($card_tasks[$latest_id] as $value){
+//             echo "  <dt>$value[0]</dt>";
+//             echo "  <dd>- $value[1]</dd>";
+//         }
+//         echo "</dl><br>";
+// }   
+
+    $form_string = "
+                    <form id='update_title' action='./php/card-update.php' method='post'>
+                        <input type='type' name='card_title' value='$card_name'><br>
+                        <input type='type' name='card_desc' value='$card_desc'><br>
+                            ";
+    
+    if (count($card_tasks[$latest_id]) == 0){
+        echo "<p>No tasks for this card.</p><br>";
     } else{
         echo "<dl>";
         foreach ($card_tasks[$latest_id] as $value){
@@ -41,19 +58,7 @@ session_start();
             echo "  <dd>- $value[1]</dd>";
         }
         echo "</dl><br>";
-}   
-
-
-    // if count(card_tasks[$latest_id]){
-    //     echo "No tasks for this card.<br>";
-    // } else {
-    //     echo "<dl>";
-    //     foreach ($card_tasks[$latest_id] as $value){
-    //         echo "  <dt>$value[0]</dt>";
-    //         echo "  <dd>- $value[1]</dd>";
-    //     }
-    //     echo "</dl><br>";
-    // }   
+    }  
 
     ?>
     
