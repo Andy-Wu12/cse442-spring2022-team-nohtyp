@@ -39,13 +39,14 @@ if (!empty($_POST)) {
 //    echo "<h2>password: " . $_POST["password_input"] . "</h2>";
 //    echo "<h2>confirm_password: " . $_POST["confirm_password_input"] . "</h2>";
     $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
-    $password = $_POST["password_input"];
+    $password = password_hash($_POST["password_input"], PASSWORD_DEFAULT);
+
     $email = $_POST["email_phone_input"];
     if (!emailExists($mysqli, $email)) {
         $stmt->bind_param("ss", $password, $email);
         $stmt->execute();
     } else {
-//        echo " EMAIL ALREADY EXISTS";
+    //    echo " EMAIL ALREADY EXISTS";
         $res = 1;
     }
 }
