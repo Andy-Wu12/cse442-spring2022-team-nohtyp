@@ -26,43 +26,44 @@ $latest_id = 0;
 
 if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $results->fetch_assoc()) {
+    while ($row = $results->fetch_assoc()) {
         $card_tasks[$row["name"]] = array(); // This breaks if two cards have the same name
         $card_name = $row["name"];
         $card_desc = $row["description"];
         break;
     }
-  } else {
-    ;
-  }
+}
 $sql = "SELECT * FROM tasks";
-$results = $mysql->query($sql);
+$results = $mysqli->query($sql);
 $_SESSION["tasks"] = array();
+
+# Task Retrieval
+
 
 $mysqli->close();
-// Tasks Retrieving
-// Retrieve info
-// Does not handle the case where there is no card
-// This only works if the card name is passed as the parameter in "name" instead of the label
-$sql = "SELECT * FROM tasks";
-$results = $mysql->query($sql);
-$_SESSION["tasks"] = array();
-
-if ($results->num_rows > 0){
-    while($row = $results->fetch_assoc()){
-        $card_title = $row["card_id"];
-        if (array_key_exists($card_title, $card_tasks)){    # if there is card associated with the task
-            $card_tasks[$card_title][] = $row["description"]; 
-            break;
-        }
-        if(strtolower($card_title) == strtolower($_SESSION["card_name"])){ // hardcoded stuff
-            $_SESSION["tasks"][] = $row["description"];
-        }
-    }
-else{
-    echo "No tasks in database. <br>";
-}
-}
+//// Tasks Retrieving
+//// Retrieve info
+//// Does not handle the case where there is no card
+//// This only works if the card name is passed as the parameter in "name" instead of the label
+//$sql = "SELECT * FROM tasks";
+//$results = $mysql->query($sql);
+//$_SESSION["tasks"] = array();
+//
+//if ($results->num_rows > 0){
+//    while($row = $results->fetch_assoc()){
+//        $card_title = $row["card_id"];
+//        if (array_key_exists($card_title, $card_tasks)){    # if there is card associated with the task
+//            $card_tasks[$card_title][] = $row["description"];
+//            break;
+//        }
+//        if(strtolower($card_title) == strtolower($_SESSION["card_name"])){ // hardcoded stuff
+//            $_SESSION["tasks"][] = $row["description"];
+//        }
+//    }
+//else{
+//    echo "No tasks in database. <br>";
+//}
+//}
 
 // // Print all tasks associated with a card name
 // function print_tasks($card_name){

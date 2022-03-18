@@ -20,50 +20,26 @@ $results = $mysqli->query($sql);
 
 $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 
-if ($results->num_rows > 0){
+if ($results->num_rows > 0) {
     $index = 0;
-    while($row = $results->fetch_assoc()){
+    while ($row = $results->fetch_assoc()) {
         // echo "id: " . $row["id"]. " - Name: " . $row["name"]. "Description: " . $row["description"]. "<br>";
         $card_tasks[$row["name"]] = array();
         $_SESSION["Card_$index"] = $row["name"];    // Used for hardcoded stuff
         $index += 1;
     }
-else{
-    echo "No cards in database. <br>";
-}   
 }
+//else{
+//        echo "No cards in database. <br>";
+//    }
+//}
 
 
 // Retrieve info
 // Does not handle the case where there is no card
 // This only works if the card name is passed as the parameter in "name" instead of the label
 $sql = "SELECT * FROM cards";
-$results = $mysql->query($sql);
-
-if ($results->num_rows > 0){
-    while($row = $results->fetch_assoc()){
-        // echo "id: " . $row["id"]. " - Name: " . $row["name"]. "Description: " . $row["description"]. "<br>";
-        $card_title = $row["card_id"]
-        if (array_key_exists($card_title, $card_tasks)){    # if there is card associated with the task
-            $card_tasks[$card_title][] = $row["description"]; 
-        }
-    }
-else{
-    echo "No tasks in database. <br>";
-}
-}
-
-// TODO - Remove hardcoded stuff later
-
-// Print all tasks associated with a card name
-function print_tasks($card_name){
-    $tasks = $GLOBAL['card_tasks'][$card_name];
-    echo "<ul>";
-    foreach ($tasks as $task){
-        echo "<li>" . $task . "</li>";
-    }
-    echo "</ul>";
-}
+$results = $mysqli->query($sql);
 
 
 ?>

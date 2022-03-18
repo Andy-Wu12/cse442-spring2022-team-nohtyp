@@ -25,25 +25,25 @@ $found_results = false;
 $latest_id = 0;
 if ($results->num_rows > 0) {
     // output data of each row
-    while($row = $results->fetch_assoc()) {
-      $old_name = $row["name"];
-      $old_name = $row["description"];
-      $latest_id = $row["cardID"];
-      $found_results = true;
-      break;
+    while ($row = $results->fetch_assoc()) {
+        $old_name = $row["name"];
+        $old_name = $row["description"];
+        $latest_id = $row["cardID"];
+        $found_results = true;
+        break;
     }
-  } else {
+} else {
     ;
-  }
+}
 $new_name = htmlspecialchars($_POST["card_title"]);
 $new_desc = htmlspecialchars($_POST["card_desc"]);
 
-$stmt = $mysqli->prepare("UPDATE cards SET name= ?, description=?  WHERE cardID=?")
-$mysqli->bind_param('ssi', $new_name, $new_desc, $latest_id);
+$stmt = $mysqli->prepare("UPDATE cards SET name= ?, description=?  WHERE cardID=?");
+$stmt->bind_param('sss', $new_name, $new_desc, $latest_id);
 // $sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
-if ($found_results){
+if ($found_results) {
     // $mysqli->query($sql);
-    $mysqli->execute();
+    $stmt->execute();
 }
 
 header("Location: ../RUD.php");
