@@ -14,22 +14,25 @@ session_start();
     
     
     <!-- Card title -->
-    <h1>
-        <form id="update_title" action="./php/card-update.php" method="post">  
-            <input type="text" name="card_title" value="<?php include './php/card-retrieve-static.php'; echo $card_name;?>"><br>
-            <input type="text" name="card_desc" value="<?php include './php/card-retrieve-static.php'; echo $card_desc;?>">
-            <input type="submit" name="submit" value="Update">
-        </form>
-    </h1>
-
-    <!-- Card description -->
-    
-    <!-- <form id="update_desc" action="./php/card-update.php" method="post">
-        <input type="text" name="card_desc" value="<?php #include './php/card-retrieve-static.php'; echo $card_desc;?>">
-        <input type="submit" name="submit" value="Update Description">
-    </form> -->
-
+<!--    <h1>-->
+<!--        <form id="update_title" action="./php/card-update.php" method="post">-->
+<!--            <input type="text" name="card_title" value="--><?php //include './php/card-retrieve-static.php'; echo $card_name;?><!--"><br>-->
+<!--            <input type="text" name="card_desc" value="--><?php //include './php/card-retrieve-static.php'; echo $card_desc;?><!--">-->
+<!--            <input type="submit" name="submit" value="Update">-->
+<!--        </form>-->
+<!--    </h1>-->
     <!-- Tasks -->
+    <?php
+    include './php/card-retrieve-static.php';
+    echo "<h1>
+            <form id='update_title' action='./php/card-update.php' method='post'>
+                <input type='type' name='card_title' value='$card_name'><br>
+                <input type='type' name='card_desc' value='$card_desc'>
+                <input type='submit' name='submit' value='Update'>
+</form></h1>";
+
+
+    ?>
     <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
         <ul>
         <?php #include './php/card-retrieve-static.php';print_tasks($_SESSION["card_name"]); ?>
@@ -42,9 +45,6 @@ session_start();
         <li><input type="text" value="task 2"> <input type="submit" name="submit" value="Delete Task"></li>
     </ul>
 
-    <form>
-        <input type="button" value="Delete Card">
-    </form>
 
 
     <br><br>

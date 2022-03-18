@@ -27,21 +27,31 @@ $latest_id = 0;
 if ($results->num_rows > 0) {
     // output data of each row
     while ($row = $results->fetch_assoc()) {
-        $card_tasks[$row["name"]] = array(); // This breaks if two cards have the same name
+        $card_tasks[$row["cardID"]] = array(); // This breaks if two cards have the same name
         $card_name = $row["name"];
         $card_desc = $row["description"];
+        $latest_id = $row["cardID"];
         break;
     }
 }
-$sql = "SELECT * FROM tasks";
-$results = $mysqli->query($sql);
-$_SESSION["tasks"] = array();
+$stmt = $mysqli->prepare("SELECT * FROM tasks WHERE card_id = ?");
+$stmt->bind_param("s", $latest_id);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows > 0){
+    ;
+}
 
 # Task Retrieval
-
+if ($results->num_rows > 0) {
+    while ($row = $results->fetch_assoc()) {
+        ;
+    }
+}
 
 $mysqli->close();
-//// Tasks Retrieving
+
 //// Retrieve info
 //// Does not handle the case where there is no card
 //// This only works if the card name is passed as the parameter in "name" instead of the label
