@@ -39,7 +39,7 @@ if($valid_form_submission) {
 // 	echo $mysqli->error;
 	$stmt->bind_param("ssss", $name, $desc, $notes, $email);
 	$stmt->execute();
-	header("Location: ../RUD.html");
+	header("Location: ../create-card.html");
 }
 else {
 	// Trigger alert describing unique name issue and redirect back to form once user confirms
