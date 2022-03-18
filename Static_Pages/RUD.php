@@ -31,22 +31,32 @@ session_start();
                 <input type='submit' name='submit' value='Update'>
             </form></h1>";
 
-    echo "<dl>";
-    foreach ($card_tasks[$latest_id] as $value){
-        // echo "<dt>$value[0]</dt>";
-        // echo "<dd>-$value[1]</dd>";
-        echo "  <dt>$value[0]</dt>";
-        echo "  <dd>$value[1]</dd>";
-    }
-    echo "</dl>";
+    // This displays tasks correctly
+    if (count(card_tasks[$latest_id]) == 0){
+        echo "<p>No tasks for this card.<p><br>";
+    } else{
+        echo "<dl>";
+        foreach ($card_tasks[$latest_id] as $value){
+            echo "  <dt>$value[0]</dt>";
+            echo "  <dd>- $value[1]</dd>";
+        }
+        echo "</dl><br>";
+}   
+
+
+    // if count(card_tasks[$latest_id]){
+    //     echo "No tasks for this card.<br>";
+    // } else {
+    //     echo "<dl>";
+    //     foreach ($card_tasks[$latest_id] as $value){
+    //         echo "  <dt>$value[0]</dt>";
+    //         echo "  <dd>- $value[1]</dd>";
+    //     }
+    //     echo "</dl><br>";
+    // }   
 
     ?>
-    <!-- <form id="update_tasks" action="./php/card-update.php" method="post">
-        <ul>
-        <?php #include './php/card-retrieve-static.php';print_tasks($_SESSION["card_name"]); ?>
-        </ul>
-        <input type="submit" name="submit" value="Update Tasks">
-    </form> -->
+    
 <!-- 
     <ul>
         <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
