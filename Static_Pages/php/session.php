@@ -15,7 +15,7 @@ function getEmailWithCookie($mysqli, $cookie): string
 function getTasksWithEmail($mysqli, $email): array
 {
     $myArray = array();
-    $stmt = $mysqli->prepare("SELECT name, description, email, due_date FROM tasks WHERE email = ? ORDER BY due_date");
+    $stmt = $mysqli->prepare("SELECT * FROM tasks WHERE email = ? ORDER BY due_date");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $res = $stmt->get_result();
