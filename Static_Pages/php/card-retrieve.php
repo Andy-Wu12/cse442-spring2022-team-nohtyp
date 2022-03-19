@@ -12,34 +12,51 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 session_start();
-
+$email = $_SESSION['email'];
+echo "<p>Cards for user: $email</p>";
+$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+$card_info = array();   # 2d array -> ( (card_name, card_description), ... )
 
 // Retrieve card info 
-$sql = "SELECT * description FROM cards";    # only using the card name and description for now
-$results = $mysqli->query($sql);
+$select_stmt = $mysqli->prepare("SELECT name, description, cardID FROM cards WHERE email = ?");
+$select_stmt->bind_param("s",$email);
+$select_stmt->execute();
+$select_stmt->store_result();
+$select_stmt->bind_result($name, $description, $card_id);
 
-$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
 
-if ($results->num_rows > 0) {
-    $index = 0;
-    while ($row = $results->fetch_assoc()) {
-        // echo "id: " . $row["id"]. " - Name: " . $row["name"]. "Description: " . $row["description"]. "<br>";
-        $card_tasks[$row["name"]] = array();
-        $_SESSION["Card_$index"] = $row["name"];    // Used for hardcoded stuff
-        $index += 1;
+if ($select_stmt->num_rows > 0){
+    while ($row = $select_stmt->fetch()){
+        $card_tasks[$card_id] = array();
+        $card_info[] = array($name, $description);
     }
 }
-//else{
-//        echo "No cards in database. <br>";
-//    }
-//}
 
+$task_stmt = $mysqli->prepare("SELECT name, description, cardID FROM tasks WHERE email = ?");
+$task_stmt->bind_param("s", $email);
+$task_stmt->execute();
+$task_stmt->store_result();
+$task_stmt->bind_result($name, $description, $card_id);
 
-// Retrieve info
-// Does not handle the case where there is no card
-// This only works if the card name is passed as the parameter in "name" instead of the label
-$sql = "SELECT * FROM cards";
-$results = $mysqli->query($sql);
+if ($task_stmt->num_rows > 0){
+    while ($row = $task_stmt->fetch()){
 
+        $card_tasks[$card_id][] = array($name, $description);
+    }
+}
+
+function generate_input($type, $name, $value) {
+    $input_string = "<input type='$type' name='$name' value='$value'><br>";
+    echo $input_string;
+}
+function generate_task_input($type, $name, $value, $is_title) {
+    $input_string = '';
+    if ($is_title){
+        $input_string = "<li><input type='$type' name='$name' value='$value'></li>";
+    }else{
+        $input_string = "<ul><li><input type='$type' name='$name' value='$value'></li></ul>";
+    }
+    echo $input_string;
+}
 
 ?>

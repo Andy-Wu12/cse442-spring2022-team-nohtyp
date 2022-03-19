@@ -11,27 +11,61 @@ session_start();
     <title>Cards</title>
 </head>
 <body>
-    
-    
-    <!-- Card title -->
+
+
+<!-- Card title -->
 <!--    <h1>-->
 <!--        <form id="update_title" action="./php/card-update.php" method="post">-->
-<!--            <input type="text" name="card_title" value="--><?php //include './php/card-retrieve-static.php'; echo $card_name;?><!--"><br>-->
-<!--            <input type="text" name="card_desc" value="--><?php //include './php/card-retrieve-static.php'; echo $card_desc;?><!--">-->
+<!--            <input type="text" name="card_title" value="-->
+<?php //include './php/card-retrieve-static.php'; echo $card_name;?><!--"><br>-->
+<!--            <input type="text" name="card_desc" value="-->
+<?php //include './php/card-retrieve-static.php'; echo $card_desc;?><!--">-->
 <!--            <input type="submit" name="submit" value="Update">-->
 <!--        </form>-->
 <!--    </h1>-->
-    <!-- Tasks -->
-    <?php
-    include './php/card-retrieve-static.php';
-    echo "<h1>
-            <form id='update_title' action='./php/card-update.php' method='post'>
-                <input type='type' name='card_title' value='$card_name'><br>
-                <input type='type' name='card_desc' value='$card_desc'>
-                <input type='submit' name='submit' value='Update'>
-            </form></h1>";
+<!-- Tasks -->
+<?php
+include './php/card-retrieve.php';
 
-    // This displays tasks correctly
+
+//    echo "    <form id='update_title' action='./php/card-update.php' method='post'>
+//                <input type='text' name='card_title' value='card_name_1'><br>
+//                <input type='text' name='card_desc' value='card_desc_1'><br>
+//                <input type='submit' name='submit' value='Update'><br>
+//            </form>";
+
+if (count($card_tasks) == 0) {
+    echo "<p>No cards to display.</p><br>";
+} else {
+    $card_index = 0;
+    echo "<form id='update_card' action='./php/card-update.php' method='post'>";
+    foreach ($card_tasks as $card_id => $tasks_array) {
+        // Start with displaying card info
+
+        generate_input('text', "card_title_".$card_index, $card_info[$card_index][0]);
+        generate_input('text', "card_desc_".$card_index, $card_info[$card_index][1]);
+        if (count($tasks_array) == 0){
+            echo "<ul><li>No tasks to display.</li></ul><br>";
+            continue;
+        }
+        echo "  <ul>";
+        // Start displaying task data
+        $task_index = 0;
+        foreach($tasks_array as $tuple){
+            $task_name = $tuple[0];
+            $task_desc = $tuple[1];
+
+            generate_task_input('text', "task_title_".$task_index, $task_name, true);
+            generate_task_input('text', "task_desc_".$task_index, $task_desc, false);
+            $task_index++;
+        }
+        $card_index++;
+        echo "</ul><br>";
+    }
+    echo "</form><br>";
+}
+
+// This displays tasks correctly
 //     if (count($card_tasks[$latest_id]) == 0){
 //         echo "<p>No tasks for this card.<p><br>";
 //     } else{
@@ -43,25 +77,9 @@ session_start();
 //         echo "</dl><br>";
 // }   
 
-    $form_string = "
-                    <form id='update_title' action='./php/card-update.php' method='post'>
-                        <input type='type' name='card_title' value='$card_name'><br>
-                        <input type='type' name='card_desc' value='$card_desc'><br>
-                            ";
-    
-    if (count($card_tasks[$latest_id]) == 0){
-        echo "<p>No tasks for this card.</p><br>";
-    } else{
-        echo "<dl>";
-        foreach ($card_tasks[$latest_id] as $value){
-            echo "  <dt>$value[0]</dt>";
-            echo "  <dd>- $value[1]</dd>";
-        }
-        echo "</dl><br>";
-    }  
 
-    ?>
-    
+?>
+
 <!-- 
     <ul>
         <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
@@ -69,9 +87,8 @@ session_start();
     </ul> -->
 
 
-
-    <br><br>
-    <a class=redirect-button href="./create-card.html"> Create a new card </a>
-    <a class=redirect-button href="./create-task.html"> Create a new task </a>
+<br><br>
+<a class=redirect-button href="./create-card.html"> Create a new card </a>
+<a class=redirect-button href="./create-task.html"> Create a new task </a>
 </body>
 </html>

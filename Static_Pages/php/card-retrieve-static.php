@@ -41,7 +41,7 @@ $stmt->store_result();
 $stmt->bind_result($name, $description, $extra_notes);
 if ($stmt->num_rows > 0){
     while ($row = $stmt->fetch()) {
-        array_push($card_tasks[$latest_id], array($name, $description));
+        $card_tasks[$latest_id][] = array($name, $description);
     }
 }
 
