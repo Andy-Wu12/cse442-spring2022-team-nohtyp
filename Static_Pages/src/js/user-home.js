@@ -17,8 +17,6 @@ $(document).ready(function () {
         if (getNotificationPermission() === true)
                 showNotification(tasksJsonArray);
 
-         // Stuff for #37
-
         // KEY = cardID, VALUE = [] of corresponding tasks
         var tasksAssignedCards = {};
         // Render general "no card" tasks after the rest
@@ -28,7 +26,6 @@ $(document).ready(function () {
         for(var i = 0; i < cardsJsonArray.length; i++) {
                 let card = cardsJsonArray[i];
                 tasksAssignedCards[card["cardID"]] = [];
-                // tasksAssignedCards[1] = ["test"];
         }
 
         // Add all tasks to their corresponding card's list of tasks to render
@@ -41,16 +38,14 @@ $(document).ready(function () {
                 }
                 else {
                         cardlessTasks.push(taskObj);
-                        // console.log(cardlessTasks);
                 }
         }
 
 
-        // Render all card and task data by templating with jquery
+        // Render all card with their tasks by templating with jquery
         for(var i = 0; i < cardsJsonArray.length; i++) {
                 let cardJSON = cardsJsonArray[i];
                 let cardTaskSet = tasksAssignedCards[cardJSON["cardID"]];
-                // console.log(taskObj["name"]);
                 var newCardTasksHTML = "<div class=\"card-node\">\n" +
                         "\t<h4 class=\"cardName\">" + cardJSON["name"] + " </h4>\n" +
                         "\t<p class=\"cardDesc\">" + cardJSON["description"] + " </p>\n";
@@ -60,9 +55,22 @@ $(document).ready(function () {
                         newCardTasksHTML += "\t<div class=\"task-node\">\n" +
                                 "\t\t<h4 class=\"taskName\">" + taskObj["name"] + " </h4>\n" +
                                 "\t\t<p class=\"taskDesc\">" + taskObj["description"] + " </p>\n" +
-                                "\t</div>";
+                                // "\t\t<p class=\"taskDueDate\">" + taskObj["due_date"] + " </p>\n" +
+                                "\t</div><br>";
                 }
-                $("#task-card-container").append(newCardTasksHTML + "</div>\n");
+                $("#task-card-container").append(newCardTasksHTML + "</div><br>\n");
         }
 
+        // Render all the standalone tasks (those w/o associated card)
+        console.log(cardlessTasks);
+        for(var i = 0; i < cardlessTasks.length; i++) {
+                console.log("adding cardless task!");
+                let taskJSON = cardlessTasks[i];
+                let cardlessTasksHTML = ("<div class=\"task-node\">\n" +
+                        "\t<h4 class=\"taskName\">" + taskJSON["name"] + " </h4>\n" +
+                        "\t<p class=\"taskDesc\">" + taskJSON["description"] + " </p>\n" +
+                        // "\t\t<p class=\"taskDueDate\">" + "Due: " + taskJSON["due_date"] + " </p>\n" +
+                        "</div><br>");
+                $("#task-card-container").append(cardlessTasksHTML);
+        }
 });
