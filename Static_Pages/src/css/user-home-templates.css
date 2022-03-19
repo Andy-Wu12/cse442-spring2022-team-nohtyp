@@ -6,7 +6,7 @@
     border-radius: 20px;
 }
 
-.card-node > .task-node {
+.task-node {
     font-size: 1em;
     background-color: #9A80CD;
     border-style: outset;

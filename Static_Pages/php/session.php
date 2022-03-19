@@ -25,6 +25,19 @@ function getTasksWithEmail($mysqli, $email): array
     return $myArray;
 }
 
+function getCardsWithEmail($mysqli, $email): array
+{
+    $myArray = array();
+    $stmt = $mysqli->prepare("SELECT * FROM cards WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+        $myArray[] = $row;
+    }
+    return $myArray;
+}
+
 session_start();
 $res = "Login Success";
 $servername = "128.205.36.4";
@@ -45,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 header("Location: ../login.html");
             } else if ($_GET["param"] == "tasks") {
                 $resp["tasks"] = getTasksWithEmail($mysqli, $_SESSION["email"]);
+            } else if ($_GET["param"] == "cards") {
+                $resp["cards"] = getCardsWithEmail($mysqli, $_SESSION["email"]);
             }
         }
     } else {
