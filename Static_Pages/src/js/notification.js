@@ -1,8 +1,10 @@
 export function showNotification(tasksJsonArray) {
     // const timeDiffObj = timeDifference(new Date(tasksJsonArray[0]["due_date"]), new Date())
+    const summaryStr = generateSummary(tasksJsonArray)
+    console.log(tasksJsonArray)
     const summaryNotification = new Notification("", {
         // body: Date.parse(tasksJsonArray[0]["due_date"])
-        body:generateSummary(tasksJsonArray)
+        body:summaryStr
     })
 }
 
@@ -16,7 +18,7 @@ function generateSummary(tasksJsonArray){
     const tasksPastDue = tasksJsonArray.filter(task => timeDifference(new Date(task["due_date"]), new Date())["days"] > 0)
     const tasksDueToday = tasksJsonArray.filter(task => timeDifference(new Date(task["due_date"]), new Date())["days"] === 0)
     const tasksBeforeDue = tasksJsonArray.filter(task => timeDifference(new Date(task["due_date"]), new Date())["days"] < 0)
-    if(tasksDueToday.length === 0 && tasksDueToday.length === 0 && tasksDueToday.length === 0)
+    if(tasksPastDue.length === 0 && tasksDueToday.length === 0 && tasksBeforeDue.length === 0)
         return "Good job!\r\nYou've finished all your tasks!"
 
     const tasksDueTodayStr = stringifyTaskArray(tasksDueToday)
