@@ -92,5 +92,6 @@ if (count($card_tasks) == 0) {
 <br><br>
 <a class=redirect-button href="./create-card.html"> Create a new card </a>
 <a class=redirect-button href="./create-task.html"> Create a new task </a>
+<a class="redirect-button" href="./user-home.html"> Back to Homepage </a>
 </body>
 </html>
