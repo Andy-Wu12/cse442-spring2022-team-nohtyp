@@ -48,6 +48,7 @@ if (count($card_tasks) == 0) {
         if (count($tasks_array) == 0){
             echo "<ul><li>No tasks to display.</li></ul><br>";
             echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
+            $card_index++;
             continue;
         }
         echo "<ul>";

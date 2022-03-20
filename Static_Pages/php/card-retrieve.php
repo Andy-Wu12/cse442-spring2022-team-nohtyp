@@ -42,6 +42,7 @@ if ($task_stmt->num_rows > 0){
     while ($row = $task_stmt->fetch()){
 
         $card_tasks[$card_id][] = array($name, $description, $task_id);
+//        echo "<p>Found card_id $card_id<p>;
     }
 }
 
