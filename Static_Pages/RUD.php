@@ -47,6 +47,7 @@ if (count($card_tasks) == 0) {
         generate_input('text', "cardDesc_".$card_id, $card_info[$card_index][1]);
         if (count($tasks_array) == 0){
             echo "<ul><li>No tasks to display.</li></ul><br>";
+            echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
             continue;
         }
         echo "<ul>";
