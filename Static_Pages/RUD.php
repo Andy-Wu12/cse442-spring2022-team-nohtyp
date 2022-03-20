@@ -37,15 +37,15 @@ if (count($card_tasks) == 0) {
     echo "<p>No cards to display.</p><br>";
 } else {
     $card_index = 0;
-    
+    // Loop through all cards and associated tasks.
     foreach ($card_tasks as $card_id => $tasks_array) {
         // Start with displaying card info
         echo "<form id='update_card_$card_index' action='./php/card-update.php' method='post'>";
 
-        generate_input('text', "cardTitle_".$card_id, $card_info[$card_index][0]);
+        generate_input('text', "cardTitle_" . $card_id, $card_info[$card_index][0]);
         echo "<br>";
-        generate_input('text', "cardDesc_".$card_id, $card_info[$card_index][1]);
-        if (count($tasks_array) == 0){
+        generate_input('text', "cardDesc_" . $card_id, $card_info[$card_index][1]);
+        if (count($tasks_array) == 0) {
             echo "<ul><li>No tasks to display.</li></ul><br>";
             echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
             $card_index++;
@@ -54,16 +54,34 @@ if (count($card_tasks) == 0) {
         echo "<ul>";
         // Start displaying task data
         $task_index = 0;
-        foreach($tasks_array as $tuple){
+        foreach ($tasks_array as $tuple) {
             $task_name = $tuple[0];
             $task_desc = $tuple[1];
             $task_id = $tuple[2];
 
-            generate_task_input('text', "taskTitle_".$task_id, $task_name, true);
-            generate_task_input('text', "taskDesc_".$task_id, $task_desc, false);
+            generate_task_input('text', "taskTitle_" . $task_id, $task_name, true);
+            generate_task_input('text', "taskDesc_" . $task_id, $task_desc, false);
             $task_index++;
         }
         $card_index++;
+        echo "</ul>";
+        echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
+    }
+    // Grouping all unassigned tasks
+    if (count($unassigned_tasks) != 0){
+        echo "<form id='unassigned_tasks' action='./php/card-update.php' method='post'>";
+        echo "<h6>Unassigned tasks</h6>";
+        echo "<ul>";
+
+        foreach ($unassigned_tasks as $tuple) {
+            $task_name = $tuple[0];
+            $task_desc = $tuple[1];
+            $task_id = $tuple[2];
+
+            generate_task_input('text', "taskTitle_" . $task_id, $task_name, true);
+            generate_task_input('text', "taskDesc_" . $task_id, $task_desc, false);
+
+        }
         echo "</ul>";
         echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
     }
