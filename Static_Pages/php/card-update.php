@@ -13,38 +13,70 @@ if ($mysqli->connect_error) {
 }
 session_start();
 
-$sql = "SELECT * FROM cards ORDER BY cardID DESC LIMIT 1";    # only using the latest card name and description for now
-$results = $mysqli->query($sql);
+foreach ($_POST as $name => $value){
+  $name_split = explode("_", $name);
 
-$card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
-// echo "<p>" . count($results) . "</p>";
-// echo '<pre>'; print_r($results); echo '</pre>';
-$old_name = "No card here.";
-$old_desc = "No description.";
-$found_results = false;
-$latest_id = 0;
-if ($results->num_rows > 0) {
-    // output data of each row
-    while ($row = $results->fetch_assoc()) {
-        $old_name = $row["name"];
-        $old_name = $row["description"];
-        $latest_id = $row["cardID"];
-        $found_results = true;
-        break;
-    }
-} else {
-    ;
-}
-$new_name = htmlspecialchars($_POST["card_title"]);
-$new_desc = htmlspecialchars($_POST["card_desc"]);
+  $prefix = $name_split[0];
+  $id = (int) $name_split[1];
 
-$stmt = $mysqli->prepare("UPDATE cards SET name= ?, description=?  WHERE cardID=?");
-$stmt->bind_param('sss', $new_name, $new_desc, $latest_id);
-// $sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
-if ($found_results) {
-    // $mysqli->query($sql);
-    $stmt->execute();
+  $new_val = htmlspecialchars($value);
+  if ($prefix == 'cardTitle'){
+    $stmt = $mysqli->prepare("UPDATE cards set name=? WHERE cardID=?");
+    $mysqli->bind_param('ss', $new_val, $id);
+    $mysqli->execute();
+  }
+  elseif ($prefix == "cardDesc"){
+    $stmt = $mysqli->prepare("UPDATE cards set description=? WHERE cardID=?");
+    $mysqli->bind_param('ss', $new_val, $id);
+    $mysqli->execute();
+  }
+  elseif ($prefix == "taskTitle"){
+    $stmt = $mysqli->prepare("UPDATE tasks set name=? WHERE taskID=?");
+    $mysqli->bind_param('ss', $new_val, $id);
+    $mysqli->execute();
+  }
+  elseif ($prefix == "taskDesc"){
+    $stmt = $mysqli->prepare("UPDATE tasks set description=? WHERE taskID=?");
+    $mysqli->bind_param('ss', $new_val, $id);
+    $mysqli->execute();
+  }
+  else{
+    continue;
+  }
 }
+
+
+// $sql = "SELECT * FROM cards ORDER BY cardID DESC LIMIT 1";    # only using the latest card name and description for now
+// $results = $mysqli->query($sql);
+
+// $card_tasks = array(); # associative array -> (card_name => [tasks 1, task 2, ....])
+// // echo "<p>" . count($results) . "</p>";
+// // echo '<pre>'; print_r($results); echo '</pre>';
+// $old_name = "No card here.";
+// $old_desc = "No description.";
+// $found_results = false;
+// $latest_id = 0;
+// if ($results->num_rows > 0) {
+//     // output data of each row
+//     while($row = $results->fetch_assoc()) {
+//       $old_name = $row["name"];
+//       $old_name = $row["description"];
+//       $latest_id = $row["cardID"];
+//       $found_results = true;
+//       break;
+//     }
+//   } else {
+//     ;
+//   }
+// $new_name = htmlspecialchars($_POST["card_title"]);
+// $new_desc = htmlspecialchars($_POST["card_desc"]);
+// $stmt = $mysqli->prepare("UPDATE cards SET name= ?, description=?  WHERE cardID=?");
+// $mysqli->bind_param('ssi', $new_name, $new_desc, $latest_id);
+// // $sql = "UPDATE cards SET name='$new_name', description='$new_desc'  WHERE cardID=$latest_id";
+// if ($found_results){
+//     // $mysqli->query($sql);
+//     $mysqli->execute();
+// }
 
 header("Location: ../RUD.php");
 

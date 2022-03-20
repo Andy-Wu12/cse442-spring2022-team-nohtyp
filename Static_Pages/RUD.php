@@ -27,7 +27,6 @@ session_start();
 <?php
 include './php/card-retrieve.php';
 
-
 //    echo "    <form id='update_title' action='./php/card-update.php' method='post'>
 //                <input type='text' name='card_title' value='card_name_1'><br>
 //                <input type='text' name='card_desc' value='card_desc_1'><br>
@@ -38,29 +37,32 @@ if (count($card_tasks) == 0) {
     echo "<p>No cards to display.</p><br>";
 } else {
     $card_index = 0;
-    echo "<form id='update_card' action='./php/card-update.php' method='post'>";
+    
     foreach ($card_tasks as $card_id => $tasks_array) {
         // Start with displaying card info
+        echo "<form id='update_card_$card_index' action='./php/card-update.php' method='post'>";
 
-        generate_input('text', "card_title_".$card_index, $card_info[$card_index][0]);
-        generate_input('text', "card_desc_".$card_index, $card_info[$card_index][1]);
+        generate_input('text', "cardTitle_".$card_id, $card_info[$card_index][0]);
+        echo "<br>";
+        generate_input('text', "cardDesc_".$card_id, $card_info[$card_index][1]);
         if (count($tasks_array) == 0){
             echo "<ul><li>No tasks to display.</li></ul><br>";
             continue;
         }
-        echo "  <ul>";
+        echo "<ul>";
         // Start displaying task data
         $task_index = 0;
         foreach($tasks_array as $tuple){
             $task_name = $tuple[0];
             $task_desc = $tuple[1];
+            $task_id = $tuple[2];
 
-            generate_task_input('text', "task_title_".$task_index, $task_name, true);
-            generate_task_input('text', "task_desc_".$task_index, $task_desc, false);
+            generate_task_input('text', "taskTitle_".$task_id, $task_name, true);
+            generate_task_input('text', "taskDesc_".$task_id, $task_desc, false);
             $task_index++;
         }
         $card_index++;
-        echo "</ul><br>";
+        echo "</ul><br><hr>";
     }
     echo "</form><br>";
 }

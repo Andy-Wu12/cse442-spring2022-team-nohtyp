@@ -32,16 +32,16 @@ if ($select_stmt->num_rows > 0){
     }
 }
 
-$task_stmt = $mysqli->prepare("SELECT name, description, cardID FROM tasks WHERE email = ?");
+$task_stmt = $mysqli->prepare("SELECT name, description, taskID cardID FROM tasks WHERE email = ?");
 $task_stmt->bind_param("s", $email);
 $task_stmt->execute();
 $task_stmt->store_result();
-$task_stmt->bind_result($name, $description, $card_id);
+$task_stmt->bind_result($name, $description, $card_id, $task_id);
 
 if ($task_stmt->num_rows > 0){
     while ($row = $task_stmt->fetch()){
 
-        $card_tasks[$card_id][] = array($name, $description);
+        $card_tasks[$card_id][] = array($name, $description, $task_id);
     }
 }
 
