@@ -62,9 +62,9 @@ if (count($card_tasks) == 0) {
             $task_index++;
         }
         $card_index++;
-        echo "</ul><br><hr>";
+        echo "</ul>";
+        echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
     }
-    echo "</form><br>";
 }
 
 // This displays tasks correctly

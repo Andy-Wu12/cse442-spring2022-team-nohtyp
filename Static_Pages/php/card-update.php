@@ -14,6 +14,10 @@ if ($mysqli->connect_error) {
 session_start();
 
 foreach ($_POST as $name => $value){
+  # if substring '_' is not in $name then continue
+  if (strpos($name, '_') == false){
+    continue;
+  }
   $name_split = explode("_", $name);
 
   $prefix = $name_split[0];
@@ -21,24 +25,24 @@ foreach ($_POST as $name => $value){
 
   $new_val = htmlspecialchars($value);
   if ($prefix == 'cardTitle'){
-    $stmt = $mysqli->prepare("UPDATE cards set name=? WHERE cardID=?");
-    $mysqli->bind_param('ss', $new_val, $id);
-    $mysqli->execute();
+    $stmt = $mysqli->prepare("UPDATE cards SET name=? WHERE cardID=?");
+    $stmt->bind_param('si', $new_val, $id);
+    $stmt->execute();
   }
   elseif ($prefix == "cardDesc"){
-    $stmt = $mysqli->prepare("UPDATE cards set description=? WHERE cardID=?");
-    $mysqli->bind_param('ss', $new_val, $id);
-    $mysqli->execute();
+    $stmt = $mysqli->prepare("UPDATE cards SET description=? WHERE cardID=?");
+    $stmt->bind_param('si', $new_val, $id);
+    $stmt->execute();
   }
   elseif ($prefix == "taskTitle"){
-    $stmt = $mysqli->prepare("UPDATE tasks set name=? WHERE taskID=?");
-    $mysqli->bind_param('ss', $new_val, $id);
-    $mysqli->execute();
+    $stmt = $mysqli->prepare("UPDATE tasks SET name=? WHERE taskID=?");
+    $stmt->bind_param('ss', $new_val, $id);
+    $stmt->execute();
   }
   elseif ($prefix == "taskDesc"){
-    $stmt = $mysqli->prepare("UPDATE tasks set description=? WHERE taskID=?");
-    $mysqli->bind_param('ss', $new_val, $id);
-    $mysqli->execute();
+    $stmt = $mysqli->prepare("UPDATE tasks SET description=? WHERE taskID=?");
+    $stmt->bind_param('ss', $new_val, $id);
+    $stmt->execute();
   }
   else{
     continue;
@@ -81,4 +85,5 @@ foreach ($_POST as $name => $value){
 header("Location: ../RUD.php");
 
 $mysqli->close();
+
 ?>
