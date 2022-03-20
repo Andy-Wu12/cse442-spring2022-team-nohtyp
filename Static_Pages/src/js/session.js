@@ -1,45 +1,73 @@
-function redirectIfLoggedIn() {
+export function redirectByLoginStatus() {
     $.ajax({
         type: 'get',
-        url: "./php/checkIfloggedin.php",
+        url: "./php/session.php",
         success: function (resp) {
-            if (!resp.includes("Already logged in")) {
-                window.location.replace("./login.html")
+            const resp_obj = JSON.parse(resp)
+            if (resp_obj["logged_in"] === "false") {
+                if (!window.location.href.includes("login.html")) {
+                    window.location.replace("./login.html")
+                }
+            } else if (resp_obj["logged_in"] === "true") {
+                if (window.location.href.includes("login.html") || !window.location.href.includes(".html")) {
+                    window.location.replace("./user-home.html")
+                }
             }
         }
     });
 }
 
-function getSessionEmail() {
+export function getSessionEmail() {
     let email = ""
     $.ajax({
         type: 'get',
-        url: "./php/checkIfloggedin.php?param=email",
+        url: "./php/session.php?param=email",
         async: false,
         success: function (resp) {
-            if (resp === "Not logged in") {
-                window.location.replace("./login.html")
-            }
-            else{
-                email = resp
+            const resp_obj = JSON.parse(resp)
+            if (resp_obj["logged_in"] === "true") {
+                email = resp_obj["email"]
             }
         }
     });
     return email
 }
 
-function clearSession() {
+export function clearSession() {
     $.ajax({
         type: 'get',
         async: false,
-        url: "./php/checkIfloggedin.php?param=clearsession",
+        url: "./php/session.php?param=clearsession",
     });
     location.reload();
 }
 
-$(document).ready(function () {
-    redirectIfLoggedIn()
-    const userEmail = getSessionEmail()
-    $("#username_header").html(userEmail)
-    $("#logout_btn").on("click", clearSession)
-});
+export function getJsonTasksArray() {
+    let jsonTasksArray = []
+    $.ajax({
+        type: 'get',
+        async: false,
+        url: "./php/session.php?param=tasks",
+        success: function (resp) {
+            const resp_obj = JSON.parse(resp)
+            // console.log(resp_obj["tasks"])
+            jsonTasksArray = resp_obj["tasks"]
+        }
+    });
+    return jsonTasksArray
+}
+
+export function getJsonCardsArray() {
+    let jsonCardsArray = []
+    $.ajax({
+        type: 'get',
+        async: false,
+        url: "./php/session.php?param=cards",
+        success: function (resp) {
+            const resp_obj = JSON.parse(resp)
+            // console.log(resp_obj["cards"])
+            jsonCardsArray = resp_obj["cards"]
+        }
+    });
+    return jsonCardsArray
+}

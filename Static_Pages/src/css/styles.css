@@ -3,7 +3,9 @@
     that we want to keep consistent throughout all pages */
 
 body {
+    background-image: url("Static_Pages/src/img/background.jpg");
     background-color: rgba(255, 255, 255, 0.89);
+    
 }
 
 /* Tooltips to provide definitions/context for what users should do */
@@ -55,8 +57,6 @@ a:hover {
     color: #60bec9;
 }
 
-/* Create a button like effect for hyperlink list items */
-/* Modify this if you want it changed, the current style is up for discussion */
 a.redirect-button {
     font-size: 2vw;
     margin: 5px;
@@ -65,3 +65,5 @@ a.redirect-button {
     /*border-color: hsla(153, 67%, 81%, 1);*/
     background-color: white;
 }
+
+
