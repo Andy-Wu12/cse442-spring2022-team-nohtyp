@@ -50,9 +50,24 @@ export function getJsonTasksArray() {
         url: "./php/session.php?param=tasks",
         success: function (resp) {
             const resp_obj = JSON.parse(resp)
-            console.log(resp_obj["tasks"])
+            // console.log(resp_obj["tasks"])
             jsonTasksArray = resp_obj["tasks"]
         }
     });
     return jsonTasksArray
+}
+
+export function getJsonCardsArray() {
+    let jsonCardsArray = []
+    $.ajax({
+        type: 'get',
+        async: false,
+        url: "./php/session.php?param=cards",
+        success: function (resp) {
+            const resp_obj = JSON.parse(resp)
+            // console.log(resp_obj["cards"])
+            jsonCardsArray = resp_obj["cards"]
+        }
+    });
+    return jsonCardsArray
 }

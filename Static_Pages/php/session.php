@@ -15,7 +15,20 @@ function getEmailWithCookie($mysqli, $cookie): string
 function getTasksWithEmail($mysqli, $email): array
 {
     $myArray = array();
-    $stmt = $mysqli->prepare("SELECT name, description, email, due_date FROM tasks WHERE email = ? ORDER BY due_date");
+    $stmt = $mysqli->prepare("SELECT * FROM tasks WHERE email = ? ORDER BY due_date");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    while($row = $res->fetch_array(MYSQLI_ASSOC)) {
+        $myArray[] = $row;
+    }
+    return $myArray;
+}
+
+function getCardsWithEmail($mysqli, $email): array
+{
+    $myArray = array();
+    $stmt = $mysqli->prepare("SELECT * FROM cards WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -45,6 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 header("Location: ../login.html");
             } else if ($_GET["param"] == "tasks") {
                 $resp["tasks"] = getTasksWithEmail($mysqli, $_SESSION["email"]);
+            } else if ($_GET["param"] == "cards") {
+                $resp["cards"] = getCardsWithEmail($mysqli, $_SESSION["email"]);
             }
         }
     } else {

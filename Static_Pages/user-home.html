@@ -3,12 +3,24 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="./src/css/user_landing_styles.css">
+	<link rel="stylesheet" href="./src/css/user-home-templates.css">
 
 	 <meta charset="utf-8" />
 	<title>User Home Page</title>
 </head>
 
 <body>
+ <div id="screen-header-div">
+	 <header>
+		 <div style="text-align: center;">
+			 <h1 id = "welcome_msg"></h1>
+		 </div>
+	 </header>
+	 <div style="text-align: center;"> Here are your tasks </div>
+	 <div id="task-card-container">
+
+	 </div>
+ </div>
     <!--Example side menu reference: https://codepen.io/erikterwan/pen/EVzeRP?editors=0100 -->
  <nav role="navigation">
 	<div id="navbar">
@@ -45,15 +57,9 @@
 	  </div>
 	</div>
  </nav>
- <div id="screen-header-div">
-	 <header>
-		 <div style="text-align: center;">
-			 <h1 id = "welcome_msg"></h1>
-		 </div>
-	 </header>
- </div>
     <script src="./src/js/jquery-3.6.0.js"></script>
     <script type="module" src="./src/js/session.js"></script>
     <script type="module" src="./src/js/user-home.js"></script>
+
  </body>
 </html>

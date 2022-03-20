@@ -30,8 +30,14 @@ function signUp_logIn(event) {
                     } else {
                         showMsg("Welcome!", "alert alert-success alert-dismissable")
                         setTimeout(() => {
-                            login_title_btn.click()
-                            password_input.val("")
+                            $.ajax({
+                                type: 'post',
+                                url: "./php/login.php",
+                                data: $('#form').serialize(),
+                                success: function () {
+                                    window.location.replace("./user-home.html")
+                                }
+                            });
                         }, 1000)
                     }
                 }

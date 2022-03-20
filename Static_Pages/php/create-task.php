@@ -50,6 +50,10 @@ $stmt = $mysqli->prepare("INSERT INTO tasks(name, description, due_date, extra_n
 $stmt->bind_param("ssssss", $name, $desc, $due_date, $notes, $card_id, $email);
 $stmt->execute();
 
+<<<<<<< HEAD
 header("Location: ../RUD.php");
+=======
+header("Location: ../create-task.html");
+>>>>>>> develop
 
 $mysqli->close();
