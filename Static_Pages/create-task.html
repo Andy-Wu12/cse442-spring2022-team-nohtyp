@@ -4,8 +4,9 @@
     <link rel="stylesheet" href="./src/css/styles.css">
     <link rel="stylesheet" href="./src/css/create.css">
 
-<!--    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>-->
     <script src="./src/js/create-form.js"></script>
+    <script type="module" src="./src/js/create-task-dropdown.js"></script>
+    <script type="text/javascript" src="./src/js/jquery-3.6.0.min.js"></script>
 
     <meta charset="UTF-8">
     <title> . Plan - Create a task </title>
@@ -35,14 +36,16 @@
         <textarea form="create-task-form" id="notes" name="notes" class="create-form-input" rows="5" cols="50"></textarea><br>
         <!--  Assign to card is optional for creating a task -->
         <label for="assign-card"> Assign to card: </label><br>
-        <input type="text" id="assign-card" name="cardName" class="create-form-input" placeholder="name of card/label"><br><br>
+        <select id="assign-card" class="create-form-input">
+        </select>
+        <br><br>
         <button id="submit-create-card"> Add task </button>
     </form>
 
     <br><br>
     <!-- Redirect to create-card -->
     <a class="redirect-button" href="./create-card.html"> Create a new card instead </a>
-    <a class="redirect-button" href="./RUD.php"> Show me my tasks </a>g
+    <a class="redirect-button" href="./RUD.php"> Show me my tasks </a>
     <a class="redirect-button" href="./user-home.html"> Back to Homepage </a>
 
 </body>

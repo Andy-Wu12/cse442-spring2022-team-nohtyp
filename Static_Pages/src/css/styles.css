@@ -2,12 +2,6 @@
     like background color, form design/layout, etc
     that we want to keep consistent throughout all pages */
 
-body {
-    background-image: url("Static_Pages/src/img/background.jpg");
-    background-color: rgba(255, 255, 255, 0.89);
-    
-}
-
 /* Tooltips to provide definitions/context for what users should do */
 .tooltip-container {
     font-size: 2rem;
