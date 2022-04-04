@@ -41,6 +41,7 @@ $task_stmt->bind_result($name, $description, $task_id, $card_id);
 $unassigned_tasks = array();
 
 if ($task_stmt->num_rows > 0) {
+
     while ($row = $task_stmt->fetch()) {
         if ($card_id != NULL) {
             $card_tasks[$card_id][] = array($name, $description, $task_id);
@@ -59,8 +60,10 @@ function generate_input($type, $name, $value)
 function generate_task_input($type, $name, $value, $is_title)
 {
     $input_string = '';
+    $id = (int)explode('_', $name)[1];
+    $delete_button = "<input type='submit' name='delete_task_$id' value='Delete Task'>";
     if ($is_title) {
-        $input_string = "<li><input type='$type' name='$name' value='$value'></li>";
+        $input_string = "<li><input type='$type' name='$name' value='$value'>" . $delete_button . "</li>";
     } else {
         $input_string = "<ul><li><input type='$type' name='$name' value='$value'></li></ul>";
     }

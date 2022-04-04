@@ -13,17 +13,7 @@ session_start();
 <body>
 
 
-<!-- Card title -->
-<!--    <h1>-->
-<!--        <form id="update_title" action="./php/card-update.php" method="post">-->
-<!--            <input type="text" name="card_title" value="-->
-<?php //include './php/card-retrieve-static.php'; echo $card_name;?><!--"><br>-->
-<!--            <input type="text" name="card_desc" value="-->
-<?php //include './php/card-retrieve-static.php'; echo $card_desc;?><!--">-->
-<!--            <input type="submit" name="submit" value="Update">-->
-<!--        </form>-->
-<!--    </h1>-->
-<!-- Tasks -->
+
 <?php
 include './php/card-retrieve.php';
 
@@ -47,7 +37,8 @@ if (count($card_tasks) == 0) {
         generate_input('text', "cardDesc_" . $card_id, $card_info[$card_index][1]);
         if (count($tasks_array) == 0) {
             echo "<ul><li>No tasks to display.</li></ul><br>";
-            echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
+            echo "<input type='submit' name='submit' value='Update'><br><br>";
+            echo "<input type='submit' name='delete_card_$card_id' value='Delete Card'><hr></form>";
             $card_index++;
             continue;
         }
@@ -65,7 +56,8 @@ if (count($card_tasks) == 0) {
         }
         $card_index++;
         echo "</ul>";
-        echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
+        echo "<input type='submit' name='submit' value='Update'><br><br>";
+        echo "<input type='submit' name='delete_card_$card_id' value='Delete Card'><hr></form>";
     }
     // Grouping all unassigned tasks
     if (count($unassigned_tasks) != 0){
@@ -84,30 +76,11 @@ if (count($card_tasks) == 0) {
         }
         echo "</ul>";
         echo "<input type='submit' name='submit' value='Update'><br><hr></form>";
+
     }
 }
 
-// This displays tasks correctly
-//     if (count($card_tasks[$latest_id]) == 0){
-//         echo "<p>No tasks for this card.<p><br>";
-//     } else{
-//         echo "<dl>";
-//         foreach ($card_tasks[$latest_id] as $value){
-//             echo "  <dt>$value[0]</dt>";
-//             echo "  <dd>- $value[1]</dd>";
-//         }
-//         echo "</dl><br>";
-// }   
-
-
 ?>
-
-<!-- 
-    <ul>
-        <li><input type="text" value="task 1"> <input type="submit" name="submit" value="Delete Task"></li>
-        <li><input type="text" value="task 2"> <input type="submit" name="submit" value="Delete Task"></li>
-    </ul> -->
-
 
 <br><br>
 <a class=redirect-button href="./create-card.html"> Create a new card </a>
