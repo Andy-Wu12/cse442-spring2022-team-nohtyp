@@ -13,7 +13,6 @@ session_start();
 <body>
 
 
-
 <?php
 include './php/card-retrieve.php';
 
@@ -23,7 +22,7 @@ include './php/card-retrieve.php';
 //                <input type='submit' name='submit' value='Update'><br>
 //            </form>";
 
-if (count($card_tasks) == 0) {
+if (count($card_tasks) == 0 && count($unassigned_tasks) == 0) {
     echo "<p>No cards to display.</p><br>";
 } else {
     $card_index = 0;
@@ -62,7 +61,7 @@ if (count($card_tasks) == 0) {
     // Grouping all unassigned tasks
     if (count($unassigned_tasks) != 0){
         echo "<form id='unassigned_tasks' action='./php/card-update.php' method='post'>";
-        echo "<h6>Unassigned tasks</h6>";
+        echo "<h4>Unassigned tasks</h4>";
         echo "<ul>";
 
         foreach ($unassigned_tasks as $tuple) {

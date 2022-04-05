@@ -52,7 +52,6 @@ session_start();
 if (empty($_POST['submit']) == false) {
     foreach ($_POST as $name => $value) {
         $name_split = explode("_", $name);
-        $deleting = true;
         $prefix = $name_split[0];
         $id = (int)$name_split[1];
         $new_val = htmlspecialchars($value);
@@ -75,7 +74,7 @@ if (empty($_POST['submit']) == false) {
 }
 # if delete was clicked
 foreach ($_POST as $name => $value) {
-    //    # if substring 'delete' is not in $name then continue
+    // if substring 'delete' is not in $name then continue
     # I hate php
     if (strpos($name, 'delete') === false) {
         continue;
@@ -97,64 +96,6 @@ foreach ($_POST as $name => $value) {
     }
 }
 
-//
-//foreach ($_POST as $name => $value) {
-//    # if substring '_' is not in $name then continue
-//    if (strpos($name, '_') == false) {
-//        continue;
-//    }
-//    $name_split = explode("_", $name);
-//    $deleting = true;
-//    $prefix = $name_split[0];
-//    $id = $name_split[1];
-//
-//    # if not deleting something
-//    if (empty($_POST['submit']) == false) {
-//        $deleting = false;
-//        $id = (int)$name_split[1];
-//    }
-//
-//    # Update all values
-//    $new_val = htmlspecialchars($value);
-//    if ($deleting == false) {
-//        switch ($prefix) {
-//            case 'cardTitle':
-//                update_row($mysqli, 'cards', 'name', $new_val, 'cardID', $id);
-//                break;
-//            case 'cardDesc':
-//                update_row($mysqli, 'cards', 'description', $new_val, 'cardID', $id);
-//                break;
-//            case 'taskTitle':
-//                update_row($mysqli, 'tasks', 'name', $new_val, 'taskID', $id);
-//                break;
-//            case 'taskDesc':
-//                update_row($mysqli, 'tasks', 'description', $new_val, 'taskID', $id);
-//                break;
-//        }
-//    } else {
-//        // Now Handle deleting
-//        // A card/task is deleted when the input field is left blank then updated
-//        // If a card is deleted then delete all associated tasks first
-//        $type = $name_split[1];
-//        $id = (int)$name_split[2];
-//        $card_id = -1;
-//        if (strpos($prefix, 'card')) {
-//            $card_id = $id;
-//        }
-//        # if card is being deleted
-//        if ($card_id != -1) {
-//            $assoc_tasks = get_tasks($mysqli, $card_id);
-//            foreach ($assoc_tasks as $task) {
-//                $task_id = $task[2];
-//                delete_row($mysqli, 'tasks', 'taskID', $task_id);
-//            }
-//            delete_row($mysqli, 'cards', 'cardID', $card_id);
-//        } else {
-//            # delete single task
-//            delete_row($mysqli, 'tasks', 'taskID', $id);
-//        }
-//    }
-//}
 header("Location: ../RUD.php");
 
 $mysqli->close();
