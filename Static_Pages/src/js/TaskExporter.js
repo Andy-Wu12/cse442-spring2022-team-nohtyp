@@ -4,11 +4,10 @@ import {getSessionEmail, redirectByLoginStatus, getJsonTasksArray} from "./sessi
 
 // Needs to be globally accessible to revoke object URL on new file generation
 // (Handles memory leak issue)
-let icsFile = null
+let icsFile = null;
 
 function TaskExporter() {
     // Export ALL tasks into one .ics file.
-
     if(localStorage.userTaskCounter === null) {
         // Use this number as part of the unique identifier portion of UID field
         localStorage.userTaskCounter = 0;
@@ -88,3 +87,10 @@ function TaskExporter() {
     return icsFile;
 }
 
+// Puts TaskExporter() into DOM's global scope so it can be called directly from <a> href tag
+window.TaskExporter = TaskExporter;
+
+/////////////////////     Alternative way to get download data    ////////////////////////////
+// // Import this file as a script, create an <a> tag in your html with id="export-button"
+// let action_tag = document.getElementById("export-button");
+// action_tag.href = TaskExporter();
