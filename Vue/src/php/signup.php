@@ -25,7 +25,7 @@ $sql = "SHOW DATABASES";
 $result = $mysqli->query($sql);
 $resp = array();
 
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
     $password = password_hash($json->{'Password'}, PASSWORD_DEFAULT);
@@ -39,6 +39,7 @@ if (!empty($_POST)) {
         $resp["status"] = "success";
     } else {
         $resp["status"] = "error";
+        $resp["error"] = "Email already exists";
     }
 }
 echo json_encode($resp);
