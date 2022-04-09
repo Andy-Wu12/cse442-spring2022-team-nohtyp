@@ -20,41 +20,25 @@ $mysqli = new mysqli($servername, $username, $password, $database);
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
-//echo "<h1>Connection Succeeded\n</h1>";
 $db_list = mysqli_query($mysqli, "SHOW DATABASES");
 $sql = "SHOW DATABASES";
 $result = $mysqli->query($sql);
-//if ($result->num_rows > 0) {
-//    while ($row = $result->fetch_assoc()) {
-////        echo "Database: " . $row["Database"] . "<br>";
-//    }
-//}
-//
-//foreach ($_POST as $key => $value) {
-////    echo "{$key} => {$value} " . "<br>";
-//}
+$resp = array();
 
 if (!empty($_POST)) {
-//    echo "<h2>email_phone: " . $_POST["email_phone_input"] . "</h2>";
-//    echo "<h2>password: " . $_POST["password_input"] . "</h2>";
-//    echo "<h2>confirm_password: " . $_POST["confirm_password_input"] . "</h2>";
-    $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
-    $password = password_hash($_POST["Password"], PASSWORD_DEFAULT);
+    $post_body = file_get_contents('php://input');
+    $json = json_decode($post_body);
+    $password = password_hash($json->{'Password'}, PASSWORD_DEFAULT);
+    $email = $json->{'Email'};
 
-    $email = $_POST["Email"];
+    $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
+
     if (!emailExists($mysqli, $email)) {
         $stmt->bind_param("ss", $password, $email);
         $stmt->execute();
+        $resp["status"] = "success";
     } else {
-    //    echo " EMAIL ALREADY EXISTS";
-        $res = 1;
+        $resp["status"] = "error";
     }
 }
-echo $res;
-
-$mysqli->close();
-//
-//foreach ($arr as $key => $value) {
-//    echo "{$key} => {$value} ";
-//    print_r($arr);
-//}
+echo json_encode($resp);
