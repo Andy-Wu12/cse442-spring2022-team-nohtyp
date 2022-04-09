@@ -6,11 +6,32 @@ import VueCardStack from "vue-card-stack";
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueRouter from 'vue-router'
 import router from './router'
-
+import store from './store'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(vuetify)
-Vue.use(VueRouter)
+Vue.use(VueRouter) 
+
+router.beforeEach((to, from, next) => {
+  store.commit('getToken')
+  const token = store.state.user.token
+  if (!token) {
+    if ((to.name === 'SettingPage' || to.name === '')) {
+      next({ name: "LoginPage" })
+    }
+    else {
+      next()
+    }
+  }
+  else if (token) {
+    if ((to.name === 'SignupPage' || to.name === 'LoginPage')) {
+      next({ name: "LoginPage" })
+    }
+    else {
+      next()      
+    }
+  }
+})
 
 export default {
   components: {
@@ -29,6 +50,7 @@ export default {
   }
 };
 new Vue({
+  store,
   vuetify,
   render: h => h(App),
   router:router

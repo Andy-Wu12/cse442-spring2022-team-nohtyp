@@ -30,27 +30,7 @@
                 <i class="el-icon-document"></i>
                 <span slot="title">Navigator Three</span>
             </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Settings</span>
-            </el-menu-item>
-            <el-menu-item index="5">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Settings</span>
-            </el-menu-item>
-                    <el-menu-item index="5">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Settings</span>
-            </el-menu-item>
-                    <el-menu-item index="5">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Settings</span>
-            </el-menu-item>
-                    <el-menu-item index="5">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Settings</span>
-            </el-menu-item>
-                    <el-menu-item index="5">
+            <el-menu-item index="4" v-show="isLoggedIn">
                 <i class="el-icon-setting"></i>
                 <span slot="title">Settings</span>
             </el-menu-item>
@@ -77,6 +57,11 @@
         this.isCollapse = !this.isCollapase
         this.num++
         return this.isCollapse
+      }
+    },
+    computed:{
+      isLoggedIn(){
+        return this.$store.state.user.token && this.$store.state.user.token.length > 0
       }
     }
   }

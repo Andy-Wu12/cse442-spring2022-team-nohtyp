@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 function emailExists($mysqli, $email): bool
 {
 //    echo $email;
@@ -30,13 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $json = json_decode($post_body);
     $password = password_hash($json->{'Password'}, PASSWORD_DEFAULT);
     $email = $json->{'Email'};
+    $cookie = hash("sha256", $email);
 
-    $stmt = $mysqli->prepare("INSERT INTO user(password, email) VALUES (?, ?)");
+    $stmt = $mysqli->prepare("INSERT INTO user(password, email, cookie) VALUES (?, ?, ?)");
 
     if (!emailExists($mysqli, $email)) {
-        $stmt->bind_param("ss", $password, $email);
+        $stmt->bind_param("sss", $password, $email, $cookie);
         $stmt->execute();
         $resp["status"] = "success";
+        $resp["cookie"] = $cookie;
+        $resp["email"] = $email;
     } else {
         $resp["status"] = "error";
         $resp["error"] = "Email already exists";

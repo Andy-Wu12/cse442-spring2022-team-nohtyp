@@ -37,7 +37,7 @@
 <script>
 // import $ from "jquery"
 import axios from 'axios'
-
+import extractObjectProp from '../js/general_helper'
 export default {
   components: {},
   props: [],
@@ -76,14 +76,6 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    extractObjectProp(object){
-      const res = {}
-      for (const [key, value] of Object.entries(object)) {
-        console.log((`${key}: ${value}`));
-        res[key] = value
-      }
-      return res
-    },
     submitForm() {
       var self = this
       this.$refs['elForm'].validate(valid => {
@@ -92,19 +84,21 @@ export default {
           this.showError('Passwords do not match');
           return
         }
-        console.log(this.extractObjectProp(this.formData))
-        // const serializedFormData = this.serializeFormData(this.formData)
-        axios.post('./php/signup.php', this.extractObjectProp(this.formData))
+        console.log(extractObjectProp(this.formData))
+        axios.post('http://localhost:3000/signup.php', extractObjectProp(this.formData))
           .then(function (response) {
-            console.log(response)
-            if(response.data === 1){
-              self.showError("Email already exists")
+            if(response.data.status === "error"){
+              self.showError(response.data.error)
             }
             else{
               self.$message({
                 message: 'Welcome!',
                 type: 'success'
-              });}
+              })
+              self.$store.commit('setToken', response.data.token)
+              self.$store.commit('setEmail', response.data.email)
+              self.$router.push({name: 'UserHome'})
+            }
           })
           .catch(function (error) {
             console.log(error);

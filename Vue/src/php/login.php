@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 function emailExists($mysqli, $email): bool
 {
     $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ?");
@@ -61,10 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         //Successful Login
         $resp["status"] = "success";
+        $resp["email"] = $user_email;
         session_start();
         $_SESSION['email'] = $user_email;
         $cookie = hash("sha256", $user_email);
-        setcookie("loginCookie", $cookie, time() + 3600);
+        setcookie("token", $cookie, time() + 3600);
+        $resp["token"] = $cookie;
         updateCookie($mysqli, $user_email, $cookie);
     }
 }

@@ -28,10 +28,11 @@
 <script>
 // import $ from "jquery"
 import axios from 'axios'
+import extractObjectProp from '../js/general_helper'
 
 export default {
   components: {},
-  props: [],
+  props: ['isLoggedIn'],
   data() {
     return {
       formData: {
@@ -65,18 +66,19 @@ export default {
       var self = this
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
-        const serializedFormData = this.serializeFormData(this.formData)
-        axios.post('./php/login.php', serializedFormData)
+        axios.post('http://localhost:3000/login.php', extractObjectProp(this.formData))
           .then(function (response) {
-            console.log(response)
-            if(response.data === "Login Success"){
+            if(response.data.status === "success"){
                 self.$message({
                     message: 'Login Success!',
                     type: 'success'
-                });
+                })
+                self.$store.commit('setToken', response.data.token)
+                self.$store.commit('setEmail', response.data.email)
+                self.$router.push({name: 'UserHome'})
             }
-            else{
-                self.showError(response.data)
+            else if(response.data.status === "error"){
+                self.showError(response.data.error)
             }
           })
           .catch(function (error) {
@@ -84,17 +86,11 @@ export default {
             self.showError("Server is down")
           });
       })
+      console.log(this.isLoggedIn)
     },
     showError(errMsg){
       this.$message.error(errMsg);
     },
-    serializeFormData(formData){
-      let res = ''
-      res += ('Email=' + formData.Email)
-      res += '&'
-      res += ('Password=' + formData.Password)
-      return res
-    }
   }
 }
 </script>

@@ -37,8 +37,9 @@ export default {
     // CardsStack,
     NavBar,
     NavMenu,
-},
+    },
     data: () => ({
+      isLoggedIn: false,
       loading: false,
       selection: 1,
     }),
@@ -46,9 +47,21 @@ export default {
     methods: {
       reserve () {
         this.loading = true
-
         setTimeout(() => (this.loading = false), 2000)
       },
+      updateLoginStatus(){
+        let self = this
+        axios.get('http://localhost:3000/session.php')
+          .then(function (response) {
+            self.isLoggedIn = response.data.status === 'success';
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+    mounted(){
+      this.updateLoginStatus()
     },
   }
 </script>

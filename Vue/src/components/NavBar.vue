@@ -23,11 +23,14 @@
                 <el-menu-item index="2-4-3">item three</el-menu-item>
                 </el-submenu>
             </el-submenu>
-            <el-menu-item index="signup" route="signup">
+            <el-menu-item index="signup" route="signup" v-show="!isLoggedIn">
                 Sign Up
             </el-menu-item>
-            <el-menu-item index="login" route="login">
+            <el-menu-item index="login" route="login" v-show="!isLoggedIn">
                 Log In
+            </el-menu-item>
+            <el-menu-item @click="logout" v-show="isLoggedIn" >
+                Log Out
             </el-menu-item>
         </el-menu>
     </div>
@@ -44,6 +47,17 @@
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      logout(){
+        this.$store.commit('clearToken')
+        this.$store.commit('clearEmail')
+        console.log(this.$store)
+      }
+    },
+    // props:['isLoggedIn']
+    computed:{
+      isLoggedIn(){
+        return this.$store.state.user.token && this.$store.state.user.token.length > 0
       }
     }
   }
