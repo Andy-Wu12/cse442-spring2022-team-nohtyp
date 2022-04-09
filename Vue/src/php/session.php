@@ -48,14 +48,13 @@ $mysqli = new mysqli($servername, $username, $password, $database);
 $resp = array();
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if (isset($_COOKIE["loginCookie"]) && strlen($_COOKIE["loginCookie"]) == 64) {
-        $resp["logged_in"] = "true";
+        $resp["status"] = "success";
         $_SESSION["email"] = getEmailWithCookie($mysqli, $_COOKIE["loginCookie"]);
         if (isset($_GET["param"])) {
             if ($_GET["param"] == "email") {
                 $resp["email"] = $_SESSION["email"];
             } else if ($_GET["param"] == "clearsession") {
                 setcookie("loginCookie", "", time() - 1);
-                header("Location: ../login.html");
             } else if ($_GET["param"] == "tasks") {
                 $resp["tasks"] = getTasksWithEmail($mysqli, $_SESSION["email"]);
             } else if ($_GET["param"] == "cards") {
@@ -63,7 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
         }
     } else {
-        $resp["logged_in"] = "false";
+        $resp["status"] = "error";
+        $resp["error"] = "You haven't logged in";
     }
+}
+else{
+    $resp["status"] = "error";
+    $resp["error"] = "Undefined API";
 }
 echo json_encode($resp);

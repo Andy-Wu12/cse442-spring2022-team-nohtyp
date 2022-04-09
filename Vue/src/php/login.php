@@ -68,4 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         updateCookie($mysqli, $user_email, $cookie);
     }
 }
+else{
+    $resp["status"] = "error";
+    $resp["error"] = "Undefined API";
+}
 echo json_encode($resp);

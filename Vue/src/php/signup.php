@@ -42,4 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resp["error"] = "Email already exists";
     }
 }
+else{
+    $resp["status"] = "error";
+    $resp["error"] = "Undefined API";
+}
 echo json_encode($resp);
