@@ -55,7 +55,7 @@ export default {
       },
       updateLoginStatus(){
         let self = this
-        axios.get('http://localhost:3000/session.php')
+        axios.get(axios.defaults.baseURL + 'session.php')
           .then(function (response) {
             self.isLoggedIn = response.data.status === 'success';
           })

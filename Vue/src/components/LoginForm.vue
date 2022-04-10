@@ -66,7 +66,7 @@ export default {
       var self = this
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
-        axios.post('http://localhost:3000/login.php', extractObjectProp(this.formData))
+        axios.post(axios.defaults.baseURL + '/login.php', extractObjectProp(this.formData))
           .then(function (response) {
             if(response.data.status === "success"){
                 self.$store.commit('setLoading', true)

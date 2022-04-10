@@ -108,8 +108,9 @@
                 this.clicked[cardIdx] = false
             },
             getAllTasks(){
+                console.log(axios.defaults)
                 return axios.request({
-                    url: 'http://localhost:3000/session.php?param=tasks',
+                    url: axios.defaults.baseURL + 'session.php?param=tasks',
                     withCredentials: true
                 })
             }

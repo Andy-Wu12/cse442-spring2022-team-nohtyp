@@ -85,7 +85,7 @@ export default {
           return
         }
         console.log(extractObjectProp(this.formData))
-        axios.post('http://localhost:3000/signup.php', extractObjectProp(this.formData))
+        axios.post(axios.defaults.baseURL + '/signup.php', extractObjectProp(this.formData))
           .then(function (response) {
             if(response.data.status === "error"){
               self.showError(response.data.error)

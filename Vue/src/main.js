@@ -7,11 +7,24 @@ import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueRouter from 'vue-router'
 import router from './router'
 import store from './store'
+import axios from 'axios'
+import apiConfigDev from '../apiConfig/apiConfigDev.json'
+import apiConfigProd from '../apiConfig/apiConfigProd.json'
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(vuetify)
 Vue.use(VueRouter) 
 
+if (process.env.NODE_ENV !== 'development') {
+  axios.defaults.baseURL = apiConfigProd.api
+  Vue.prototype.apiConfig = apiConfigProd
+}
+else {
+  axios.defaults.baseURL = apiConfigDev.api
+  Vue.prototype.apiConfig = apiConfigDev
+}
+console.log(axios.defaults.baseURL)
 router.beforeEach((to, from, next) => {
   store.commit('getToken')
   const token = store.state.user.token
