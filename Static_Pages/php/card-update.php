@@ -1,6 +1,7 @@
 <?php
 # Updates the card name, card description, and tasks
 
+
 function update_row(mysqli &$connection, $table, $to_set, $new_val, $id_column, $id)
 {
     $stmt = $connection->prepare("UPDATE $table SET $to_set=? WHERE $id_column=?");
@@ -13,7 +14,41 @@ function delete_row(mysqli &$connection, $table, $id_column, $id)
     $stmt = $connection->prepare("DELETE FROM $table WHERE $id_column=?");
     $stmt->bind_param('s', $id);
     $stmt->execute();
+}
 
+# Get the names of all the cards for a user
+function get_card_names(mysqli &$connection, $user_email)
+{
+    $card_names = array();
+    $stmt = $connection->prepare("SELECT name FROM cards WHERE email=?");
+    $stmt->bind_param('s', $user_email);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($name);
+    if ($stmt->num_rows > 0) {
+        while ($row = $stmt->fetch_row()) {
+            $card_names[] = $name;
+        }
+    }
+    return $card_names;
+}
+
+# Returns the number of duplicates
+function count_duplicates(mysqli &$connection, $query_card_name, $user_email)
+{
+    $stmt = $connection->prepare("SELECT * FROM cards WHERE name=? and email=?");
+    $stmt->bind_param('ss', $query_card_name, $user_email);
+    $stmt->execute();
+    $stmt->store_result();
+    return $stmt->num_rows;
+}
+
+# Returns alert when a duplicate card name was entered
+function duplicate_alert()
+{
+    echo '<script type="text/javascript">
+    alert("You cannot have more than one card of the same name! (Case sensitive)");
+    window.location.href = "../RUD.php"</script>';
 }
 
 # get all tasks associated with a card in a 2d array
@@ -48,15 +83,42 @@ if ($mysqli->connect_error) {
 }
 session_start();
 
-# If update was clicked
+$email = $_SESSION['email'];
+# Check for duplicate card names before updating or deleting
+//print_r($_POST);
+//echo "<p>user email is $email</p>";
+//echo "\r\nTest One";
+$duplicate_exists = false;
 if (empty($_POST['submit']) == false) {
     foreach ($_POST as $name => $value) {
+        # We're only checking for card names
+        if (strpos($name, 'cardTitle') === false) {
+            echo "<p>Skipping name, values = $name, $value</p>";
+            continue;
+        }
+        $card_name = $value;
+        $duplicates = count_duplicates($mysqli, $card_name, $email);
+//        echo "\r\nChecking the name $name and value $value. Found $duplicates duplicates";
+        # If there's another card with the same name
+        if ($duplicates > 0) {
+            $duplicate_exists = true;
+            break;
+        }
+    }
+}
+
+# Changes are only made when a duplicate card name does not exists
+# If update was clicked
+if (empty($_POST['submit']) == false && $duplicate_exists == false) {
+    foreach ($_POST as $name => $value) {
+        # Check for duplicate card names
+
         $name_split = explode("_", $name);
         $deleting = true;
         $prefix = $name_split[0];
         $id = (int)$name_split[1];
-        $new_val = htmlspecialchars($value);
 
+        $new_val = htmlspecialchars($value);
         switch ($prefix) {
             case 'cardTitle':
                 update_row($mysqli, 'cards', 'name', $new_val, 'cardID', $id);
@@ -74,88 +136,36 @@ if (empty($_POST['submit']) == false) {
     }
 }
 # if delete was clicked
-foreach ($_POST as $name => $value) {
-    //    # if substring 'delete' is not in $name then continue
-    # I hate php
-    if (strpos($name, 'delete') === false) {
-        continue;
-    }
-    $name_split = explode("_", $name);
-    $type = $name_split[1];
-    $id = (int)$name_split[2];
-    if ($type == 'card') {
-        // Delete all associated tasks first
-        $assoc_tasks = get_tasks($mysqli, $id);
-        foreach ($assoc_tasks as $task) {
-            $task_id = $task[2];
-            delete_row($mysqli, 'tasks', 'taskID', $task_id);
+if ($duplicate_exists == false) {
+    foreach ($_POST as $name => $value) {
+        //    # if substring 'delete' is not in $name then continue
+        # I hate php
+        if (strpos($name, 'delete') === false) {
+            continue;
         }
-        delete_row($mysqli, 'cards', 'cardID', $id);
-    } elseif ($type == 'task') {
-        // Delete the lone task
-        delete_row($mysqli, 'tasks', 'taskID', $id);
+        $name_split = explode("_", $name);
+        $type = $name_split[1];
+        $id = (int)$name_split[2];
+        if ($type == 'card') {
+            // Delete all associated tasks first
+            $assoc_tasks = get_tasks($mysqli, $id);
+            foreach ($assoc_tasks as $task) {
+                $task_id = $task[2];
+                delete_row($mysqli, 'tasks', 'taskID', $task_id);
+            }
+            delete_row($mysqli, 'cards', 'cardID', $id);
+        } elseif ($type == 'task') {
+            // Delete the lone task
+            delete_row($mysqli, 'tasks', 'taskID', $id);
+        }
     }
 }
 
-//
-//foreach ($_POST as $name => $value) {
-//    # if substring '_' is not in $name then continue
-//    if (strpos($name, '_') == false) {
-//        continue;
-//    }
-//    $name_split = explode("_", $name);
-//    $deleting = true;
-//    $prefix = $name_split[0];
-//    $id = $name_split[1];
-//
-//    # if not deleting something
-//    if (empty($_POST['submit']) == false) {
-//        $deleting = false;
-//        $id = (int)$name_split[1];
-//    }
-//
-//    # Update all values
-//    $new_val = htmlspecialchars($value);
-//    if ($deleting == false) {
-//        switch ($prefix) {
-//            case 'cardTitle':
-//                update_row($mysqli, 'cards', 'name', $new_val, 'cardID', $id);
-//                break;
-//            case 'cardDesc':
-//                update_row($mysqli, 'cards', 'description', $new_val, 'cardID', $id);
-//                break;
-//            case 'taskTitle':
-//                update_row($mysqli, 'tasks', 'name', $new_val, 'taskID', $id);
-//                break;
-//            case 'taskDesc':
-//                update_row($mysqli, 'tasks', 'description', $new_val, 'taskID', $id);
-//                break;
-//        }
-//    } else {
-//        // Now Handle deleting
-//        // A card/task is deleted when the input field is left blank then updated
-//        // If a card is deleted then delete all associated tasks first
-//        $type = $name_split[1];
-//        $id = (int)$name_split[2];
-//        $card_id = -1;
-//        if (strpos($prefix, 'card')) {
-//            $card_id = $id;
-//        }
-//        # if card is being deleted
-//        if ($card_id != -1) {
-//            $assoc_tasks = get_tasks($mysqli, $card_id);
-//            foreach ($assoc_tasks as $task) {
-//                $task_id = $task[2];
-//                delete_row($mysqli, 'tasks', 'taskID', $task_id);
-//            }
-//            delete_row($mysqli, 'cards', 'cardID', $card_id);
-//        } else {
-//            # delete single task
-//            delete_row($mysqli, 'tasks', 'taskID', $id);
-//        }
-//    }
-//}
-header("Location: ../RUD.php");
+if ($duplicate_exists) {
+    duplicate_alert();
+} else {
+    header("Location: ../RUD.php");
+}
 
 $mysqli->close();
 

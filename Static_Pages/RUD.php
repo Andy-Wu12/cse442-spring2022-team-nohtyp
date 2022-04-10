@@ -23,7 +23,7 @@ include './php/card-retrieve.php';
 //                <input type='submit' name='submit' value='Update'><br>
 //            </form>";
 
-if (count($card_tasks) == 0) {
+if (count($card_tasks) == 0 and count($unassigned_tasks) == 0) {
     echo "<p>No cards to display.</p><br>";
 } else {
     $card_index = 0;
