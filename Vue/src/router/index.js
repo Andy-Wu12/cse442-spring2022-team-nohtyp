@@ -9,19 +9,23 @@ export default new VueRouter({
         {
             name: 'UserHome',
             path: '/',
-            component: UserHome
+            component: UserHome,
+            meta: { transition: 'slide-left' }
         }, {
             name: 'SignupPage',
             path: '/signup',
-            component: SignupPage
+            component: SignupPage,
+            meta: { transition: 'slide-right' }
         }, {
             name: 'LoginPage',
             path: '/login',
-            component: LoginPage
+            component: LoginPage,
+            meta: { transition: 'slide-left' }
         }, {
             name: 'SettingPage',
             path: '/settings',
-            component: SettingPage
+            component: SettingPage,
+            meta: { transition: 'slide-right' }
         }
     ]
 })

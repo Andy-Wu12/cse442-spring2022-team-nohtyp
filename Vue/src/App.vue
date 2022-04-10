@@ -9,10 +9,11 @@
           <NavBar/>
         </el-header>
         <el-main>
-          <router-link to="/login"></router-link>
-          <!-- <HelloWorld></HelloWorld>
-          <CardsStack></CardsStack> -->
-          <router-view></router-view>
+          <router-view v-slot="{ Component, route }" :key="$route.fullPath">
+            <transition :name="route.meta.transition || 'fade'">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>

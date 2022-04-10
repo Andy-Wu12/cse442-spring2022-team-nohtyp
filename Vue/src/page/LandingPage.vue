@@ -10,10 +10,10 @@
       </el-col>
     </el-row>
     <el-row style="width: 80%; margin: 0 auto; margin-top: 30px">
-      <el-col span=1>
+      <el-col :span="1">
           <img :src="logoImg" style="width: auto;height: auto; margin-top:30px">
       </el-col>
-      <el-col span=13 offset=5>
+      <el-col :span="13" :offset="5">
         <h1 style="font-weight:bold; font-size: 30px;"> Time Management APP</h1>
           <br>
           <br>
