@@ -5,7 +5,6 @@
         :default-active="activeIndex2"
         class="el-menu-demo"
         mode="horizontal"
-        @select="handleSelect"
         background-color="#005BBB"
         text-color="#fff"
         active-text-color="#ffffff"
@@ -45,9 +44,6 @@
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
       logout(){
         this.$store.commit('clearToken')
         this.$store.commit('clearEmail')

@@ -3,7 +3,7 @@
         <el-radio-group v-model="isCollapse" style="padding-top:10px">
           <el-button type="primary" icon="el-icon-menu" @click=" isCollapse = !isCollapse" circle></el-button>
         </el-radio-group>
-        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" router>
             <el-submenu index="1">
                 <template slot="title">
                 <i class="el-icon-location"></i>
@@ -26,11 +26,7 @@
                 <i class="el-icon-menu"></i>
                 <span slot="title">Navigator Two</span>
             </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">Navigator Three</span>
-            </el-menu-item>
-            <el-menu-item index="4" v-show="isLoggedIn">
+            <el-menu-item index="settings" route="settings" :disabled="!isLoggedIn">
                 <i class="el-icon-setting"></i>
                 <span slot="title">Settings</span>
             </el-menu-item>
@@ -42,11 +38,11 @@
   export default {
     data() {
       return {
-        isCollapse: true,
+        isCollapse: false,
         num:1
       };
     },
-    methods: {
+    methods: {      
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },

@@ -18,6 +18,7 @@ router.beforeEach((to, from, next) => {
   if (!token) {
     if ((to.name === 'SettingPage' || to.name === '')) {
       next({ name: "LoginPage" })
+      console.log("blocked without token")
     }
     else {
       next()
@@ -25,7 +26,8 @@ router.beforeEach((to, from, next) => {
   }
   else if (token) {
     if ((to.name === 'SignupPage' || to.name === 'LoginPage')) {
-      next({ name: "LoginPage" })
+      next({ name: "UserHome" })
+      console.log("blocked with token")
     }
     else {
       next()      
