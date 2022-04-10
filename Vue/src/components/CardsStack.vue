@@ -45,34 +45,15 @@
                 address:'bbb',
                 clicked: Array(5).fill(false),
                 hidden: true,
-                tasks: [
-                    {
-                    "name": "bbb",
-                    "description": "sadaaa",
-                    "extra_notes": "",
-                    "cardID": null,
-                    "email": "wyc935398521@gmail.com",
-                    "due_date": "2022-03-17 20:16:00",
-                    "taskID": 4
-                },
-                {
-                    "name": "zzzzzzzzzzzzzzzz",
-                    "description": "sadaaa",
-                    "extra_notes": "",
-                    "cardID": null,
-                    "email": "wyc935398521@gmail.com",
-                    "due_date": "2022-03-17 20:16:00",
-                    "taskID": 4
-                },
-                ]
+
             }
         },
         computed:{
             cards(){
-                return this.initCards(this.tasks)
+                return this.initCards(this.$store.state.user.tasks)
             },
             isLoggedIn(){
-            return this.$store.state.user.token && this.$store.state.user.token.length > 0
+                return this.$store.state.user.token && this.$store.state.user.token.length > 0
             }
         },
         methods: {
@@ -108,7 +89,6 @@
                 this.clicked[cardIdx] = false
             },
             getAllTasks(){
-                console.log(axios.defaults)
                 return axios.request({
                     url: axios.defaults.baseURL + 'session.php?param=tasks',
                     withCredentials: true
@@ -119,14 +99,23 @@
             VueCardStack
         },
         mounted() {
+            const self = this
             this.getAllTasks().then(res => {
                 const {status, tasks} = res.data
                 if(status === "success"){
-                    this.tasks = JSON.parse(JSON.stringify(tasks))
+                    self.$store.commit('setTasks', JSON.parse(JSON.stringify(tasks)))
+                }
+                if(self.$store.state.user.email && self.$store.state.user.email.length > 0){
+                    this.$notify.info({
+                        title: 'Reminder',
+                        dangerouslyUseHTMLString: true,
+                        message: 'You have ' + `<h1>${self.$store.state.user.tasks.length}</h1>` + ' tasks',
+                        duration: 4500,
+                        offset: 70
+                    });
                 }
             })
         },
-        
     })
 </script>
 

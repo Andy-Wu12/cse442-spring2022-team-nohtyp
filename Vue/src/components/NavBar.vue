@@ -53,6 +53,7 @@
           this.$store.commit('clearToken')
           this.$store.commit('clearEmail')
           this.$store.commit('setLoading', true)
+          this.$store.commit('clearTasks')
           setTimeout(()=>{
             this.$store.commit('setLoading', false)
             this.$message({

@@ -1,9 +1,17 @@
 <template>
-    <div id="leftmenu">
+    <div id="leftmenu" style="background-color:#d9d8d7">
         <el-radio-group v-model="isCollapse" style="padding-top:10px">
           <el-button type="primary" icon="el-icon-menu" @click=" isCollapse = !isCollapse" circle></el-button>
         </el-radio-group>
-        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" router>
+        <el-menu 
+          default-active="2"
+          class="el-menu-vertical-demo" 
+          @open="handleOpen" 
+          @close="handleClose" 
+          :collapse="isCollapse" 
+          background-color="#d9d8d7"
+          style="height:93vh"
+          router>
             <el-submenu index="1">
                 <template slot="title">
                 <i class="el-icon-location"></i>

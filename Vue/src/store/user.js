@@ -4,7 +4,9 @@ export default {
     state: {
         token: '',
         email: '',
-        loading: false
+        loading: false,
+        tasks: [
+        ]
     },
     mutations: {
         setToken(state, val) {
@@ -31,6 +33,12 @@ export default {
         },
         setLoading(state, val) {
             state.loading = val
+        },
+        setTasks(state, val) {
+            state.tasks = val
+        },
+        clearTasks(state) {
+            state.tasks = []
         }
     }
 }
