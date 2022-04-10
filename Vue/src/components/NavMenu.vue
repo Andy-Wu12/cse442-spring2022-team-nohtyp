@@ -30,7 +30,11 @@
                 <i class="el-icon-menu"></i>
                 <span slot="title">Introduction</span>
             </el-menu-item>
-            <el-menu-item index="settings" route="settings" :disabled="!isLoggedIn">
+            <el-menu-item index="edit" v-show="isLoggedIn">
+                <i class="el-icon-menu"></i>
+                <span slot="title">Edit</span>
+            </el-menu-item>
+            <el-menu-item index="settings" route="settings" v-show="isLoggedIn">
                 <i class="el-icon-setting"></i>
                 <span slot="title">Settings</span>
             </el-menu-item>

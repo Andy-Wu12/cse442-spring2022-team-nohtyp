@@ -3,6 +3,7 @@ import UserHome from '../page/UserHome'
 import SignupPage from '../page/SignupPage'
 import LoginPage from '../page/LoginPage'
 import SettingPage from '../page/SettingPage'
+import EditPage from '../page/EditPage'
 
 export default new VueRouter({
     routes: [
@@ -25,6 +26,11 @@ export default new VueRouter({
             name: 'SettingPage',
             path: '/settings',
             component: SettingPage,
+            meta: { transition: 'slide-right' }
+        }, {
+            name: 'EditPage',
+            path: '/edit',
+            component: EditPage,
             meta: { transition: 'slide-right' }
         }
     ]
