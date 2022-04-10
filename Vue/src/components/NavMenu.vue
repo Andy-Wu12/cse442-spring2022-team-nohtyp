@@ -22,9 +22,13 @@
                 <el-menu-item index="1-4-1">item one</el-menu-item>
                 </el-submenu>
             </el-submenu>
-            <el-menu-item index="2">
+            <el-menu-item index="/" v-show="isLoggedIn">
                 <i class="el-icon-menu"></i>
-                <span slot="title">Navigator Two</span>
+                <span slot="title">User Home</span>
+            </el-menu-item>
+            <el-menu-item index="/" v-show="!isLoggedIn">
+                <i class="el-icon-menu"></i>
+                <span slot="title">Introduction</span>
             </el-menu-item>
             <el-menu-item index="settings" route="settings" :disabled="!isLoggedIn">
                 <i class="el-icon-setting"></i>

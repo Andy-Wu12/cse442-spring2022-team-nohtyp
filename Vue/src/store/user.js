@@ -3,7 +3,8 @@ import Cookie from 'js-cookie'
 export default {
     state: {
         token: '',
-        email:''
+        email: '',
+        loading: false
     },
     mutations: {
         setToken(state, val) {
@@ -28,5 +29,8 @@ export default {
         getEmail(state) {
             state.email = state.email || Cookie.get('email')
         },
+        setLoading(state, val) {
+            state.loading = val
+        }
     }
 }

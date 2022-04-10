@@ -47,7 +47,10 @@
       logout(){
         this.$store.commit('clearToken')
         this.$store.commit('clearEmail')
-        console.log(this.$store)
+        this.$store.commit('setLoading', true)
+        setTimeout(()=>{
+          this.$store.commit('setLoading', false)
+        }, 1000)
       }
     },
     // props:['isLoggedIn']

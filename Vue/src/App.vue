@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-container>
+    <el-container v-loading="loading">
       <el-aside width="auto">
         <NavMenu/>
       </el-aside>
@@ -40,14 +40,17 @@ export default {
     },
     data: () => ({
       isLoggedIn: false,
-      loading: false,
       selection: 1,
     }),
-
+    computed:{
+      loading(){
+        return this.$store.state.user.loading
+      }
+    },
     methods: {
       reserve () {
         this.loading = true
-        setTimeout(() => (this.loading = false), 2000)
+        setTimeout(() => (this.loading = false), 1000)
       },
       updateLoginStatus(){
         let self = this

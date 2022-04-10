@@ -1,7 +1,7 @@
 <template>
     <!--  -->
     <div class="demo" @wheel="scrollCards($event)">
-        <vue-card-stack :cards="cards" :key="JSON.stringify(cards)" :stack-width="1200" :card-width="400" :card-height="300" :speed="0.5" >
+        <vue-card-stack :cards="cards" :key="JSON.stringify(cards)" :stack-width="1200" :card-width="400" :card-height="300" :speed="0.5" style="padding-top: 100px">
             <template v-slot:card="{ card }">
                 <div style="width: 100%; height: 100%; padding: 15px;" :style="{ background: card.background}" @click="clicked[card.data] = true" @mouseleave="clicked[card.data] = false">
                     <el-row style="margin:10px">
@@ -18,14 +18,14 @@
                 </div>
             </template>
 
-            <template v-slot:nav="{ activeCardIndex, onNext, onPrevious }">
+            <template v-slot:nav="{ onNext, onPrevious }">
                 <nav class="nav">
-                    <div class="counter">{{cards.length - activeCardIndex}}/{{cards.length}}</div>
+                    <!-- <div class="counter">{{cards.length - activeCardIndex}}/{{cards.length}}</div> -->
                     <button v-on:click="onPrevious" class="button" ref="nextButton">
-                        <span class="chevron left"> &lt; </span>
+                        <span class="chevron left"></span>
                     </button>
                     <button v-on:click="onNext" class="button" ref="prevButton">
-                        <span class="chevron right"> &gt; </span>
+                        <span class="chevron right"></span>
                     </button>
                 </nav>
             </template>

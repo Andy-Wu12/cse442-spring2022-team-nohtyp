@@ -69,13 +69,18 @@ export default {
         axios.post('http://localhost:3000/login.php', extractObjectProp(this.formData))
           .then(function (response) {
             if(response.data.status === "success"){
-                self.$message({
+                self.$store.commit('setLoading', true)
+                setTimeout(()=>{
+                  self.$store.commit('setLoading', false)
+                  self.$router.push({name: 'UserHome'})
+                  self.$message({
                     message: 'Login Success!',
                     type: 'success'
                 })
+                }, 1000)
+
                 self.$store.commit('setToken', response.data.token)
                 self.$store.commit('setEmail', response.data.email)
-                self.$router.push({name: 'UserHome'})
             }
             else if(response.data.status === "error"){
                 self.showError(response.data.error)

@@ -91,13 +91,17 @@ export default {
               self.showError(response.data.error)
             }
             else{
-              self.$message({
-                message: 'Welcome!',
-                type: 'success'
+              self.$store.commit('setLoading', true)
+              setTimeout(()=>{
+                self.$store.commit('setLoading', false)
+                self.$router.push({name: 'UserHome'})
+                self.$message({
+                  message: 'Welcome!',
+                  type: 'success'
               })
+              }, 1000)
               self.$store.commit('setToken', response.data.token)
               self.$store.commit('setEmail', response.data.email)
-              self.$router.push({name: 'UserHome'})
             }
           })
           .catch(function (error) {
