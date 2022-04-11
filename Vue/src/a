@@ -1,0 +1,11 @@
+data: {
+    isHot: true
+}
+
+watch: {
+    'numbers.a': {
+        handler(){
+
+        }
+    }
+}
