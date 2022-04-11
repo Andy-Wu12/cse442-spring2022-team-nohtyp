@@ -1,26 +1,21 @@
 <template>
     <div>
         <HelloWorld></HelloWorld>
-        <CardsStack v-show="isLoggedIn"></CardsStack>
-        <LandingPage v-show="!isLoggedIn"></LandingPage>
+<!--        <CardsStack></CardsStack>-->
+        <DockContainer></DockContainer>
     </div>
 </template>
 
 <script>
     import HelloWorld from "../components/HelloWorld"
-    import CardsStack from "../components/CardsStack"
-    import LandingPage from "../page/LandingPage"
+    import DockContainer from "@/components/Dock/DockContainer"
+    // import CardsStack from "../components/CardsStack"
 
     export default({
         components:{
             HelloWorld,
-            CardsStack,
-            LandingPage
-        },
-        computed:{
-            isLoggedIn(){
-                return this.$store.state.user.token && this.$store.state.user.token.length > 0
-            }
+            DockContainer,
+            // CardsStack
         }
     })    
 </script>
