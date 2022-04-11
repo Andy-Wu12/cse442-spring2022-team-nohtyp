@@ -66,6 +66,16 @@ export default {
     },
     mounted(){
       this.updateLoginStatus()
+      console.log(this.$store.state.user)
+      if(this.$store.state.user.email && this.$store.state.user.email.length > 0){
+          this.$notify.info({
+              title: 'Reminder',
+              dangerouslyUseHTMLString: true,
+              message: 'You have ' + `<h1>${this.$store.state.user.tasks.length}</h1>` + ' tasks',
+              duration: 4500,
+              offset: 70
+          });
+      }
     },
   }
 </script>
