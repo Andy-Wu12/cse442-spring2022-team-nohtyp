@@ -15,29 +15,22 @@
             <el-button type="primary" @click="confirm">Confirm</el-button>
         </div>
     </el-dialog>
-    <div class="crud-header">
-        <el-button type="primary" @click="addUser">Add</el-button>
-        <CrudForm
-            :formLabel="formLabel"
-            :form="searchForm"
-            :inline="true"
-            ref="form"
-        >
-            <el-button type="primary" @click="getList">Search</el-button>
-        </CrudForm>
-    </div>
+    <CrudTable></CrudTable>
   </div>
 </template>
 
 <script>
 import CrudForm from "@/components/CrudForm"
+import CrudTable from "@/components/CrudTable"
+
 export default {
   name: 'EditPage',
   props: {
     msg: String
   },
   components:{
-      CrudForm
+      CrudForm,
+      CrudTable
   },
   data(){
     return {

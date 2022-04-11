@@ -40,7 +40,6 @@ export default {
     NavMenu,
     },
     data: () => ({
-      isLoggedIn: false,
       selection: 1,
     }),
     computed:{
@@ -53,21 +52,53 @@ export default {
         this.loading = true
         setTimeout(() => (this.loading = false), 1000)
       },
-      updateLoginStatus(){
+      getStacks(){
         let self = this
-        axios.get(axios.defaults.baseURL + 'session.php')
+        axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
           .then(function (response) {
-            self.isLoggedIn = response.data.status === 'success';
+            self.$store.commit('setStacks', response.data.stacks)
           })
           .catch(function (error) {
             console.log(error);
         });
-      }
-    },
-    mounted(){
-      this.updateLoginStatus()
-      console.log(this.$store.state.user)
-      if(this.$store.state.user.email && this.$store.state.user.email.length > 0){
+      },
+      getTasks(){
+        let self = this
+        axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+          .then(function (response) {
+            self.$store.commit('setTasks', response.data.tasks)
+            console.log(self.$store.state.user.tasks)
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
+      getCards(){
+        let self = this
+        axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+          .then(function (response) {
+            self.$store.commit('setCards', response.data.cards)
+            console.log(self.$store.state.user.cards)
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
+      updateLoginStatus(){
+        let self = this
+        axios.get(axios.defaults.baseURL + 'session.php' + '?token=' + this.$store.state.user.token)
+          .then(function (response) {
+              self.$store.commit('setIsLoggedIn', response.data.status === 'success')
+              if(response.data.email){
+                self.$store.commit('setEmail', response.data.email)
+              }
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
+      showReminder(){
+        if(this.$store.state.user.email && this.$store.state.user.email.length > 0){
           this.$notify.info({
               title: 'Reminder',
               dangerouslyUseHTMLString: true,
@@ -75,7 +106,18 @@ export default {
               duration: 4500,
               offset: 70
           });
+        }
       }
+    },
+    mounted(){
+      this.updateLoginStatus()
+      this.showReminder()
+      setTimeout(()=>{
+        this.getStacks()  
+        this.getTasks()  
+        this.getCards()  
+      }, 1000)
+      console.log(this.$store.state.user)
     },
   }
 </script>

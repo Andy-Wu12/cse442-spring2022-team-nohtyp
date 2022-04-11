@@ -22,13 +22,13 @@
                 <el-menu-item index="2-4-3">item three</el-menu-item>
                 </el-submenu>
             </el-submenu> -->
-            <el-menu-item index="signup" route="signup" v-show="!isLoggedIn">
+            <el-menu-item index="signup" route="signup" v-show="!this.$store.state.user.isLoggedIn">
                 Sign Up
             </el-menu-item>
-            <el-menu-item index="login" route="login" v-show="!isLoggedIn">
+            <el-menu-item index="login" route="login" v-show="!this.$store.state.user.isLoggedIn">
                 Log In
             </el-menu-item>
-            <el-menu-item @click="logout" v-show="isLoggedIn" >
+            <el-menu-item @click="logout" v-show="this.$store.state.user.isLoggedIn" >
                 Log Out
             </el-menu-item>
         </el-menu>
@@ -52,6 +52,7 @@
         }).then(() => {
           this.$store.commit('clearToken')
           this.$store.commit('clearEmail')
+          this.$store.commit('setIsLoggedIn', false)
           this.$store.commit('setLoading', true)
           this.$store.commit('clearTasks')
           setTimeout(()=>{
@@ -65,11 +66,7 @@
         });
       }
     },
-    // props:['isLoggedIn']
     computed:{
-      isLoggedIn(){
-        return this.$store.state.user.token && this.$store.state.user.token.length > 0
-      }
     }
   }
 </script>

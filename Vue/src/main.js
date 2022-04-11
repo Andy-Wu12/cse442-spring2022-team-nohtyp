@@ -10,9 +10,10 @@ import store from './store'
 import axios from 'axios'
 import apiConfigDev from '../apiConfig/apiConfigDev.json'
 import apiConfigProd from '../apiConfig/apiConfigProd.json'
+import locale from '../node_modules/element-ui/lib/locale/lang/en.js'
 
 Vue.config.productionTip = false
-Vue.use(ElementUI)
+Vue.use(ElementUI, { locale })
 Vue.use(vuetify)
 Vue.use(VueRouter) 
 
@@ -24,6 +25,9 @@ else {
   axios.defaults.baseURL = apiConfigDev.api
   Vue.prototype.apiConfig = apiConfigDev
 }
+
+
+
 console.log(axios.defaults.baseURL)
 router.beforeEach((to, from, next) => {
   store.commit('getToken')

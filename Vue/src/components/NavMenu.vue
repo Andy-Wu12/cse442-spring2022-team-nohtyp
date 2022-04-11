@@ -73,7 +73,7 @@
     },
     computed:{
       isLoggedIn(){
-        return this.$store.state.user.token && this.$store.state.user.token.length > 0
+        return this.$store.state.user.isLoggedIn
       }
     }
   }

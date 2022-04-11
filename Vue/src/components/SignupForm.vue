@@ -102,6 +102,7 @@ export default {
               }, 1000)
               self.$store.commit('setToken', response.data.token)
               self.$store.commit('setEmail', response.data.email)
+              self.$store.commit('setIsLoggedIn', true)
             }
           })
           .catch(function (error) {

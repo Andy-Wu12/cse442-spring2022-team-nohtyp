@@ -5,8 +5,10 @@ export default {
         token: '',
         email: '',
         loading: false,
-        tasks: [
-        ]
+        stacks:[],
+        cards: [],
+        tasks: [],
+        isLoggedIn: false
     },
     mutations: {
         setToken(state, val) {
@@ -34,11 +36,20 @@ export default {
         setLoading(state, val) {
             state.loading = val
         },
+        clearTasks(state) {
+            state.tasks = []
+        },
+        setStacks(state, val) {
+            state.stacks = val
+        },
+        setCards(state, val) {
+            state.cards = val
+        },
         setTasks(state, val) {
             state.tasks = val
         },
-        clearTasks(state) {
-            state.tasks = []
+        setIsLoggedIn(state, val) {
+            state.isLoggedIn = val
         }
     }
 }

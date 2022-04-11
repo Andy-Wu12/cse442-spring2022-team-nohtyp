@@ -1,8 +1,8 @@
 <template>
     <div>
         <HelloWorld></HelloWorld>
-        <CardsStack v-show="isLoggedIn"></CardsStack>
-        <LandingPage v-show="!isLoggedIn"></LandingPage>
+        <CardsStack v-show="this.$store.state.user.isLoggedIn"></CardsStack>
+        <LandingPage v-show="!this.$store.state.user.isLoggedIn"></LandingPage>
     </div>
 </template>
 
@@ -18,9 +18,6 @@
             LandingPage
         },
         computed:{
-            isLoggedIn(){
-                return this.$store.state.user.token && this.$store.state.user.token.length > 0
-            }
         }
     })    
 </script>

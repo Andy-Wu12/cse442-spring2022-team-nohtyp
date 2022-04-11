@@ -51,9 +51,6 @@
         computed:{
             cards(){
                 return this.initCards(this.$store.state.user.tasks)
-            },
-            isLoggedIn(){
-                return this.$store.state.user.token && this.$store.state.user.token.length > 0
             }
         },
         methods: {
@@ -90,7 +87,7 @@
             },
             getAllTasks(){
                 return axios.request({
-                    url: axios.defaults.baseURL + 'session.php?param=tasks',
+                    url: axios.defaults.baseURL + 'task.php?email=' + self.$store.state.user.email,
                     withCredentials: true
                 })
             }

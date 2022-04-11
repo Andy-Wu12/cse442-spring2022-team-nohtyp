@@ -32,7 +32,6 @@ import extractObjectProp from '../js/general_helper'
 
 export default {
   components: {},
-  props: ['isLoggedIn'],
   data() {
     return {
       formData: {
@@ -78,9 +77,9 @@ export default {
                     type: 'success'
                 })
                 }, 1000)
-
                 self.$store.commit('setToken', response.data.token)
                 self.$store.commit('setEmail', response.data.email)
+                self.$store.commit('setIsLoggedIn', true)
             }
             else if(response.data.status === "error"){
                 self.showError(response.data.error)
@@ -91,7 +90,6 @@ export default {
             self.showError("Server is down")
           });
       })
-      console.log(this.isLoggedIn)
     },
     showError(errMsg){
       this.$message.error(errMsg);
