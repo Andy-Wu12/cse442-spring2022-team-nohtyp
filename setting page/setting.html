@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setting</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="leftbox">
+            <nav>
+                <a onclick="tabs(0)" class="tab active">
+                    <i class="fa fa-user"></i>
+                </a>
+            
+            </nav>
+        </div>
+        <div class="rightbox">
+            <div class="profile tabShow">
+                <h1>Personal Settings</h1>
+                <h2>Full Name</h2>
+                <input type="text" class="input" value="shen">
+                <h2>Gender</h2>
+                <input type="text" class="input" value="shen">
+                <h2>Birthday</h2>
+                <input type="text" class="input" value="shen">
+                <h2>Email</h2>
+                <input type="text" class="input" value="shen@123gmail.com">
+                <h2>Password</h2>
+                <input type="password" class="input" value="abc">
+                <button class="btn">Update</button>
+            </div>
+          
+
+
+    <script src="jquery/jquery.js"></script>
+    <script>
+         tabBtn = document.querySelectorAll(".tab");
+         tab = document.querySelectorAll(".tabShow");
+        
+        function tabs(panelIndex) {
+            tab.forEach(function(node) {
+                node.style.display = "none";
+            });
+            tab[panelIndex].style.display = "block";
+        }
+        tabs(0);
+    </script>
+    <script>
+        $(".tab").click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        })
+    </script>
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
