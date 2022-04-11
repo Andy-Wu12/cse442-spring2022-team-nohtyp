@@ -107,24 +107,18 @@ if (empty($_POST['submit']) == false) {
     foreach ($_POST as $name => $value) {
         # We're only checking for card names
         if (strpos($name, 'cardTitle') === false) {
-//            echo "<p>Skipping name, values = $name, $value</p>";
             continue;
         }
         $card_name = $value;
         $card_id = (int)explode('_', $name)[1];
-//        echo "<p>1Looking at name=$name and value=$value and card_id=$card_id</p>";
         $duplicates = count_duplicates($mysqli, $card_name, $email);
-//        echo "<p>Test here</p>";
-        # The value of the card name currently in the database
         $old_val = get_current_name($mysqli, $card_id);
-//        echo "<p>old val is $old_val and new value is $value</p>";
 
         $old_num = $duplicates;
         # If no change was made to the card name
         if ($old_val === $card_name){
             $duplicates -= 1;
         }
-//        echo "<p>There were $old_num duplicates and there are now $duplicates</p>";
         # If there's another card with the same name
         if ($duplicates > 0) {
             $duplicate_exists = true;
