@@ -26,11 +26,28 @@ function get_card_names(mysqli &$connection, $user_email)
     $stmt->store_result();
     $stmt->bind_result($name);
     if ($stmt->num_rows > 0) {
-        while ($row = $stmt->fetch_row()) {
+        while ($row = $stmt->fetch()) {
             $card_names[] = $name;
         }
     }
     return $card_names;
+}
+
+# Get the current name if a card in the database given the cardID
+function get_current_name(mysqli &$connection, $card_id)
+{
+    $cur_name = '';
+    $stmt = $connection->prepare("SELECT name FROM cards WHERE cardID=?");
+    $stmt->bind_param('s', $card_id);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($name);
+    if ($stmt->num_rows > 0) {
+        while ($row = $stmt->fetch()) {
+            $cur_name = $name;
+        }
+    }
+    return $cur_name;
 }
 
 # Returns the number of duplicates
@@ -85,20 +102,29 @@ session_start();
 
 $email = $_SESSION['email'];
 # Check for duplicate card names before updating or deleting
-//print_r($_POST);
-//echo "<p>user email is $email</p>";
-//echo "\r\nTest One";
 $duplicate_exists = false;
 if (empty($_POST['submit']) == false) {
     foreach ($_POST as $name => $value) {
         # We're only checking for card names
         if (strpos($name, 'cardTitle') === false) {
-            echo "<p>Skipping name, values = $name, $value</p>";
+//            echo "<p>Skipping name, values = $name, $value</p>";
             continue;
         }
         $card_name = $value;
+        $card_id = (int)explode('_', $name)[1];
+//        echo "<p>1Looking at name=$name and value=$value and card_id=$card_id</p>";
         $duplicates = count_duplicates($mysqli, $card_name, $email);
-//        echo "\r\nChecking the name $name and value $value. Found $duplicates duplicates";
+//        echo "<p>Test here</p>";
+        # The value of the card name currently in the database
+        $old_val = get_current_name($mysqli, $card_id);
+//        echo "<p>old val is $old_val and new value is $value</p>";
+
+        $old_num = $duplicates;
+        # If no change was made to the card name
+        if ($old_val === $card_name){
+            $duplicates -= 1;
+        }
+//        echo "<p>There were $old_num duplicates and there are now $duplicates</p>";
         # If there's another card with the same name
         if ($duplicates > 0) {
             $duplicate_exists = true;
