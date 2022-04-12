@@ -57,13 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
 
-    $new_task_name = $json->{'name'};
+    $new_task_name = $json->{'taskName'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
     $cardID = $json->{'cardID'};
     $user_email = $json->{'Email'};
     $due_date = $json->{'due_date'};
-
+    $pos = strripos($due_date, ".");
+    if($pos != FALSE){
+        $due_date = substr($due_date, 0, $pos);
+    }
     if (!emailExists($mysqli, $user_email)) {
         $resp["status"] = "error";
         $resp["error"] = "Email Doesn't Exist";
@@ -84,13 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
 
-    $new_task_name = $json->{'name'};
+    $new_task_name = $json->{'taskName'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
     $cardID = $json->{'cardID'};
     $taskID = $json->{'taskID'};
     $user_email = $json->{'Email'};
     $due_date = $json->{'due_date'};
+    $pos = strripos($due_date, ".");
+    if($pos != FALSE){
+        $due_date = substr($due_date, 0, $pos);
+    }
 
     $stmt = $mysqli->prepare("UPDATE tasks SET name=?, description=?, extra_notes=?, cardID=?,due_date=? WHERE taskID=?");
     $stmt->bind_param("sssssi", $new_task_name, $description, $extra_notes, $cardID, $due_date, $taskID);
@@ -99,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
 } else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
-    $taskID = $json->{'taskID'};
+    $taskID = $_GET['taskID'];
     $stmt = $mysqli->prepare("DELETE FROM tasks WHERE taskID=?");
     $stmt->bind_param("i", $taskID);
     $stmt->execute();

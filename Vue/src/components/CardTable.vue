@@ -13,9 +13,9 @@
         <el-form-item label="Card Name">
           <el-input v-model="form.cardName"></el-input>
         </el-form-item>
-        <el-form-item label="Stack Name" required="">
+        <el-form-item label="Stack" required="">
           <el-select v-model="form.stackID" placeholder="select one stack" style="float:left">
-            <el-option value='item.name' v-show="this.$store.state.user.stacks.length === 0" disabled>You don't have any card yet</el-option>
+            <el-option value='item.name' v-show="this.$store.state.user.stacks.length === 0" disabled>You don't have any stack yet</el-option>
             <el-option v-for="item in this.$store.state.user.stacks" :key="item.stackID" :value='item.name'>{{item.name}}</el-option>
           </el-select>
         </el-form-item>
@@ -151,7 +151,7 @@
                 })
               }
             })
-        }).catch(() => {
+          }).catch(() => {
         });
       },
       handleAdd(){

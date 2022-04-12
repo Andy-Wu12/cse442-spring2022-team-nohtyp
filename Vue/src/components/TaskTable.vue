@@ -10,14 +10,14 @@
           :visible.sync="isDialogShown"
     >
       <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="Card ID" required="">
+        <el-form-item label="Card" required="">
           <el-select v-model="form.cardID" placeholder="select one card" style="float:left">
             <el-option value='item.name' v-show="this.$store.state.user.cards.length === 0" disabled>You don't have any card yet</el-option>
             <el-option v-for="item in this.$store.state.user.cards" :key="item.cardID" :value='item.name'>{{item.name}}</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="Task Name">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.taskName"></el-input>
         </el-form-item>
         <el-form-item label="Task Description">
           <el-input v-model="form.description"></el-input>
@@ -26,6 +26,7 @@
           <el-date-picker
             v-model="form.due_date"
             type="datetime"
+            format="yyyy-MM-dd HH:mm"
             placeholder="Select date and time"
             style="float:left"
             :picker-options="pickerOptions">
@@ -37,7 +38,7 @@
         <el-form-item label="Extra Notes">
           <el-input v-model="form.extra_notes"></el-input>
         </el-form-item>
-        <el-form-item label="Task ID" v-show="operateType !== 'add'">
+        <el-form-item label="Task ID" v-show="operateType !== 'add'" hidden>
           <el-input v-model="form.taskID"></el-input>
         </el-form-item>
       </el-form>
@@ -47,9 +48,14 @@
         </div>
     </el-dialog>
     <el-table
-      :data="this.$store.state.user.tasks.filter(data => !taskSearch || data.name.toLowerCase().includes(taskSearch.toLowerCase()))"
+      :data="tasks.filter(data => !taskSearch || data.name.toLowerCase().includes(taskSearch.toLowerCase()))"
       style="width: 100%"
       >
+      <el-table-column
+        sortable
+        label="Card"
+        prop="cardName">
+      </el-table-column>
       <el-table-column
         sortable
         label="Task Name"
@@ -95,19 +101,21 @@
   import extractObjectProp from '../js/general_helper'
 
   export default {
+    components:{
+    },
     data() {
       return {
-        taskSearch:'',
+        taskSearch: '',
         operateType:'add',
         isDialogShown: false,
         form: {
+          Email:'',
+          taskName:'',
+          taskID: undefined,
+          description:'',
+          extra_notes:'',
           cardID: undefined,
-          description: '',
-          due_date: undefined,
-          Email: '',
-          extra_notes: '',
-          name: '',
-          taskID: -1 
+          due_date: undefined
         },
         pickerOptions: {
           shortcuts: [{
@@ -134,45 +142,125 @@
       }
     },
     computed:{
+      tasks(){
+        let original_tasks = this.$store.state.user.tasks
+        for(let i = 0; i <original_tasks.length; i++){
+          const cardID = original_tasks[i]['cardID']
+          original_tasks[i]['cardName'] = this.getCardNameByCardId(cardID)
+        }
+        return original_tasks
+      }
     },
     methods: {
+      getCards(){
+        let self = this
+        axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+          .then(function (response) {
+            self.$store.commit('setCards', response.data.cards)
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
+      getTasks(){
+        let self = this
+        axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+          .then(function (response) {
+            self.$store.commit('setTasks', response.data.tasks)
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
       handleEdit(index, row) {
         console.log(index, row);
         this.isDialogShown = true
         this.operateType = 'edit'
-        this.form.cardID = row.cardID
-        this.form.description = row.description
-        this.form.due_date = row.due_date
+        this.form.taskName = row.name
         this.form.Email = row.email
-        this.form.extra_notes = row.extra_notes
-        this.form.name = row.name
         this.form.taskID = row.taskID
+        this.form.description = row.description
+        this.form.extra_notes = row.extra_notes
+        this.form.due_date = row.due_date
+        this.form.cardID = this.getCardNameByCardId(row.cardID)
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        const self = this
+        this.$confirm('Are you sure to delete this task?', 'Warning', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$store.commit('setLoading', true)
+          axios.delete(axios.defaults.baseURL + '/task.php?taskID='+ row.taskID)
+          .then(function(response){
+              self.$store.commit('setLoading', false)
+              if(response.data.status && response.data.status === "success"){
+                self.getCards()
+                self.getTasks()
+                self.$message({
+                  type: 'success',
+                  message: 'Deleted successfully'
+                })
+              }
+            })
+          }).catch(() => {
+        });
       },
       handleAdd(){
-        this.form.name = ''
+        this.form.taskName = ''
         this.form.Email = this.$store.state.user.email
+        this.form.description = ''
+        this.form.extra_notes = ''
+        this.form.cardID = ''
+        this.form.due_date = undefined
         this.isDialogShown = true
         this.operateType = 'add'
       },
-      onsubmit(){
-        if(this.operateType === 'add'){
-          axios.post(axios.defaults.baseURL + '/task.php', extractObjectProp(this.form))
+      getCardIdByCardName(name){
+        const cards = this.$store.state.user.cards
+        for(let i = 0;i < cards.length ;i++){
+          if(cards[i].name === name)
+            return cards[i].cardID
         }
+        return undefined
+      },
+      getCardNameByCardId(id){
+        const cards = this.$store.state.user.cards
+        console.log(cards[0])
+        for(let i = 0;i < cards.length ;i++){
+          if(cards[i].cardID === id)
+            return cards[i].name
+        }
+        return ''
+      },
+      onsubmit(){
+        const self = this
+        this.isDialogShown = false
+        // this.form.due_date = this.form.due_date.substring(0, this.form.due_date.length - 4);
+        this.form.cardID = this.getCardIdByCardName(this.form.cardID)
+        axios({
+          method: this.operateType === 'add' ? 'post' : 'put',
+          url: axios.defaults.baseURL + '/task.php',
+          data: extractObjectProp(this.form)
+        }).then(function(response){
+            self.$store.commit('setLoading', false)
+            if(response.data.status && response.data.status === "success"){
+              self.getCards()
+              self.getTasks()
+              self.$message({
+                type: 'success',
+                message: self.operateType === 'add' ? 'Added successfully':'Updated successfully'
+              })
+            }
+            else if(response.data.status && response.data.status === "error"){
+              self.$message({
+                type: 'error',
+                message: response.data.error
+              })
+            }
+          })
       },
     },
-    mounted(){
-      let self = this
-      this.$store.commit('setLoading', true)
-      axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
-        .then(function (response) {
-          self.$store.commit('setTasks', response.data.tasks)
-        })
-        .catch(function (error) {
-          console.log(error);
-      }).finally(()=>{self.$store.commit('setLoading', false)})
-    }
   }
 </script>
