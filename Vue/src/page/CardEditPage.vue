@@ -22,6 +22,7 @@
 <script>
 import CrudForm from "@/components/CrudForm"
 import CardTable from "@/components/CardTable"
+import axios from 'axios'
 
 export default {
   name: 'StackEditPage',
@@ -79,6 +80,18 @@ export default {
       getList(){
 
       }
+  },
+  mounted(){
+    let self = this
+    this.$store.commit('setLoading', true)
+    axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+        .then(function (response) {
+        self.$store.commit('setCards', response.data.cards)
+        console.log(self.$store.state.user.cards)
+        })
+        .catch(function (error) {
+        console.log(error);
+    }).finally(()=>{self.$store.commit('setLoading', false)})
   }
 }
 </script>

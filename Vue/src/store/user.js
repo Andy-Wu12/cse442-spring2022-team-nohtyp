@@ -1,6 +1,8 @@
 import Cookie from 'js-cookie'
 
 export default {
+    methods: {
+    },
     state: {
         token: '',
         email: '',
@@ -12,6 +14,15 @@ export default {
         editing: ''
     },
     mutations: {
+        getStackNameByStackId(id) {
+            const stacks = this.$store.state.user.stacks
+            console.log(stacks[0])
+            for (let i = 0; i < stacks.length; i++) {
+                if (stacks[i].stackID === id)
+                    return stacks[i].name
+            }
+            return -1
+        },
         setToken(state, val) {
             state.token = val
             Cookie.set('token', val)

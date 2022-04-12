@@ -163,5 +163,16 @@
         }
       },
     },
+    mounted(){
+      let self = this
+      this.$store.commit('setLoading', true)
+      axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+        .then(function (response) {
+          self.$store.commit('setTasks', response.data.tasks)
+        })
+        .catch(function (error) {
+          console.log(error);
+      }).finally(()=>{self.$store.commit('setLoading', false)})
+    }
   }
 </script>

@@ -25,7 +25,7 @@
       >
       <el-table-column
         sortable
-        label="Stack Name"
+        label="Stack"
         prop="name">
       </el-table-column>
       <el-table-column
@@ -105,6 +105,7 @@
               self.$store.commit('setLoading', false)
               if(response.data.status && response.data.status === "success"){
                 self.getStacks()
+                self.getCards()
                 self.$message({
                   type: 'success',
                   message: 'Deleted successfully'
@@ -122,6 +123,7 @@
       },
       onsubmit(){
         const self = this
+        this.isDialogShown = false
         axios({
           method: this.operateType === 'add' ? 'post' : 'put',
           url: axios.defaults.baseURL + '/stack.php',
@@ -142,8 +144,18 @@
               })
             }
           })
-        this.isDialogShown = false
       },
     },
+    mounted(){
+      let self = this
+      this.$store.commit('setLoading', true)
+      axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
+        .then(function (response) {
+          self.$store.commit('setStacks', response.data.stacks)
+        })
+        .catch(function (error) {
+          console.log(error);
+      }).finally(()=>{self.$store.commit('setLoading', false)})
+    }
   }
 </script>

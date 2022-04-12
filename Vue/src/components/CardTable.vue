@@ -19,7 +19,7 @@
             <el-option v-for="item in this.$store.state.user.stacks" :key="item.stackID" :value='item.name'>{{item.name}}</el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Card ID">
+        <el-form-item label="Card ID" hidden>
           <el-input v-model="form.cardID"></el-input>
         </el-form-item>
         <el-form-item label="Description">
@@ -35,9 +35,14 @@
       </div>
     </el-dialog>
     <el-table
-      :data="this.$store.state.user.cards.filter(data => !cardSearch || data.name.toLowerCase().includes(cardSearch.toLowerCase()))"
+      :data="cards.filter(data => !cardSearch || data.name.toLowerCase().includes(cardSearch.toLowerCase()))"
       style="width: 100%"
       >
+      <el-table-column
+        sortable
+        label="Stack"
+        prop="stackName">
+      </el-table-column>
       <el-table-column
         sortable
         label="Card Name"
@@ -88,7 +93,7 @@
         form: {
           Email:'',
           cardName:'',
-          cardID: -1,
+          cardID: undefined,
           description:'',
           extra_notes:'',
           stackID: undefined
@@ -97,7 +102,12 @@
     },
     computed:{
       cards(){
-        return this.$store.state.user.cards
+        let original_cards = this.$store.state.user.cards
+        for(let i = 0; i <original_cards.length; i++){
+          const stackID = original_cards[i]['stackID']
+          original_cards[i]['stackName'] = this.getStackNameByStackId(stackID)
+        }
+        return original_cards
       }
     },
     methods: {
@@ -118,6 +128,9 @@
         this.form.cardName = row.name
         this.form.Email = row.email
         this.form.cardID = row.cardID
+        this.form.description = row.description
+        this.form.extra_notes = row.extra_notes
+        this.form.stackID = this.getStackNameByStackId(row.stackID)
       },
       handleDelete(index, row) {
         const self = this
@@ -144,6 +157,9 @@
       handleAdd(){
         this.form.cardName = ''
         this.form.Email = this.$store.state.user.email
+        this.form.description = ''
+        this.form.extra_notes = ''
+        this.form.stackID = ''
         this.isDialogShown = true
         this.operateType = 'add'
       },
@@ -153,10 +169,20 @@
           if(stacks[i].name === name)
             return stacks[i].stackID
         }
-        return -1
+        return undefined
+      },
+      getStackNameByStackId(id){
+        const stacks = this.$store.state.user.stacks
+        console.log(stacks[0])
+        for(let i = 0;i < stacks.length ;i++){
+          if(stacks[i].stackID === id)
+            return stacks[i].name
+        }
+        return ''
       },
       onsubmit(){
         const self = this
+        this.isDialogShown = false
         this.form.stackID = this.getStackIdByStackName(this.form.stackID)
         axios({
           method: this.operateType === 'add' ? 'post' : 'put',
@@ -178,7 +204,6 @@
               })
             }
           })
-        this.isDialogShown = false
       },
     },
   }

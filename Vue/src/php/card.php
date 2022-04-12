@@ -86,13 +86,14 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $json = json_decode($post_body);
 
     $user_email = $json->{'Email'};
-    $new_card_name = $json->{'newCardName'};
+    $new_card_name = $json->{'cardName'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
-    $cardID = $_GET['cardID'];
+    $cardID = $json->{'cardID'};
+    $stackID = $json->{'stackID'};
 
-    $stmt = $mysqli->prepare("UPDATE cards SET name=?, description=?, extra_notes=? WHERE cardID=?");
-    $stmt->bind_param("sssi", $new_card_name,$description,$extra_notes, $cardID);
+    $stmt = $mysqli->prepare("UPDATE cards SET name=?, description=?, extra_notes=?, stackID=? WHERE cardID=?");
+    $stmt->bind_param("sssii", $new_card_name,$description,$extra_notes, $stackID, $cardID);
     $stmt->execute();
     $resp["status"] = "success";
 }
