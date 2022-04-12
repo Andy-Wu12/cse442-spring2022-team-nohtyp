@@ -8,7 +8,8 @@ export default {
         stacks:[],
         cards: [],
         tasks: [],
-        isLoggedIn: false
+        isLoggedIn: false,
+        editing: ''
     },
     mutations: {
         setToken(state, val) {
@@ -50,6 +51,9 @@ export default {
         },
         setIsLoggedIn(state, val) {
             state.isLoggedIn = val
+        },
+        setEditing(state, val) {
+            state.editing = val
         }
     }
 }

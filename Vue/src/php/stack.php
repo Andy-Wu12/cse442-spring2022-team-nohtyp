@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE");
 function emailExists($mysqli, $email): bool
 {
     $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ?");
@@ -66,7 +67,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         else{
             $stmt = $mysqli->prepare("INSERT INTO stacks(name, email) VALUES (?, ?)");
-            $stmt->bind_param("ss", $name, $user_email);
+            $stmt->bind_param("ss", $new_stack_name, $user_email);
             $stmt->execute();
             $resp["status"] = "success";
             $resp["email"] = $user_email;
@@ -78,18 +79,15 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
     $stackID = $json->{'stackID'};
-    $new_stack_name = $json->{'newStackName'};
+    $new_stack_name = $json->{'stackName'};
     $stmt = $mysqli->prepare("UPDATE stacks SET name=? WHERE stackID=?");
     $stmt->bind_param("si", $new_stack_name, $stackID);
     $stmt->execute();
     $resp["status"] = "success";
 }
 else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $post_body = file_get_contents('php://input');
-    $json = json_decode($post_body);
-    $stackID = $json->{'stackID'};
     $stmt = $mysqli->prepare("DELETE FROM stacks WHERE stackID=?");
-    $stmt->bind_param("i", $stackID);
+    $stmt->bind_param("i", $_GET["stackID"]);
     $stmt->execute();
     $resp["status"] = "success";
 }

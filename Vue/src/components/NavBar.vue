@@ -55,6 +55,8 @@
           this.$store.commit('setIsLoggedIn', false)
           this.$store.commit('setLoading', true)
           this.$store.commit('clearTasks')
+          this.$store.commit('clearCards')
+          this.$store.commit('clearStacks')
           setTimeout(()=>{
             this.$store.commit('setLoading', false)
             this.$message({

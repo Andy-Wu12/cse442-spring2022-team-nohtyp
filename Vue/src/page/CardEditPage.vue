@@ -15,22 +15,22 @@
             <el-button type="primary" @click="confirm">Confirm</el-button>
         </div>
     </el-dialog>
-    <CrudTable></CrudTable>
+    <CardTable></CardTable>
   </div>
 </template>
 
 <script>
 import CrudForm from "@/components/CrudForm"
-import CrudTable from "@/components/CrudTable"
+import CardTable from "@/components/CardTable"
 
 export default {
-  name: 'EditPage',
+  name: 'StackEditPage',
   props: {
     msg: String
   },
   components:{
       CrudForm,
-      CrudTable
+      CardTable
   },
   data(){
     return {

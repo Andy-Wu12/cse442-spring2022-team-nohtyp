@@ -31,9 +31,11 @@ else {
 console.log(axios.defaults.baseURL)
 router.beforeEach((to, from, next) => {
   store.commit('getToken')
+  console.log(to)
+  // UserHome, SignupPage, LoginPage
   const token = store.state.user.token
   if (!token) {
-    if ((to.name === 'SettingPage' || to.name === '')) {
+    if ((to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome')) {
       next({ name: "LoginPage" })
       console.log("blocked without token")
     }

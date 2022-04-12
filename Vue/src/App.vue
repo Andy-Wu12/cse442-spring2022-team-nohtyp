@@ -31,7 +31,7 @@
 
   Vue.use(VueAxios, axios)
 
-export default {
+  export default {
     name: 'App',
     components: {
     // HelloWorld,

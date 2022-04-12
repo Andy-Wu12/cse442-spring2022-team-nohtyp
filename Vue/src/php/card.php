@@ -1,6 +1,8 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE");
+
 function emailExists($mysqli, $email): bool
 {
     $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ?");
@@ -59,6 +61,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $new_card_name = $json->{'cardName'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
+    $stackID = $json->{'stackID'};
 
     if (!emailExists($mysqli, $user_email)) {
         $resp["status"] = "error";
@@ -69,8 +72,8 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $resp["error"] = "Duplicate card name";
         }
         else{
-            $stmt = $mysqli->prepare("INSERT INTO cards(name, description, extra_notes, email) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $new_card_name, $description,$extra_notes, $user_email);
+            $stmt = $mysqli->prepare("INSERT INTO cards(name, description, extra_notes, email, stackID) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssi", $new_card_name, $description,$extra_notes, $user_email, $stackID);
             $stmt->execute();
             $resp["status"] = "success";
             $resp["email"] = $user_email;
@@ -86,7 +89,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $new_card_name = $json->{'newCardName'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
-    $cardID = $json->{'cardID'};
+    $cardID = $_GET['cardID'];
 
     $stmt = $mysqli->prepare("UPDATE cards SET name=?, description=?, extra_notes=? WHERE cardID=?");
     $stmt->bind_param("sssi", $new_card_name,$description,$extra_notes, $cardID);
@@ -96,7 +99,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
-    $cardID = $json->{'cardID'};
+    $cardID = $_GET['cardID'];
     $stmt = $mysqli->prepare("DELETE FROM cards WHERE cardID=?");
     $stmt->bind_param("i", $cardID);
     $stmt->execute();

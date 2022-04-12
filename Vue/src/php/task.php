@@ -2,6 +2,8 @@
 header("Access-Control-Allow-Origin: http://localhost:8080");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE");
+
 function emailExists($mysqli, $email): bool
 {
     $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ?");
@@ -55,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
 
-    $new_task_name = $json->{'newTaskName'};
+    $new_task_name = $json->{'name'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
     $cardID = $json->{'cardID'};
@@ -82,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
     $post_body = file_get_contents('php://input');
     $json = json_decode($post_body);
 
-    $new_task_name = $json->{'newTaskName'};
+    $new_task_name = $json->{'name'};
     $description = $json->{'description'};
     $extra_notes = $json->{'extra_notes'};
     $cardID = $json->{'cardID'};
