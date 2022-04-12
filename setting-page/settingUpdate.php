@@ -17,7 +17,7 @@ function delete_row(mysqli &$connection, $table, $id_column, $id)
 function get_userid(mysqli &$connection, $email)
 {
 	$user_id = -1;
-	$stmt = $connection->prepare("SELECT name FROM cards WHERE email=?");
+	$stmt = $connection->prepare("SELECT userid FROM user WHERE email=?");
 	$stmt->bind_param("s", $email);
 	$stmt->execute();
 	$stmt->store_result();
@@ -68,22 +68,27 @@ session_start();
 
 $email = $_SESSION['email'];
 $user_id = get_userid($mysqli, $email);
-echo '<p>Email: $email UserID: $user_id</p>';
+echo '<p>Email: '.$email."UserID: ".$user_id."</p>";
 
 
 
 
 # if updating a user
 If (empty($_POST["update"]) == false){
-	$new_username = $_POST["Email"];
+	$new_email = $_POST["Email"];
 	$new_password = $_POST["password"];
 	If (!empty($_POST["Email"]) and !empty($_POST["password"])){
 		// TODO - CHANGE THIS 
-		update_row($mysqli, "user", "username", $new_username, "email", $email);
-		update_row($mysqli, "user", "password", $new_username, "email", $email);
-		# $_SESSION[‘email’] = $email;
+		$new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+		update_row($mysqli, 'user', 'email', $new_email, 'userid', $user_id);
+		update_row($mysqli, "user", "password", $new_password, "userid", $user_id);
+
+		$_SESSION["email"] = $new_email;
 	}
 }
+
+
 
 echo "<p>";
 print_r(get_user($mysqli, $user_id));
