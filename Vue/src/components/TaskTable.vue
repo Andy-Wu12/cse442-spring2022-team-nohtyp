@@ -32,7 +32,7 @@
             :picker-options="pickerOptions">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="Email" v-show="operateType !== 'add'">
+        <el-form-item label="Email" v-show="operateType !== 'add'" hidden>
           <el-input v-model="form.Email"></el-input>
         </el-form-item>
         <el-form-item label="Extra Notes">
