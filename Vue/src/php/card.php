@@ -98,8 +98,6 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $resp["status"] = "success";
 }
 else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $post_body = file_get_contents('php://input');
-    $json = json_decode($post_body);
     $cardID = $_GET['cardID'];
     $stmt = $mysqli->prepare("DELETE FROM cards WHERE cardID=?");
     $stmt->bind_param("i", $cardID);

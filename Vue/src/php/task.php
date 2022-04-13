@@ -104,8 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["email"])) {
     $stmt->execute();
     $resp["status"] = "success";
 } else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $post_body = file_get_contents('php://input');
-    $json = json_decode($post_body);
     $taskID = $_GET['taskID'];
     $stmt = $mysqli->prepare("DELETE FROM tasks WHERE taskID=?");
     $stmt->bind_param("i", $taskID);

@@ -29,6 +29,7 @@ export default {
         },
         clearToken(state) {
             state.token = ''
+            console.log("token removing")
             Cookie.remove('token')
         },
         getToken(state) {
@@ -40,6 +41,7 @@ export default {
         },
         clearEmail(state) {
             state.email = ''
+            console.log("email removing")
             Cookie.remove('email')
         },
         getEmail(state) {
@@ -51,11 +53,17 @@ export default {
         clearTasks(state) {
             state.tasks = []
         },
+        clearStacks(state) {
+            state.stacks = []
+        },
         setStacks(state, val) {
             state.stacks = val
         },
         setCards(state, val) {
             state.cards = val
+        },
+        clearCards(state) {
+            state.cards = []
         },
         setTasks(state, val) {
             state.tasks = val

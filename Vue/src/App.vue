@@ -94,7 +94,15 @@
               }
           })
           .catch(function (error) {
-            console.log(error);
+            console.log(error)
+            self.$store.commit('clearToken')
+            self.$store.commit('clearEmail')
+            self.$store.commit('clearTasks')
+            self.$store.commit('clearCards')
+            self.$store.commit('clearStacks')
+            self.$store.commit('setIsLoggedIn', false)
+            self.$store.commit('setLoading', false)
+            self.$router.push({name:'UserHome'})
         });
       },
       showReminder(){

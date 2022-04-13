@@ -9,7 +9,7 @@
         text-color="#fff"
         active-text-color="#ffffff"
         router>
-        <el-menu-item index="/">Dot.Plan</el-menu-item>
+        <el-menu-item index="/">DotPlan</el-menu-item>
             <!-- <el-submenu index="2">
                 <template slot="title">Workspace</template>
                 <el-menu-item index="2-1">item one</el-menu-item>
@@ -28,8 +28,23 @@
             <el-menu-item index="login" route="login" v-show="!this.$store.state.user.isLoggedIn">
                 Log In
             </el-menu-item>
-            <el-menu-item @click="logout" v-show="this.$store.state.user.isLoggedIn" >
-                Log Out
+            <el-menu-item style="float:right" v-show="this.$store.state.user.isLoggedIn">
+              <el-dropdown>
+              <el-button type="primary"  style="float:right; color:white">
+                {{this.$store.state.user.email}}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <el-link :underline="false" @click="goSettings">Settings</el-link>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <el-link :underline="false" @click="logout">Log Out</el-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+              </el-dropdown>
+            </el-menu-item>
+            <el-menu-item @click="logout" v-show="this.$store.state.user.isLoggedIn" style="float:right">
             </el-menu-item>
         </el-menu>
     </div>
@@ -67,6 +82,15 @@
         }, 1000)
         }).catch(() => {
         });
+      },
+      goSettings(){
+        if(this.$route.name !== 'SettingPage'){
+          this.$store.commit('setLoading', true)
+          setTimeout(()=>{
+            this.$store.commit('setLoading', false)
+            this.$router.push({name:"SettingPage"})
+          }, 500)
+        }
       }
     },
     computed:{

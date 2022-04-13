@@ -34,7 +34,7 @@ router.beforeEach((to, from, next) => {
   console.log(to)
   // UserHome, SignupPage, LoginPage
   const token = store.state.user.token
-  if (!token) {
+  if (typeof(token) === 'undefined' || token === null || token.length === 0) {
     if ((to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome')) {
       next({ name: "LoginPage" })
       console.log("blocked without token")
@@ -46,7 +46,7 @@ router.beforeEach((to, from, next) => {
   else if (token) {
     if ((to.name === 'SignupPage' || to.name === 'LoginPage')) {
       next({ name: "UserHome" })
-      console.log("blocked with token")
+      console.log("blocked with token", token)
     }
     else {
       next()      
