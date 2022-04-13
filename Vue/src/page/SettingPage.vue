@@ -156,6 +156,7 @@
         this.formData.email = this.email
         this.formData.password = undefined
         this.formData.newPassword = undefined
+        this.formData.confirmPassword = undefined
       },
       reserve () {
         this.loading = true
