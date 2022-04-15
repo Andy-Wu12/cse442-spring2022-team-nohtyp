@@ -3,7 +3,7 @@
     <el-form ref="elForm" :model="formData" :rules="rules" size="small" label-width="100px"
       label-position="left">
       <el-row type="flex" justify="center" align="middle">
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label="Email" prop="Email">
             <el-input v-model="formData.Email" placeholder="Email" clearable :style="{width: '100%'}">
             </el-input>
@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" align="middle">
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label="Password" prop="Password">
             <el-input v-model="formData.Password" placeholder="Password" clearable show-password
               :style="{width: '100%'}"></el-input>
@@ -19,7 +19,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" align="middle">
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label-width="138px" label="Confirm Password" prop="ConfirmPassword">
             <el-input v-model="formData.ConfirmPassword" placeholder="Confirm Password" clearable
               show-password :style="{width: '100%'}"></el-input>

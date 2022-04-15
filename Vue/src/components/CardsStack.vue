@@ -100,6 +100,9 @@
             const self = this
             this.getAllTasks().then(res => {
                 const {status, tasks} = res.data
+                if(status === "success"){
+                    self.$store.commit('setTasks', JSON.parse(JSON.stringify(tasks)))
+                }
                 if(self.$store.state.user.email && self.$store.state.user.email.length > 0){
                     this.$notify.info({
                         title: 'Reminder',
@@ -108,9 +111,6 @@
                         duration: 4500,
                         offset: 70
                     });
-                }
-                if(status === "success"){
-                    self.$store.commit('setTasks', JSON.parse(JSON.stringify(tasks)))
                 }
             })
         },
