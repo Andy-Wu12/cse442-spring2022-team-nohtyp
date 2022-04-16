@@ -7,6 +7,7 @@ export default {
         token: '',
         email: '',
         loading: false,
+        loadingText:'',
         stacks:[],
         cards: [],
         tasks: [],
@@ -14,9 +15,11 @@ export default {
         editing: ''
     },
     mutations: {
+        setLoadingText(state, val) {
+            state.loadingText = val
+        },
         getStackNameByStackId(id) {
             const stacks = this.$store.state.user.stacks
-            console.log(stacks[0])
             for (let i = 0; i < stacks.length; i++) {
                 if (stacks[i].stackID === id)
                     return stacks[i].name
@@ -29,7 +32,6 @@ export default {
         },
         clearToken(state) {
             state.token = ''
-            console.log("token removing")
             Cookie.remove('token')
         },
         getToken(state) {
@@ -41,7 +43,6 @@ export default {
         },
         clearEmail(state) {
             state.email = ''
-            console.log("email removing")
             Cookie.remove('email')
         },
         getEmail(state) {

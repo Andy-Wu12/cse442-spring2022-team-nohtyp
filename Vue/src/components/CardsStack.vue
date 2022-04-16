@@ -35,7 +35,6 @@
 
 <script>
     import VueCardStack from "vue-card-stack";
-    import axios from 'axios'
 
     export default({
         name:'CardsStack',
@@ -85,20 +84,13 @@
             updateMouseLeave(cardIdx){
                 this.clicked[cardIdx] = false
             },
-            getAllTasks(){
-                let self = this
-                return axios.request({
-                    url: axios.defaults.baseURL + 'task.php?email=' + self.$store.state.user.email,
-                    withCredentials: true
-                })
-            }
         },
         components:{
             VueCardStack
         },
         mounted() {
             const self = this
-            this.getAllTasks().then(res => {
+            this.taskAxios().then(res => {
                 const {status, tasks} = res.data
                 if(status === "success"){
                     self.$store.commit('setTasks', JSON.parse(JSON.stringify(tasks)))

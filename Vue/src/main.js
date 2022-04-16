@@ -52,6 +52,14 @@ Vue.prototype.getTasks = function () {
     });
 }
 
+Vue.prototype.taskAxios = function(){
+  let self = this
+  return axios.request({
+    url: axios.defaults.baseURL + 'task.php?email=' + self.$store.state.user.email,
+    withCredentials: true
+  })
+}
+
 if (process.env.NODE_ENV !== 'development') {
   axios.defaults.baseURL = apiConfigProd.api
   Vue.prototype.apiConfig = apiConfigProd
@@ -61,12 +69,9 @@ else {
   Vue.prototype.apiConfig = apiConfigDev
 }
 
-
-
-console.log(axios.defaults.baseURL)
 router.beforeEach((to, from, next) => {
+  console.log('redirected from: ', from, ' to:', to)
   store.commit('getToken')
-  console.log(to)
   // UserHome, SignupPage, LoginPage
   const token = store.state.user.token
   if (typeof(token) === 'undefined' || token === null || token.length === 0) {

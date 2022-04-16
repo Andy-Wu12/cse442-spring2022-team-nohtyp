@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <el-container v-loading="loading">
+    <el-container 
+      v-loading="loading"
+    >
       <el-aside width="auto">
         <NavMenu/>
       </el-aside>
@@ -45,6 +47,9 @@
     computed:{
       loading(){
         return this.$store.state.user.loading
+      },
+      loading_text(){
+        return this.$store.state.user.loadingText
       }
     },
     methods: {
@@ -52,44 +57,19 @@
         this.loading = true
         setTimeout(() => (this.loading = false), 1000)
       },
-      // getStacks(){
-      //   this.getToken()
-      //   let self = this
-      //   axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
-      //     .then(function (response) {
-      //       self.$store.commit('setStacks', response.data.stacks)
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //   });
-      // },
-      // getTasks(){
-      //   let self = this
-      //   axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
-      //     .then(function (response) {
-      //       self.$store.commit('setTasks', response.data.tasks)
-      //       console.log(self.$store.state.user.tasks)
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //   });
-      // },
-      // getCards(){
-      //   let self = this
-      //   axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
-      //     .then(function (response) {
-      //       self.$store.commit('setCards', response.data.cards)
-      //       console.log(self.$store.state.user.cards)
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //   });
-      // },
       updateLoginStatus(){
         let self = this
         axios.get(axios.defaults.baseURL + 'session.php' + '?token=' + this.$store.state.user.token)
           .then(function (response) {
-              self.$store.commit('setIsLoggedIn', response.data.status === 'success')
+              self.$store.commit('setIsLoggedIn',response.data && response.data.status === 'success')
+              if(response.data.status === 'success'){
+                self.$store.commit('setLoadingText', 'Redirecting...')
+                self.$store.commit('setLoading',true)
+                setTimeout(()=>{
+                  self.$store.commit('setLoading', false)
+                  self.$store.commit('setLoadingText', 'Loading...')
+                }, 1000)
+              }
               if(response.data.email){
                 self.$store.commit('setEmail', response.data.email)
               }
@@ -123,10 +103,9 @@
       this.showReminder()
       setTimeout(()=>{
         this.getStacks()  
-        this.getTasks()  
+        this.getTasks()
         this.getCards()  
       }, 1000)
-      console.log(this.$store.state.user)
     },
   }
 </script>

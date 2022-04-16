@@ -103,6 +103,9 @@
   export default {
     components:{
     },
+    mounted() {
+      this.getCards()
+    },
     data() {
       return {
         taskSearch: '',
@@ -153,7 +156,6 @@
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
         this.isDialogShown = true
         this.operateType = 'edit'
         this.form.taskName = row.name

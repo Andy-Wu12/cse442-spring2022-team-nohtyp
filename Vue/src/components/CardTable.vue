@@ -83,6 +83,9 @@
   import extractObjectProp from '../js/general_helper'
 
   export default {
+    mounted(){
+      this.getStacks()
+    },
     components:{
     },
     data() {
@@ -163,7 +166,6 @@
       },
       getStackNameByStackId(id){
         const stacks = this.$store.state.user.stacks
-        console.log(stacks[0])
         for(let i = 0;i < stacks.length ;i++){
           if(stacks[i].stackID === id)
             return stacks[i].name

@@ -86,8 +86,8 @@ export default {
     this.$store.commit('setLoading', true)
     axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
         .then(function (response) {
-        self.$store.commit('setCards', response.data.cards)
-        console.log(self.$store.state.user.cards)
+            self.$store.commit('setCards', response.data.cards)
+            console.log('card:',self.$store.state.user.cards)
         })
         .catch(function (error) {
         console.log(error);
