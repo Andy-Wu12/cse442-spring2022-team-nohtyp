@@ -209,7 +209,6 @@
       },
       getCardNameByCardId(id){
         const cards = this.$store.state.user.cards
-        console.log(cards[0])
         for(let i = 0;i < cards.length ;i++){
           if(cards[i].cardID === id)
             return cards[i].name

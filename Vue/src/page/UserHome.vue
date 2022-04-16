@@ -9,6 +9,8 @@
             v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length === 0"
         >
         </el-result>
+        <!-- <TaskSelector></TaskSelector> -->
+        <TaskCascader></TaskCascader>
     </div>
 </template>
 
@@ -16,15 +18,19 @@
     import HelloWorld from "../components/HelloWorld"
     import CardsStack from "../components/CardsStack"
     import LandingPage from "../page/LandingPage"
+    // import TaskSelector from "@/components/TaskSelector"
+    import TaskCascader from "@/components/TaskCascader"
 
     export default({
         mounted() {
-            this.getTasks()
+            this.updateAllData()
         },
         components:{
             HelloWorld,
             CardsStack,
-            LandingPage
+            LandingPage,
+            // TaskSelector,
+            TaskCascader
         },
         computed:{
             hasTasks(){

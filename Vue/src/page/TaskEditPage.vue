@@ -87,7 +87,6 @@ export default {
     axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
         .then(function (response) {
         self.$store.commit('setTasks', response.data.tasks)
-        console.log(self.$store.state.user.cards)
         })
         .catch(function (error) {
         console.log(error);
