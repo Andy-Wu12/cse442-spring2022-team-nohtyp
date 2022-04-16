@@ -111,7 +111,12 @@ router.beforeEach((to, from, next) => {
 		if (to.name === 'SignupPage' || to.name === 'LoginPage') {
 			next({ name: 'UserHome' })
 			console.log('blocked with token', token)
-		} else {
+		}
+		else if (from.name === 'UserHome' && to.name !== 'UserHome') {
+			store.commit('setDisplayingCardID', undefined)
+			next()
+		}
+		else {
 			next()
 		}
 	}

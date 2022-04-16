@@ -1,7 +1,17 @@
 <template>
     <!--  -->
     <div class="demo" @wheel="scrollCards($event)">
-        <vue-card-stack :cards="cards" :key="JSON.stringify(cards)" :stack-width="1200" :card-width="400" :card-height="300" :speed="0.5" style="padding-top: 100px">
+        <vue-card-stack 
+            v-loading="stackLoading" 
+            element-loading-text="Pick a card to see your tasks"
+            element-loading-spinner="el-icon-timer"
+            :cards="cards" 
+            :key="JSON.stringify(cards)" 
+            :stack-width="stack_width"
+            :card-width="400" 
+            :card-height="300" 
+            :speed="0.5" 
+            style="padding-top: 80px">
             <template v-slot:card="{ card }">
                 <div style="width: 100%; height: 100%; padding: 15px;" :style="{ background: card.background}" @click="clicked[card.data] = true" @mouseleave="clicked[card.data] = false">
                     <el-row style="margin:10px">
@@ -44,12 +54,16 @@
                 address:'bbb',
                 clicked: Array(5).fill(false),
                 hidden: true,
+                stack_width: 1300
             }
         },
         computed:{
             cards(){
                 const displayingCardID = this.$store.state.user.displayingCardID
                 return this.initCards(this.$store.state.user.tasks.filter(task => task.cardID === displayingCardID))
+            },
+            stackLoading(){
+                return this.$store.state.user.displayingCardID === undefined
             }
         },
         methods: {

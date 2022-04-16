@@ -65,7 +65,11 @@
             handleChange(val){
                 const clickedCardName = val[1]
                 const clickedCardID = this.getCardIdByCardName(clickedCardName)
-                this.$store.commit('setDisplayingCardID', clickedCardID)
+                this.$store.commit('setLoading', true)
+                setTimeout(()=>{
+                    this.$store.commit('setLoading', false)
+                    this.$store.commit('setDisplayingCardID', clickedCardID)
+                }, 300)
                 console.log(this.$store.state.user.displayingCardID)
             }
         }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <HelloWorld></HelloWorld>
-        <CardsStack v-if="hasTasks"></CardsStack>
+        <CardsStack v-show="this.$store.state.user.tasks.length > 0"></CardsStack>
         <LandingPage v-if="!this.$store.state.user.isLoggedIn"></LandingPage>
         <el-result icon="success" 
             style="padding-top:200px"
@@ -10,7 +10,7 @@
         >
         </el-result>
         <!-- <TaskSelector></TaskSelector> -->
-        <TaskCascader></TaskCascader>
+        <TaskCascader v-if="this.$store.state.user.isLoggedIn"></TaskCascader>
     </div>
 </template>
 
@@ -34,7 +34,10 @@
         },
         computed:{
             hasTasks(){
-                return this.$store.state.user.tasks.length > 0
+                return this.$store.state.user.tasks.length > 0 
+            },
+            tasksDisplaying(){
+                return this.$store.state.displayingCardID !== undefined
             }
         }
     })    
