@@ -10,6 +10,12 @@
 			stackOption() {
 				let options = []
 				const currStacks = this.$store.state.user.stacks
+				if (currStacks.length !== 0) {
+					const newStackOption = {}
+					newStackOption['value'] = 'All Tasks'
+					newStackOption['label'] = 'All Tasks'
+					options.push(newStackOption)
+				}
 				for (let i = 0; i < currStacks.length; i++) {
 					const newStackOption = {}
 					newStackOption['value'] = currStacks[i].name
@@ -41,6 +47,17 @@
 		},
 		methods: {
 			handleChange(val) {
+				if (val[0] === 'All Tasks') {
+					setTimeout(() => {
+						this.$store.commit('setLoading', false)
+						this.$store.commit('setDisplayingCardID', 0)
+						this.$store.commit(
+							'setDisplayingTasks',
+							this.$store.state.user.tasks
+						)
+					}, 400)
+					return
+				}
 				const clickedCardName = val[1]
 				const displayingCardID = this.getCardIdByCardName(clickedCardName)
 				this.$emit('childOneClick')

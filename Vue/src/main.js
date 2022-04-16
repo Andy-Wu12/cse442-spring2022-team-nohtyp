@@ -60,6 +60,8 @@ Vue.prototype.getTasks = function () {
 			}
 			console.log('processed tasks', tasks)
 			self.$store.commit('setTasks', tasks)
+			self.$store.commit('setDisplayingTasks', tasks)
+			self.$store.commit('setDisplayingCardID', 0)
 		})
 		.catch(function (error) {
 			console.log(error)

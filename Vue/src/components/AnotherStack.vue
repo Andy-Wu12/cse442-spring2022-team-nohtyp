@@ -1,7 +1,7 @@
 <template>
 	<carousel-3d
 		v-loading="stackLoading"
-		:element-loading-text="loading_text"
+		element-loading-text="You don't have any tasks in this card"
 		element-loading-spinner="el-icon-timer"
 		v-if="updated"
 		controlsVisible
@@ -46,8 +46,6 @@
 		},
 		data() {
 			return {
-				activeIndex: '1',
-				activeIndex2: '1',
 				updated: true,
 				displayingTasks: [],
 			}
@@ -66,21 +64,14 @@
 				return this.$store.state.user.tasks.filter((task) => task.cardID === displayingCardID)
 			},
 			stackLoading() {
+				if(this.$store.state.user.displayingTasks.length > 0)
+					return false
 				const displayingCardID = this.$store.state.user.displayingCardID
 				if (displayingCardID === undefined) return true
 				const tasks = this.$store.state.user.tasks.filter(
 					(task) => task.cardID === displayingCardID
 				)
 				return tasks.length === 0;
-			},
-			loading_text() {
-				const displayingCardID = this.$store.state.user.displayingCardID
-				if (displayingCardID === undefined) return 'Pick a card to see your tasks'
-				const tasks = this.$store.state.user.tasks.filter(
-					(task) => task.cardID === displayingCardID
-				)
-				if (tasks.length === 0) return "You don't have any tasks in this card"
-				return ''
 			},
 		},
 	}
