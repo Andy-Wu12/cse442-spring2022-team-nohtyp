@@ -111,16 +111,6 @@
       }
     },
     methods: {
-      getCards(){
-        let self = this
-        axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
-          .then(function (response) {
-            self.$store.commit('setCards', response.data.cards)
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-      },
       handleEdit(index, row) {
         console.log(index, row);
         this.isDialogShown = true

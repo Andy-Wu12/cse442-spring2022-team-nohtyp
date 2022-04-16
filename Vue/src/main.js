@@ -17,6 +17,41 @@ Vue.use(ElementUI, { locale })
 Vue.use(vuetify)
 Vue.use(VueRouter) 
 
+Vue.prototype.getStacks = function () {
+  let self = this
+  axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
+    .then(function (response) {
+      self.$store.commit('setStacks', response.data.stacks)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+Vue.prototype.getCards = function () {
+  let self = this
+  axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+    .then(function (response) {
+      self.$store.commit('setCards', response.data.cards)
+      console.log(self.$store.state.user.cards)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+Vue.prototype.getTasks = function () {
+  let self = this
+  axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+    .then(function (response) {
+      self.$store.commit('setTasks', response.data.tasks)
+      console.log(self.$store.state.user.tasks)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 if (process.env.NODE_ENV !== 'development') {
   axios.defaults.baseURL = apiConfigProd.api
   Vue.prototype.apiConfig = apiConfigProd

@@ -52,38 +52,39 @@
         this.loading = true
         setTimeout(() => (this.loading = false), 1000)
       },
-      getStacks(){
-        let self = this
-        axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
-          .then(function (response) {
-            self.$store.commit('setStacks', response.data.stacks)
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-      },
-      getTasks(){
-        let self = this
-        axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
-          .then(function (response) {
-            self.$store.commit('setTasks', response.data.tasks)
-            console.log(self.$store.state.user.tasks)
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-      },
-      getCards(){
-        let self = this
-        axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
-          .then(function (response) {
-            self.$store.commit('setCards', response.data.cards)
-            console.log(self.$store.state.user.cards)
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-      },
+      // getStacks(){
+      //   this.getToken()
+      //   let self = this
+      //   axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
+      //     .then(function (response) {
+      //       self.$store.commit('setStacks', response.data.stacks)
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //   });
+      // },
+      // getTasks(){
+      //   let self = this
+      //   axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+      //     .then(function (response) {
+      //       self.$store.commit('setTasks', response.data.tasks)
+      //       console.log(self.$store.state.user.tasks)
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //   });
+      // },
+      // getCards(){
+      //   let self = this
+      //   axios.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+      //     .then(function (response) {
+      //       self.$store.commit('setCards', response.data.cards)
+      //       console.log(self.$store.state.user.cards)
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //   });
+      // },
       updateLoginStatus(){
         let self = this
         axios.get(axios.defaults.baseURL + 'session.php' + '?token=' + this.$store.state.user.token)

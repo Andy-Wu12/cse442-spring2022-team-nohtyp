@@ -74,16 +74,6 @@
       }
     },
     methods: {
-      getStacks(){
-        let self = this
-        axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
-          .then(function (response) {
-            self.$store.commit('setStacks', response.data.stacks)
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-      },
       handleEdit(index, row) {
         console.log(index, row);
         this.isDialogShown = true
