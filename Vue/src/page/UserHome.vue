@@ -2,8 +2,13 @@
     <div>
         <HelloWorld></HelloWorld>
         <CardsStack v-if="hasTasks"></CardsStack>
-        <LandingPage v-show="!this.$store.state.user.isLoggedIn"></LandingPage>
-        <el-empty description="You don't have any task" v-if="!hasTasks"></el-empty>
+        <LandingPage v-if="!this.$store.state.user.isLoggedIn"></LandingPage>
+        <el-result icon="success" 
+            style="padding-top:200px"
+            title="You have finished all your tasks!"
+            v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length === 0"
+        >
+        </el-result>
     </div>
 </template>
 

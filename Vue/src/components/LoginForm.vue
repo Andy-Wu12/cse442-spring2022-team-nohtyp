@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @keyup.enter="submitForm">
     <el-form ref="elForm" :model="formData" :rules="rules" size="small" label-width="100px"
       label-position="left">
       <el-row type="flex" justify="center" align="middle">
