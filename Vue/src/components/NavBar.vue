@@ -72,6 +72,8 @@
           this.$store.commit('clearTasks')
           this.$store.commit('clearCards')
           this.$store.commit('clearStacks')
+          this.$store.commit('clearDisplayingCardID')
+          this.$store.commit('clearDisplayingTasks')
           this.$router.push({name: 'UserHome'})
           setTimeout(()=>{
             this.$store.commit('setLoading', false)

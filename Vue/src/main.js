@@ -11,11 +11,13 @@ import axios from 'axios'
 import apiConfigDev from '../apiConfig/apiConfigDev.json'
 import apiConfigProd from '../apiConfig/apiConfigProd.json'
 import locale from '../node_modules/element-ui/lib/locale/lang/en.js'
+import Carousel3d from 'vue-carousel-3d'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI, { locale })
 Vue.use(vuetify)
 Vue.use(VueRouter)
+Vue.use(Carousel3d)
 
 Vue.prototype.getStacks = function () {
 	let self = this
@@ -34,12 +36,17 @@ Vue.prototype.getCards = function () {
 	axios
 		.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
 		.then(function (response) {
-      self.$store.commit('setCards', response.data.cards)
-      console.log('cards',self.$store.state.user.cards)
+			self.$store.commit('setCards', response.data.cards)
+			console.log('cards', self.$store.state.user.cards)
 		})
 		.catch(function (error) {
 			console.log(error)
 		})
+}
+
+function getRandomColor() {
+	const colors = ['#00659d', '#00abbc', '#e2c58a', '#fc8890', '#b35d7f']
+	return colors[Math.floor(Math.random() * colors.length)]
 }
 
 Vue.prototype.getTasks = function () {
@@ -47,7 +54,12 @@ Vue.prototype.getTasks = function () {
 	axios
 		.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
 		.then(function (response) {
-			self.$store.commit('setTasks', response.data.tasks)
+			const tasks = response.data.tasks
+			for (let i = 0; i < tasks.length; i++) {
+				tasks[i]['color'] = getRandomColor()
+			}
+			console.log('processed tasks', tasks)
+			self.$store.commit('setTasks', tasks)
 		})
 		.catch(function (error) {
 			console.log(error)
@@ -55,12 +67,11 @@ Vue.prototype.getTasks = function () {
 }
 
 Vue.prototype.getCardsByStackID = function (stackID) {
-  const cards = this.$store.state.user.cards
-  const res = []
-  for (let i = 0; i < cards.length; i++){
-    if (cards[i]['stackID'] == stackID)
-      res.push(cards[i])
-  }
+	const cards = this.$store.state.user.cards
+	const res = []
+	for (let i = 0; i < cards.length; i++) {
+		if (cards[i]['stackID'] === stackID) res.push(cards[i])
+	}
 	return res
 }
 
@@ -79,12 +90,11 @@ Vue.prototype.taskAxios = function () {
 }
 
 Vue.prototype.getCardIdByCardName = function (name) {
-  const cards = this.$store.state.user.cards
-  for(let i = 0;i < cards.length ;i++){
-    if(cards[i].name === name)
-      return cards[i].cardID
-  }
-  return undefined
+	const cards = this.$store.state.user.cards
+	for (let i = 0; i < cards.length; i++) {
+		if (cards[i].name === name) return cards[i].cardID
+	}
+	return undefined
 }
 
 if (process.env.NODE_ENV !== 'development') {
@@ -111,12 +121,10 @@ router.beforeEach((to, from, next) => {
 		if (to.name === 'SignupPage' || to.name === 'LoginPage') {
 			next({ name: 'UserHome' })
 			console.log('blocked with token', token)
-		}
-		else if (from.name === 'UserHome' && to.name !== 'UserHome') {
+		} else if (from.name === 'UserHome' && to.name !== 'UserHome') {
 			store.commit('setDisplayingCardID', undefined)
 			next()
-		}
-		else {
+		} else {
 			next()
 		}
 	}

@@ -1,7 +1,7 @@
 <template>
     <div>
         <HelloWorld></HelloWorld>
-        <CardsStack v-show="this.$store.state.user.tasks.length > 0"></CardsStack>
+        <!-- <CardsStack v-show="this.$store.state.user.tasks.length > 0"></CardsStack> -->
         <LandingPage v-if="!this.$store.state.user.isLoggedIn"></LandingPage>
         <el-result icon="success" 
             style="padding-top:200px"
@@ -10,16 +10,18 @@
         >
         </el-result>
         <!-- <TaskSelector></TaskSelector> -->
-        <TaskCascader v-if="this.$store.state.user.isLoggedIn"></TaskCascader>
+        <AnotherStack></AnotherStack>
+        <TaskCascader v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"></TaskCascader>
     </div>
 </template>
 
 <script>
     import HelloWorld from "../components/HelloWorld"
-    import CardsStack from "../components/CardsStack"
+    // import CardsStack from "../components/CardsStack"
     import LandingPage from "../page/LandingPage"
     // import TaskSelector from "@/components/TaskSelector"
     import TaskCascader from "@/components/TaskCascader"
+    import AnotherStack from "@/components/AnotherStack"
 
     export default({
         mounted() {
@@ -27,10 +29,11 @@
         },
         components:{
             HelloWorld,
-            CardsStack,
+            // CardsStack,
             LandingPage,
             // TaskSelector,
-            TaskCascader
+            TaskCascader,
+            AnotherStack
         },
         computed:{
             hasTasks(){

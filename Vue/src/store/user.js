@@ -13,11 +13,21 @@ export default {
         tasks: [],
         isLoggedIn: false,
         editing: '',
-        displayingCardID: undefined
+        displayingCardID: undefined,
+        displayingTasks: []
     },
     mutations: {
+        setDisplayingTasks(state, val) {
+            state.displayingTasks = val
+        },
+        clearDisplayingTasks(state){
+            state.displayingTasks = []
+        },
         setDisplayingCardID(state, val) {
             state.displayingCardID = val
+        },
+        clearDisplayingCardID(state) {
+            state.displayingCardID = undefined
         },
         setLoadingText(state, val) {
             state.loadingText = val

@@ -64,13 +64,14 @@
         methods:{
             handleChange(val){
                 const clickedCardName = val[1]
-                const clickedCardID = this.getCardIdByCardName(clickedCardName)
+                const displayingCardID = this.getCardIdByCardName(clickedCardName)
                 this.$store.commit('setLoading', true)
                 setTimeout(()=>{
                     this.$store.commit('setLoading', false)
-                    this.$store.commit('setDisplayingCardID', clickedCardID)
+                    this.$store.commit('setDisplayingCardID', displayingCardID)
+                    this.$store.commit('setDisplayingTasks',  this.$store.state.user.tasks.filter((task) => task.cardID === displayingCardID))
                 }, 300)
-                console.log(this.$store.state.user.displayingCardID)
+                console.log(this.$store.state.user.displayingTasks)
             }
         }
 	}
