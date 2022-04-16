@@ -12,9 +12,13 @@ export default {
         cards: [],
         tasks: [],
         isLoggedIn: false,
-        editing: ''
+        editing: '',
+        displayingCardID: undefined
     },
     mutations: {
+        setDisplayingCardID(state, val) {
+            state.displayingCardID = val
+        },
         setLoadingText(state, val) {
             state.loadingText = val
         },

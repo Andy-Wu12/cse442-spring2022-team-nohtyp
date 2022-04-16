@@ -199,14 +199,6 @@
         this.isDialogShown = true
         this.operateType = 'add'
       },
-      getCardIdByCardName(name){
-        const cards = this.$store.state.user.cards
-        for(let i = 0;i < cards.length ;i++){
-          if(cards[i].name === name)
-            return cards[i].cardID
-        }
-        return undefined
-      },
       getCardNameByCardId(id){
         const cards = this.$store.state.user.cards
         for(let i = 0;i < cards.length ;i++){

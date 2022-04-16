@@ -1,5 +1,9 @@
 <template>
-	<el-cascader-panel :options="stackOption" :show-all-levels="true"></el-cascader-panel>
+	<el-cascader-panel 
+        :options="stackOption" 
+        :show-all-levels="false"
+        @change="handleChange"
+    ></el-cascader-panel>
 </template>
 <script>
 	export default {
@@ -34,32 +38,8 @@
                     }
                     options.push(newStackOption)
 				}
-                console.log('options', options)
 				return options
-			},
-			option2() {
-				return {
-					label: 'City name',
-					options: [
-						{
-							value: 'Chengdu',
-							label: 'Chengdu',
-						},
-						{
-							value: 'Shenzhen',
-							label: 'Shenzhen',
-						},
-						{
-							value: 'Guangzhou',
-							label: 'Guangzhou',
-						},
-						{
-							value: 'Dalian',
-							label: 'Dalian',
-						},
-					],
-				}
-			},
+			}
 		},
 		data() {
 			return {
@@ -81,5 +61,13 @@
 				// ],
 			}
 		},
+        methods:{
+            handleChange(val){
+                const clickedCardName = val[1]
+                const clickedCardID = this.getCardIdByCardName(clickedCardName)
+                this.$store.commit('setDisplayingCardID', clickedCardID)
+                console.log(this.$store.state.user.displayingCardID)
+            }
+        }
 	}
 </script>

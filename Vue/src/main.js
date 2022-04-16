@@ -35,7 +35,7 @@ Vue.prototype.getCards = function () {
 		.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
 		.then(function (response) {
       self.$store.commit('setCards', response.data.cards)
-      console.log('cards',this.$store.state.user.cards)
+      console.log('cards',self.$store.state.user.cards)
 		})
 		.catch(function (error) {
 			console.log(error)
@@ -76,6 +76,15 @@ Vue.prototype.taskAxios = function () {
 		url: axios.defaults.baseURL + 'task.php?email=' + self.$store.state.user.email,
 		withCredentials: true,
 	})
+}
+
+Vue.prototype.getCardIdByCardName = function (name) {
+  const cards = this.$store.state.user.cards
+  for(let i = 0;i < cards.length ;i++){
+    if(cards[i].name === name)
+      return cards[i].cardID
+  }
+  return undefined
 }
 
 if (process.env.NODE_ENV !== 'development') {

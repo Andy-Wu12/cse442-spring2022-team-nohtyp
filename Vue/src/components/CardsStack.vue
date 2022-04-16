@@ -44,12 +44,12 @@
                 address:'bbb',
                 clicked: Array(5).fill(false),
                 hidden: true,
-
             }
         },
         computed:{
             cards(){
-                return this.initCards(this.$store.state.user.tasks)
+                const displayingCardID = this.$store.state.user.displayingCardID
+                return this.initCards(this.$store.state.user.tasks.filter(task => task.cardID === displayingCardID))
             }
         },
         methods: {
