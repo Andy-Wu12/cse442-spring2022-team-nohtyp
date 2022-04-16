@@ -5,7 +5,7 @@
 		element-loading-spinner="el-icon-timer"
 		v-if="updated"
 		controlsVisible
-		style="margin-top: 90px; margin-bottom: 90px"
+		style="margin-top: 90px; margin-bottom: 20px"
 	>
 		<slide
 			v-for="(task, index) in displayingTasks"

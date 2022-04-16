@@ -97,6 +97,32 @@ Vue.prototype.getCardIdByCardName = function (name) {
 	return undefined
 }
 
+Vue.prototype.showReminder = function () {
+	setTimeout(() => {
+		const past_due_tasks = this.$store.state.user.tasks.filter((task) => new Date(task['due_date']) < new Date())
+		if (this.$store.state.user.email && this.$store.state.user.email.length > 0) {
+			this.$notify.info({
+				title: 'Reminder',
+				dangerouslyUseHTMLString: true,
+				message: 'You have ' + `<h1>${this.$store.state.user.tasks.length}</h1>` + ' tasks',
+				duration: 4500,
+				offset: 70,
+			})
+		}
+		setTimeout(() => {
+			if (past_due_tasks.length > 0) {
+				this.$notify.warning({
+					title: 'Reminder',
+					dangerouslyUseHTMLString: true,
+					message: 'You have ' + `<h1>${past_due_tasks.length}</h1>` + ' tasks past due time',
+					duration: 5000,
+					offset: 70,
+				})
+			}
+		}, 500)
+	}, 2000)
+}
+
 if (process.env.NODE_ENV !== 'development') {
 	axios.defaults.baseURL = apiConfigProd.api
 	Vue.prototype.apiConfig = apiConfigProd
