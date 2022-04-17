@@ -69,9 +69,9 @@ export default {
           .then(function (response) {
             if(response.data.status === "success"){
                 self.$store.commit('setLoading', true)
+                self.$router.push({name: 'UserHome'})
                 setTimeout(()=>{
                   self.$store.commit('setLoading', false)
-                  self.$router.push({name: 'UserHome'})
                   self.$message({
                     message: 'Login Success!',
                     type: 'success'
