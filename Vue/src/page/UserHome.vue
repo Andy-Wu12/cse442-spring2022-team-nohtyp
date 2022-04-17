@@ -30,10 +30,15 @@
 				<el-button type="info" @click="clearSelection">Clear</el-button>
 				<el-popover placement="top-end" width="400" trigger="hover">
 					<div class="block">
+						<span class="demonstration">Number</span>
 						<el-slider v-model="displayTasksNumber" :step="1" :max="8" show-stops> </el-slider>
+						<span class="demonstration">Angle</span>
 						<el-slider v-model="angle" :step="5" :max="80" show-stops> </el-slider>
+						<span class="demonstration">Height</span>
 						<el-slider v-model="height" :step="10" :min="250" :max="500"> </el-slider>
+						<span class="demonstration">Width</span>
 						<el-slider v-model="width" :step="10" :min="270" :max="500"> </el-slider>
+						<span class="demonstration">Border</span>
 						<el-slider v-model="border" :step="2" :min="0" :max="30"> </el-slider>
 					</div>
 					<el-button slot="reference">Customize</el-button>
