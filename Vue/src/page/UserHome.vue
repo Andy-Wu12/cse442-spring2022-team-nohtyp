@@ -10,9 +10,16 @@
 			v-if="showTasksFinishedResult"
 		>
 		</el-result>
+
 		<AnotherStack
+			:displayTasksNumber="displayTasksNumber"
+			:angle="angle"
+			:height="height"
+			:width="width"
+			:border="border"
 			v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
 		></AnotherStack>
+
 		<el-row v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0">
 			<div style="float: left; margin-bottom: 10px">
 				<el-radio-group v-model="filter" @change="show">
@@ -21,6 +28,16 @@
 				</el-radio-group>
 				<el-divider direction="vertical"></el-divider>
 				<el-button type="info" @click="clearSelection">Clear</el-button>
+				<el-popover placement="top-end" width="400" trigger="hover">
+					<div class="block">
+						<el-slider v-model="displayTasksNumber" :step="1" :max="8" show-stops> </el-slider>
+						<el-slider v-model="angle" :step="5" :max="80" show-stops> </el-slider>
+						<el-slider v-model="height" :step="10" :min="250" :max="500"> </el-slider>
+						<el-slider v-model="width" :step="10" :min="270" :max="500"> </el-slider>
+						<el-slider v-model="border" :step="2" :min="0" :max="30"> </el-slider>
+					</div>
+					<el-button slot="reference">Customize</el-button>
+				</el-popover>
 			</div>
 		</el-row>
 		<TaskCascader
@@ -32,25 +49,27 @@
 
 <script>
 	import HelloWorld from '../components/HelloWorld'
-	// import CardsStack from "../components/CardsStack"
 	import LandingPage from '../page/LandingPage'
-	// import TaskSelector from "@/components/TaskSelector"
 	import TaskCascader from '@/components/TaskCascader'
 	import AnotherStack from '@/components/AnotherStack'
-	// import StackRadio from "@/components/StackRadio"
 
 	export default {
 		mounted() {
 			this.updateAllData()
-			setTimeout(() => {
+			setInterval(() => {
 				this.showTasksFinishedResult = this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length === 0
-			}, 500)
+			}, 100)
 		},
 		data() {
 			return {
 				filter: '',
 				selectionCleared: true,
 				showTasksFinishedResult: false,
+				displayTasksNumber: 5,
+				angle: 35,
+				height: 270,
+				width: 360,
+				border: 2,
 			}
 		},
 		methods: {
