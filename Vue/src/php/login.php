@@ -100,6 +100,10 @@ else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $stmt = $mysqli->prepare("DELETE FROM user WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
+    //delete all stacks
+    $stmt = $mysqli->prepare("DELETE FROM stacks WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
     $resp["status"] = "success";
 }
 else{
