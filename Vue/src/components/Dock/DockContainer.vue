@@ -3,7 +3,7 @@
       :class="{
         'dock-container': true,
         open: dockOpen,
-
+        'menu-open': menuOpen,
       }"
       @mouseover="hovered = true"
       @mouseleave="hovered = false"
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex';
+
   export default {
     name: 'DockContainer',
     data() {
@@ -33,6 +35,9 @@
       }
     },
     computed: {
+      ...mapState('menu', {
+        menuOpen: state => state.open,
+      }),
       showOverlay() {
         return this.hovered && !this.dockOpen;
       }
@@ -48,19 +53,24 @@
 <style lang="scss" scoped>
 .dock-container {
   position: fixed;
-  left: 80px;
+  left: 80px; // Dock left 
   top: calc(100vh - 120px);
   background: rgba(0,0,0,0.5);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 5px 5px 8px 5px rgba(0,0,0,0.3);
   height: 600px;
-  width: calc(100% - 96px);
+  width: calc(100% - 96px); 
   overflow: hidden;
   z-index: 1000;
 
   &:hover {
     top: calc(100vh - 150px);
+  }
+
+  &.menu-open {
+    left: 216px;
+    width: calc(100% - 232px);
   }
 
   &.open {
