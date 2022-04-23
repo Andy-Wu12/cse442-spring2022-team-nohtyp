@@ -1,14 +1,14 @@
 <template>
     <div id="leftmenu" style="background-color:#d9d8d7">
-        <el-radio-group v-model="isCollapse" style="padding-top:10px">
-          <el-button type="primary" icon="el-icon-menu" @click=" isCollapse = !isCollapse" circle></el-button>
+        <el-radio-group v-model="menuOpen" style="padding-top:10px">
+          <el-button type="primary" icon="el-icon-menu" @click="toggleNav" circle></el-button>
         </el-radio-group>
         <el-menu 
           default-active="2"
           class="el-menu-vertical-demo" 
           @open="handleOpen" 
           @close="handleClose" 
-          :collapse="isCollapse" 
+          :collapse="!menuOpen" 
           background-color="#d9d8d7"
           style="height:93vh"
           router>
@@ -40,14 +40,23 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
   export default {
     data() {
       return {
         isCollapse: true,
-        num:1
       };
     },
-    methods: {      
+    computed:{
+      ...mapState('menu', {
+        menuOpen: state => state.open,
+      }),
+      isLoggedIn(){
+        return this.$store.state.user.isLoggedIn
+      }
+    },
+    methods: {  
+      ...mapActions('menu', ['toggleMenu']),   
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -56,18 +65,12 @@
       },
       toggleNav(){
         this.isCollapse = !this.isCollapase
-        this.num++
-        return this.isCollapse
+        // this.toggleMenu();
       },
       updateEdit(str){
         this.$store.commit('setEditing', str)
       }
     },
-    computed:{
-      isLoggedIn(){
-        return this.$store.state.user.isLoggedIn
-      }
-    }
   }
 </script>
 

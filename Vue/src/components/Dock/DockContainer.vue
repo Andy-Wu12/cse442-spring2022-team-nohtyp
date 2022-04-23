@@ -27,7 +27,6 @@
         <div><stack /></div>
         <div><stack /></div>
         <div><stack /></div>
-
       </div>
 
       <div
@@ -78,14 +77,14 @@
 
 .dock-container {
   position: fixed;
-  left: 80px; // Dock left 
+  right: 80px; // Dock left 
   top: calc(100vh - 120px);
   background: rgba(0,0,0,0.5);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 5px 5px 8px 5px rgba(0,0,0,0.3);
   height: 600px;
-  width: calc(100% - 96px); 
+  width: calc(100% - 250px); 
   overflow: hidden;
   z-index: 1000;
 
