@@ -1,7 +1,17 @@
 <template>
     <!--  -->
     <div class="demo" @wheel="scrollCards($event)">
-        <vue-card-stack :cards="cards" :key="JSON.stringify(cards)" :stack-width="1200" :card-width="400" :card-height="300" :speed="0.5" style="padding-top: 100px">
+        <vue-card-stack 
+            v-loading="stackLoading" 
+            element-loading-text="Pick a card to see your tasks"
+            element-loading-spinner="el-icon-timer"
+            :cards="cards" 
+            :key="JSON.stringify(cards)" 
+            :stack-width="stack_width"
+            :card-width="400" 
+            :card-height="300" 
+            :speed="0.5" 
+            style="padding-top: 80px">
             <template v-slot:card="{ card }">
                 <div style="width: 100%; height: 100%; padding: 15px;" :style="{ background: card.background}" @click="clicked[card.data] = true" @mouseleave="clicked[card.data] = false">
                     <el-row style="margin:10px">
@@ -35,7 +45,6 @@
 
 <script>
     import VueCardStack from "vue-card-stack";
-    import axios from 'axios'
 
     export default({
         name:'CardsStack',
@@ -45,15 +54,16 @@
                 address:'bbb',
                 clicked: Array(5).fill(false),
                 hidden: true,
-
+                stack_width: 1300
             }
         },
         computed:{
             cards(){
-                return this.initCards(this.$store.state.user.tasks)
+                const displayingCardID = this.$store.state.user.displayingCardID
+                return this.initCards(this.$store.state.user.tasks.filter(task => task.cardID === displayingCardID))
             },
-            isLoggedIn(){
-                return this.$store.state.user.token && this.$store.state.user.token.length > 0
+            stackLoading(){
+                return this.$store.state.user.displayingCardID === undefined
             }
         },
         methods: {
@@ -88,19 +98,13 @@
             updateMouseLeave(cardIdx){
                 this.clicked[cardIdx] = false
             },
-            getAllTasks(){
-                return axios.request({
-                    url: axios.defaults.baseURL + 'session.php?param=tasks',
-                    withCredentials: true
-                })
-            }
         },
         components:{
             VueCardStack
         },
         mounted() {
             const self = this
-            this.getAllTasks().then(res => {
+            this.taskAxios().then(res => {
                 const {status, tasks} = res.data
                 if(status === "success"){
                     self.$store.commit('setTasks', JSON.parse(JSON.stringify(tasks)))

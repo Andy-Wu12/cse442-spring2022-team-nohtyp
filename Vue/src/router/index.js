@@ -3,7 +3,9 @@ import UserHome from '../page/UserHome'
 import SignupPage from '../page/SignupPage'
 import LoginPage from '../page/LoginPage'
 import SettingPage from '../page/SettingPage'
-import EditPage from '../page/EditPage'
+import StackEditPage from '../page/StackEditPage'
+import CardEditPage from '../page/CardEditPage'
+import TaskEditPage from '../page/TaskEditPage'
 
 export default new VueRouter({
     routes: [
@@ -28,9 +30,19 @@ export default new VueRouter({
             component: SettingPage,
             meta: { transition: 'slide-right' }
         }, {
-            name: 'EditPage',
-            path: '/edit',
-            component: EditPage,
+            name: 'StackEditPage',
+            path: '/edit-stack',
+            component: StackEditPage,
+            meta: { transition: 'slide-right' }
+        }, {
+            name: 'CardEditPage',
+            path: '/edit-card',
+            component: CardEditPage,
+            meta: { transition: 'slide-right' }
+        }, {
+            name: 'TaskEditPage',
+            path: '/edit-task',
+            component: TaskEditPage,
             meta: { transition: 'slide-right' }
         }
     ]

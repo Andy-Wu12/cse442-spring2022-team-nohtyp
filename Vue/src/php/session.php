@@ -49,9 +49,9 @@ $database = "cse442_2022_spring_team_c_db";
 $mysqli = new mysqli($servername, $username, $password, $database);
 $resp = array();
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    if (isset($_COOKIE["token"]) && strlen($_COOKIE["token"]) == 64) {
+    if (isset($_GET["token"]) && strlen($_GET["token"]) == 64) {
         $resp["status"] = "success";
-        $_SESSION["email"] = getEmailWithCookie($mysqli, $_COOKIE["token"]);
+        $resp["email"] = getEmailWithCookie($mysqli, $_GET["token"]);
         if (isset($_GET["param"])) {
             if ($_GET["param"] == "email") {
                 $resp["email"] = $_SESSION["email"];

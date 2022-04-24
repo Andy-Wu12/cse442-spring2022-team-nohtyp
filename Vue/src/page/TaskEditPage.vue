@@ -15,29 +15,23 @@
             <el-button type="primary" @click="confirm">Confirm</el-button>
         </div>
     </el-dialog>
-    <div class="crud-header">
-        <el-button type="primary" @click="addUser">Add</el-button>
-        <CrudForm
-            :formLabel="formLabel"
-            :form="searchForm"
-            :inline="true"
-            ref="form"
-        >
-            <el-button type="primary" @click="getList">Search</el-button>
-        </CrudForm>
-    </div>
+    <TaskTable></TaskTable>
   </div>
 </template>
 
 <script>
 import CrudForm from "@/components/CrudForm"
+import TaskTable from "@/components/TaskTable"
+import axios from 'axios'
+
 export default {
-  name: 'EditPage',
+  name: 'StackEditPage',
   props: {
     msg: String
   },
   components:{
-      CrudForm
+      CrudForm,
+      TaskTable
   },
   data(){
     return {
@@ -86,6 +80,17 @@ export default {
       getList(){
 
       }
+  },
+  mounted(){
+    let self = this
+    this.$store.commit('setLoading', true)
+    axios.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+        .then(function (response) {
+        self.$store.commit('setTasks', response.data.tasks)
+        })
+        .catch(function (error) {
+        console.log(error);
+    }).finally(()=>{self.$store.commit('setLoading', false)})
   }
 }
 </script>

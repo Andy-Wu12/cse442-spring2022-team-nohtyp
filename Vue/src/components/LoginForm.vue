@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div @keyup.enter="submitForm">
     <el-form ref="elForm" :model="formData" :rules="rules" size="small" label-width="100px"
       label-position="left">
       <el-row type="flex" justify="center" align="middle">
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label="Email" prop="Email">
             <el-input v-model="formData.Email" placeholder="Email" clearable :style="{width: '100%'}">
             </el-input>
@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" align="middle">
-        <el-col :span="6">
+        <el-col :span="12">
           <el-form-item label="Password" prop="Password">
             <el-input v-model="formData.Password" placeholder="Password" clearable show-password
               :style="{width: '100%'}"></el-input>
@@ -32,7 +32,6 @@ import extractObjectProp from '../js/general_helper'
 
 export default {
   components: {},
-  props: ['isLoggedIn'],
   data() {
     return {
       formData: {
@@ -70,17 +69,17 @@ export default {
           .then(function (response) {
             if(response.data.status === "success"){
                 self.$store.commit('setLoading', true)
+                self.$router.push({name: 'UserHome'})
                 setTimeout(()=>{
                   self.$store.commit('setLoading', false)
-                  self.$router.push({name: 'UserHome'})
                   self.$message({
                     message: 'Login Success!',
                     type: 'success'
                 })
                 }, 1000)
-
                 self.$store.commit('setToken', response.data.token)
                 self.$store.commit('setEmail', response.data.email)
+                self.$store.commit('setIsLoggedIn', true)
             }
             else if(response.data.status === "error"){
                 self.showError(response.data.error)
@@ -91,7 +90,6 @@ export default {
             self.showError("Server is down")
           });
       })
-      console.log(this.isLoggedIn)
     },
     showError(errMsg){
       this.$message.error(errMsg);

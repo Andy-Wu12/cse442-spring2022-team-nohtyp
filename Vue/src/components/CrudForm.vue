@@ -2,14 +2,13 @@
     <el-form ref="form" label-width="100px" :model="form" :inline="inline">
         <el-form-item v-for="item in formLabel" :key="item.label" :label="item.label">
             <el-input
-                v-if="item.type === 'input' && item.model === 'TaskName'"
-                :placeholder="'Input'"
-                v-model="newTaskName"
+                v-if="item.type === 'input' && item.model === 'StackName'"
+                v-model="StackName"
             ></el-input>
             <el-input
                 v-if="item.type === 'input' && item.model === 'TaskDescription'"
                 :placeholder="'Input'"
-                v-model="newTaskName"
+                v-model="StackName"
             ></el-input>
             <el-switch 
                 v-if="item.type === 'switch'" ></el-switch>
@@ -43,7 +42,7 @@ export default{
     },
     data() {
         return{
-            newTaskName:''
+            StackName:''
         }
     },
     methods:{

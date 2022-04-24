@@ -1,6 +1,8 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE");
+
 function emailExists($mysqli, $email): bool
 {
     $stmt = $mysqli->prepare("SELECT * FROM user WHERE email = ?");
@@ -24,7 +26,6 @@ function userPwdExists($mysqli, $email, $password): bool
     $rows = $stmt->num_rows;
     if ($rows == 1) {
         $stmt->fetch();
-        // echo password_verify($password, $pwd);
         return password_verify($password, $pwd);
     }
     return false;
@@ -71,6 +72,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resp["token"] = $cookie;
         updateCookie($mysqli, $user_email, $cookie);
     }
+}
+else if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    $post_body = file_get_contents('php://input');
+    $json = json_decode($post_body);
+
+    $user_email = $json->{'email'};
+    $old_password = $json->{'password'};
+    $new_password = $json->{'newPassword'};
+
+    if(!userPwdExists($mysqli, $user_email, $old_password)){
+        $resp["status"] = "error";
+        $resp["error"] = "Wrong Password";
+    }
+    else{
+        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $stmt = $mysqli->prepare("UPDATE user SET password=? WHERE email=?");
+        $stmt->bind_param("ss", $new_password,$user_email);
+        $stmt->execute();
+        $resp["status"] = "success";
+    }
+}
+else if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    $post_body = file_get_contents('php://input');
+    $json = json_decode($post_body);
+    $email = $_GET['email'];
+    $stmt = $mysqli->prepare("DELETE FROM user WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    //delete all stacks
+    $stmt = $mysqli->prepare("DELETE FROM stacks WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $resp["status"] = "success";
 }
 else{
     $resp["status"] = "error";
