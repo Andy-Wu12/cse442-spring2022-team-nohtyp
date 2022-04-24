@@ -27,7 +27,6 @@
         <div><stack /></div>
         <div><stack /></div>
         <div><stack /></div>
-
       </div>
 
       <div

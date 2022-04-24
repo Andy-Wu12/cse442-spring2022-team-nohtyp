@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<HelloWorld></HelloWorld>
-		<!-- <CardsStack v-show="this.$store.state.user.tasks.length > 0"></CardsStack> -->
 		<LandingPage v-if="!this.$store.state.user.isLoggedIn"></LandingPage>
 		<el-result
 			icon="success"
@@ -49,17 +47,24 @@
 			@childOneClick="handleChildOneClick"
 			v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
 		></TaskCascader>
+		<DockContainer v-if="this.$store.state.user.isLoggedIn"></DockContainer>
 	</div>
 </template>
 
 <script>
-	import HelloWorld from '../components/HelloWorld'
+	import DockContainer from '@/components/Dock/DockContainer'
 	import LandingPage from '../page/LandingPage'
 	import TaskCascader from '@/components/TaskCascader'
 	import AnotherStack from '@/components/AnotherStack'
 	import DockContainer from '@/components/Dock/DockContainer'
 
 	export default {
+		components: {
+			DockContainer,
+			LandingPage,
+			TaskCascader,
+			AnotherStack,
+		},
 		mounted() {
 			this.updateAllData()
 			setInterval(() => {
