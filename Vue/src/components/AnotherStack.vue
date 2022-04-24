@@ -10,7 +10,7 @@
 		:height="this.height"
 		:width="this.width"
 		:border="this.border"
-		style="margin-top: 90px; margin-bottom: 20px"
+		style="margin-top: 20px; margin-bottom: 20px"
 	>
 		<slide
 			v-for="(task, index) in displayingTasks"

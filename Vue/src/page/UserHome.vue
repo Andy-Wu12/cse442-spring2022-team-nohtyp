@@ -56,7 +56,6 @@
 	import LandingPage from '../page/LandingPage'
 	import TaskCascader from '@/components/TaskCascader'
 	import AnotherStack from '@/components/AnotherStack'
-	import DockContainer from '@/components/Dock/DockContainer'
 
 	export default {
 		components: {
@@ -120,16 +119,6 @@
 						: this.$store.state.user.tasks.filter((task) => task['cardID'] === displayingCardID)
 				this.$store.commit('setDisplayingTasks', displayingTasks)
 			},
-		},
-		components: {
-			HelloWorld,
-			DockContainer,
-			// CardsStack,
-			LandingPage,
-			// TaskSelector,
-			TaskCascader,
-			AnotherStack,
-			// StackRadio
 		},
 		computed: {
 			hasTasks() {
