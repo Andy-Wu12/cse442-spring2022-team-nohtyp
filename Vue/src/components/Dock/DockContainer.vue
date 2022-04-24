@@ -79,7 +79,7 @@
   position: fixed;
   left: 80px; // Dock left 
   top: calc(100vh - 120px);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,1);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 5px 5px 8px 5px rgba(0,0,0,0.3);
