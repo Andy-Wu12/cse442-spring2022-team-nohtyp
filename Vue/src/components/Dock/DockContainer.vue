@@ -15,18 +15,12 @@
       </header>
     
       <div class="stacks">
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
-        <div><stack /></div>
+        <stack
+          v-for="stack in stacks"
+          :key="stack.id"
+          :id="stack.id"
+          :name="stack.name"
+        />
       </div>
 
       <div
@@ -43,6 +37,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import {mapState} from 'vuex';
   import Stack from './Stack.vue';
 
@@ -61,14 +56,29 @@
       ...mapState('menu', {
         menuOpen: state => state.open,
       }),
+      stacks(){
+        return this.$store.state.user.stacks
+      },
       showOverlay() {
         return this.hovered && !this.dockOpen;
       }
     },
     methods: {
+      getTasks() {
+        axios.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
+          .then(function (response) {
+            self.$store.commit('setStacks', response.data.stacks)
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+      },
       toggleDock() {
         this.dockOpen = !this.dockOpen;
       },
+    },
+    mounted() {
+      getTasks();
     }
   }
 </script>
@@ -79,7 +89,7 @@
   position: fixed;
   left: 80px; // Dock left 
   top: calc(100vh - 120px);
-  background: rgba(0,0,0,1);
+  background: rgba(0,0,0,0.5);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 5px 5px 8px 5px rgba(0,0,0,0.3);

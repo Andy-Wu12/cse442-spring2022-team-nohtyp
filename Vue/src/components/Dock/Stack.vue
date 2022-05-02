@@ -3,36 +3,21 @@
     <div class="card-stack" @wheel="scrollCards($event)">
         <vue-card-stack :cards="cards" :key="JSON.stringify(cards)" :stack-width="360" :card-width="280" :speed="0.5" style="padding-top: 100px">
             <template v-slot:card="{ card }">
-                <div style="width: 100%; height: 100%; border-radius: 8px; padding: 8px;" :style="{ background: card.background}" @click="clicked[card.data] = true" @mouseleave="clicked[card.data] = false">
+                <div
+                    style="width: 100%; height: 100%; border-radius: 8px; padding: 8px;"
+                    :style="{ background: card.background}"
+                    @click="clicked[card.data] = true"
+                    @mouseleave="clicked[card.data] = false"
+                >
                    
-                   <!--
-                    <el-row style="margin:10px">
-                        <el-button type="primary" icon="el-icon-edit" circle></el-button>
-                        <el-button type="success" icon="el-icon-check" circle></el-button>
-                        <el-button type="danger" icon="el-icon-delete" circle></el-button>
-                    </el-row>
-                    <el-descriptions direction="horizontal" :column="1" border size="medium">
-                    <el-descriptions-item label="Name">{{card.data.name}}</el-descriptions-item>
-                    <el-descriptions-item label="Extra Notes">{{card.data.extra_notes}}</el-descriptions-item>
-                    <el-descriptions-item label="Due date" :span="2">{{card.data.due_date}}</el-descriptions-item>
-                    <el-descriptions-item ></el-descriptions-item>
-                    </el-descriptions>
-                    -->
+                   <card
+                    :name="card.data.name"
+                    :extra_notes="card.data.extra_notes"
+                    :due_date="card.data.due_date"
+                   />
+
                 </div>
             </template>
-            <!-- 
-            <template v-slot:nav="{ onNext, onPrevious }">
-                <nav class="nav">
-                    <div class="counter">{{cards.length - activeCardIndex}}/{{cards.length}}</div>
-                    <button v-on:click="onPrevious" class="button" ref="nextButton">
-                        <span class="chevron left"></span>
-                    </button>
-                    <button v-on:click="onNext" class="button" ref="prevButton">
-                        <span class="chevron right"></span>
-                    </button>
-                </nav>
-            </template>
-            -->
         </vue-card-stack>
     </div>
 </template>
@@ -43,44 +28,22 @@
 
     export default({
         name:'CardsStack',
+        props: ['id', 'name'],
         data(){
             return{
                 SchoolName:'aaa',
                 address:'bbb',
                 clicked: Array(5).fill(false),
                 hidden: true,
-                testCards: [
-                    {
-                        due_date: 'Today',
-                        extra_notes: 'Omg do the thing',
-                        name: 'First Card',
-                    },
-                    {
-                        due_date: undefined,
-                        extra_notes: undefined,
-                        name: 'Second Card',
-                    },
-                    {
-                        due_date: 'Tomorrow',
-                        extra_notes: 'Some notes',
-                        name: 'Third Card',
-                    },
-                    {
-                        due_date: 'Tomorrow',
-                        extra_notes: 'Some notes',
-                        name: 'Fourth Card',
-                    },
-                    {
-                        due_date: 'Tomorrow',
-                        extra_notes: 'Some notes',
-                        name: 'Fifth Card',
-                    },
-                ]
             }
         },
         computed:{
             cards(){
-                return this.initCards(this.testCards)
+                let original_cards = this.$store.state.user.cards;
+                for(let i = 0; i <original_cards.length; i++){
+                    original_cards = original_cards[i][this.props.id];
+                }
+                return this.initCards(original_cards);
             },
             isLoggedIn(){
                 return this.$store.state.user.token && this.$store.state.user.token.length > 0
