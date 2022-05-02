@@ -16,6 +16,10 @@
                 <i class="el-icon-menu"></i>
                 <span slot="title">User Home</span>
             </el-menu-item>
+            <el-menu-item index="charts" v-show="isLoggedIn">
+                <i class="el-icon-s-data"></i>
+                <span slot="title">Charts</span>
+            </el-menu-item>
             <el-submenu index="1" v-show="isLoggedIn">
                 <template slot="title">
                 <i class="el-icon-location"></i>
