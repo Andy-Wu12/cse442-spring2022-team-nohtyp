@@ -12,9 +12,10 @@ import apiConfigDev from '../apiConfig/apiConfigDev.json'
 import apiConfigProd from '../apiConfig/apiConfigProd.json'
 import locale from '../node_modules/element-ui/lib/locale/lang/en.js'
 import Carousel3d from 'vue-carousel-3d'
-// import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 import * as echarts from 'echarts'
+import VueTour from 'vue-tour'
 
+require('vue-tour/dist/vue-tour.css')
 
 Vue.config.productionTip = false
 Vue.use(ElementUI, { locale })
@@ -22,6 +23,7 @@ Vue.use(vuetify)
 Vue.use(VueRouter)
 Vue.use(Carousel3d)
 Vue.prototype.$echarts = echarts
+Vue.use(VueTour)
 
 Vue.prototype.getStacks = function () {
 	let self = this
