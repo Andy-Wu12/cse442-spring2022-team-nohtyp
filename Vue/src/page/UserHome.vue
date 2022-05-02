@@ -9,15 +9,17 @@
 		>
 		</el-result>
 
-		<AnotherStack
-			:displayTasksNumber="displayTasksNumber"
-			:angle="angle"
-			:height="height"
-			:width="width"
-			:border="border"
-			v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
-		></AnotherStack>
-
+		<div id="v-step-0"></div>
+		<div>
+			<AnotherStack
+				:displayTasksNumber="displayTasksNumber"
+				:angle="angle"
+				:height="height"
+				:width="width"
+				:border="border"
+				v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
+			></AnotherStack>
+		</div>
 		<el-row v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0">
 			<div style="float: left; margin-bottom: 10px">
 				<el-radio-group v-model="filter" @change="show">
@@ -48,6 +50,7 @@
 			v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
 		></TaskCascader>
 		<DockContainer v-if="this.$store.state.user.isLoggedIn"></DockContainer>
+		<v-tour name="myTour" :steps="steps"></v-tour>
 	</div>
 </template>
 
@@ -65,6 +68,7 @@
 			AnotherStack,
 		},
 		mounted() {
+			this.$tours['myTour'].start()
 			this.updateAllData()
 			setInterval(() => {
 				this.showTasksFinishedResult = this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length === 0
@@ -72,6 +76,24 @@
 		},
 		data() {
 			return {
+				steps: [
+					{
+						target: '#v-step-0',
+						content: `You will see your tasks here`,
+					},
+					{
+						target: '.v-step-1',
+						content: 'Manage your data here',
+					},
+					// {
+					// 	target: '[data-v-step="2"]',
+					// 	content:
+					// 		"Try it, you'll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.",
+					// 	params: {
+					// 		placement: 'top',
+					// 	},
+					// },
+				],
 				filter: '',
 				selectionCleared: true,
 				showTasksFinishedResult: false,
