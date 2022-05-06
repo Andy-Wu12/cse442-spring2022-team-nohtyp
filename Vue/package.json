@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "postbuild": "mkdir -p ./dist/php/php && cp ./src/php/* ./dist/php/php/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
