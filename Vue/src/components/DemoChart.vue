@@ -21,12 +21,13 @@
 		mounted() {
 			this.links.pop()
 			let myChart = this.$echarts.init(document.getElementById('myChart'))
-
 			this.option && myChart.setOption(this.option)
-
 			// this.drawLine()
 		},
 		computed: {
+			tasks(){
+				return this.$store.state.user.tasks
+			},
 			links() {
 				const res = this.graphData.map(function (item, idx) {
 					return {
@@ -113,7 +114,6 @@
 				var dayTime = 3600 * 24 * 1000
 				var data = []
 				for (var time = date; time < end; time += dayTime) {
-					console.log(typeof(this.$echarts.format.formatTime('yyyy-MM-dd', time)))
 					const timeStr = this.$echarts.format.formatTime('yyyy-MM-dd', time)
 					data.push([timeStr, parseInt(timeStr.slice(-2))])
 				}
