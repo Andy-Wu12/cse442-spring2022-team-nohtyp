@@ -183,7 +183,6 @@
         let due_date = null;
         let start_date = this.convertDate(Date.now());
         if (taskJson["due_date"] != null) {
-            console.log("Task with due date!")
             due_date = this.convertDate(taskJson["due_date"]);
         }
         let summary = taskJson["name"];
