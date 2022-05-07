@@ -4,21 +4,6 @@
 
 <script>
 	export default {
-		data() {
-			return {
-				msg: 'aa',
-        // this.getGraphData() would go here, but obviously the user data hasn't been loaded yet
-				graphData: [
-					['2022-04-01', 260],
-					['2022-04-04', 200],
-					['2022-04-09', 279],
-					['2022-04-13', 847],
-					['2022-04-18', 241],
-					['2022-04-23', 411],
-					['2022-05-14', 985],
-				],
-			}
-		},
 		mounted() {
 			this.links.pop()
 			let myChart = this.$echarts.init(document.getElementById('myChart'))
@@ -30,6 +15,16 @@
 		computed: {
       tasks() {
         return this.$store.state.user.tasks
+      },
+      graphData() {
+        let retData = [];
+        const taskData = this.tasks;
+        console.log("Tasks: " + taskData);
+        for(let i = 0; i < taskData.length; i++) {
+          const task = taskData[i];
+          console.log(task);
+        }
+        return retData;
       },
 			links() {
 				const res = this.graphData.map(function (item, idx) {
@@ -64,18 +59,19 @@
 						},
 						range: ['2022-04', '2022-05-31'],
 					},
-					visualMap: {
-						min: 0,
-						max: 10,
-						type: 'piecewise',
-						left: 'center',
-						bottom: 20,
-						inRange: {
-							color: ['#5291FF', '#C7DBFF'],
-						},
-						seriesIndex: [1],
-						orient: 'horizontal',
-					},
+          // This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
+					// visualMap: {
+					// 	min: 0,
+					// 	max: 10,
+					// 	type: 'piecewise',
+					// 	left: 'center',
+					// 	bottom: 20,
+					// 	inRange: {
+					// 		color: ['#5291FF', '#C7DBFF'],
+					// 	},
+					// 	seriesIndex: [1],
+					// 	orient: 'horizontal',
+					// },
 					series: [
 						{
 							type: 'graph',
@@ -123,16 +119,6 @@
 				}
 				return data
 			},
-      getGraphData() {
-        let retData = [];
-        const taskData = this.tasks;
-        console.log("Tasks: " + taskData);
-        for(let i = 0; i < taskData.length; i++) {
-          const task = taskData[i];
-          console.log(task);
-        }
-        return retData;
-      },
 		},
 	}
 </script>
