@@ -81,10 +81,10 @@
 						},
 						range: ['2022-04', '2022-05-31'],
 					},
-					//   This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
+          // This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
 					visualMap: {
-						min: 0,
-						max: 10,
+						min: 1,
+						max: 31,
 						type: 'piecewise',
 						left: 'center',
 						bottom: 20,
