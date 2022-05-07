@@ -1,15 +1,15 @@
 <template>
     <div>
-      <DemoChart></DemoChart>
+      <UserTaskChart></UserTaskChart>
     </div>
 </template>
 
 <script>
-  import DemoChart from "@/components/DemoChart"
+  import UserTaskChart from "@/components/UserTaskChart"
   export default({
     components:{
       // LoginForm,
-      DemoChart
+      UserTaskChart
     },
     data(){
       return {
