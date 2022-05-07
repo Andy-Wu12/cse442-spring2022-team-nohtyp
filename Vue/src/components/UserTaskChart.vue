@@ -21,8 +21,11 @@
         const taskData = this.tasks;
         console.log("Tasks: " + taskData);
         for(let i = 0; i < taskData.length; i++) {
+          let retDataEntry = [];
           const task = taskData[i];
-          console.log(task);
+          // Each retData entry is a list of ['2022-04-01', 260] format
+          retDataEntry.push(task['due_date'].split(" ")[0], 0);
+          console.log(retDataEntry);
         }
         return retData;
       },
