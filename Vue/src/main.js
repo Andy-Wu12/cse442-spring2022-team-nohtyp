@@ -145,7 +145,7 @@ router.beforeEach((to, from, next) => {
 	// UserHome, SignupPage, LoginPage
 	const token = store.state.user.token
 	if (typeof token === 'undefined' || token === null || token.length === 0) {
-		if (to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome') {
+		if (to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome' && to.name !== 'LandingPage') {
 			next({ name: 'LoginPage' })
 			console.log('blocked without token')
 		} else {
