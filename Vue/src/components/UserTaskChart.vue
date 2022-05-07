@@ -3,32 +3,51 @@
 </template>
 
 <script>
+	import axios from 'axios'
 	export default {
+		data() {
+			return {
+				tasks: [],
+			}
+		},
 		mounted() {
-			this.links.pop()
-			let myChart = this.$echarts.init(document.getElementById('myChart'))
-
-			this.option && myChart.setOption(this.option)
+			const self = this
+			this.$store.commit('setLoading', true)
+			axios
+				.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.getCookie('email'))
+				.then(function (response) {
+					self.$store.commit('setTasks', response.data.tasks)
+					self.tasks = response.data.tasks
+					self.links.pop()
+					let myChart = self.$echarts.init(document.getElementById('myChart'))
+					self.option && myChart.setOption(self.option)
+				})
+				.catch(function (error) {
+					console.log(error)
+				})
+				.finally(() => {
+					self.$store.commit('setLoading', false)
+				})
 
 			// this.drawLine()
 		},
 		computed: {
-      tasks() {
-        return this.$store.state.user.tasks
-      },
-      graphData() {
-        let retData = [];
-        const taskData = this.tasks;
-        console.log("Tasks: " + taskData);
-        for(let i = 0; i < taskData.length; i++) {
-          let retDataEntry = [];
-          const task = taskData[i];
-          // Each retData entry is a list of ['2022-04-01', 260] format
-          retDataEntry.push(task['due_date'].split(" ")[0], 0);
-          console.log(retDataEntry);
-        }
-        return retData;
-      },
+			//   tasks() {
+			//     return this.$store.state.user.tasks
+			//   },
+			graphData() {
+				let retData = []
+				const taskData = this.tasks
+				console.log('Tasks: ', taskData)
+				for (let i = 0; i < taskData.length; i++) {
+					let retDataEntry = []
+					const task = taskData[i]
+					// Each retData entry is a list of ['2022-04-01', 260] format
+					retDataEntry.push(task['due_date'].split(' ')[0], 0)
+					console.log(retDataEntry)
+				}
+				return retData
+			},
 			links() {
 				const res = this.graphData.map(function (item, idx) {
 					return {
@@ -38,8 +57,8 @@
 				})
 				return res
 			},
-            option(){
-                const res = {
+			option() {
+				const res = {
 					tooltip: {},
 					calendar: {
 						top: 'middle',
@@ -62,19 +81,19 @@
 						},
 						range: ['2022-04', '2022-05-31'],
 					},
-          // This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
-					// visualMap: {
-					// 	min: 0,
-					// 	max: 10,
-					// 	type: 'piecewise',
-					// 	left: 'center',
-					// 	bottom: 20,
-					// 	inRange: {
-					// 		color: ['#5291FF', '#C7DBFF'],
-					// 	},
-					// 	seriesIndex: [1],
-					// 	orient: 'horizontal',
-					// },
+					//   This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
+					visualMap: {
+						min: 0,
+						max: 10,
+						type: 'piecewise',
+						left: 'center',
+						bottom: 20,
+						inRange: {
+							color: ['#5291FF', '#C7DBFF'],
+						},
+						seriesIndex: [1],
+						orient: 'horizontal',
+					},
 					series: [
 						{
 							type: 'graph',
@@ -105,8 +124,8 @@
 						},
 					],
 				}
-                return res
-            }
+				return res
+			}
 		},
 		methods: {
 			getVirtulData(year) {
@@ -116,8 +135,8 @@
 				var dayTime = 3600 * 24 * 1000
 				var data = []
 				for (var time = date; time < end; time += dayTime) {
-          let calDate = this.$echarts.format.formatTime('yyyy-MM-dd', time);
-          let dayOfMonth = parseInt(calDate.slice(-2));
+					let calDate = this.$echarts.format.formatTime('yyyy-MM-dd', time)
+					let dayOfMonth = parseInt(calDate.slice(-2))
 					data.push([calDate, dayOfMonth])
 				}
 				return data

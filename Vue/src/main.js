@@ -28,7 +28,7 @@ Vue.use(VueTour)
 Vue.prototype.getStacks = function () {
 	let self = this
 	axios
-		.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.$store.state.user.email)
+		.get(axios.defaults.baseURL + 'stack.php' + '?email=' + this.getCookie('email'))
 		.then(function (response) {
 			self.$store.commit('setStacks', response.data.stacks)
 		})
@@ -40,7 +40,7 @@ Vue.prototype.getStacks = function () {
 Vue.prototype.getCards = function () {
 	let self = this
 	axios
-		.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
+		.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.getCookie('email'))
 		.then(function (response) {
 			self.$store.commit('setCards', response.data.cards)
 			console.log('cards', self.$store.state.user.cards)
@@ -58,7 +58,7 @@ function getRandomColor() {
 Vue.prototype.getTasks = function () {
 	let self = this
 	axios
-		.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.$store.state.user.email)
+		.get(axios.defaults.baseURL + 'task.php' + '?email=' + this.getCookie('email'))
 		.then(function (response) {
 			const tasks = response.data.tasks
 			for (let i = 0; i < tasks.length; i++) {
@@ -72,6 +72,19 @@ Vue.prototype.getTasks = function () {
 		.catch(function (error) {
 			console.log(error)
 		})
+}
+
+Vue.prototype.getCookie = function (cookieName) {
+	let decodedCookie = decodeURIComponent(document.cookie)
+	let cookieArr = decodedCookie.split(';')
+	for (let i = 0; i < cookieArr.length; i++) {
+		let cookie = cookieArr[i]
+		cookie = cookie.trim()
+		if (cookie.indexOf(cookieName) == 0) {
+			return cookie.substring(cookieName.length + 1, cookie.length)
+		}
+	}
+	return ''
 }
 
 Vue.prototype.getCardsByStackID = function (stackID) {
@@ -90,11 +103,10 @@ Vue.prototype.updateAllData = function () {
 }
 
 Vue.prototype.taskAxios = function () {
-	let self = this
 	return axios.request({
-		url: axios.defaults.baseURL + 'task.php?email=' + self.$store.state.user.email,
-		withCredentials: true,
-	})
+	url: axios.defaults.baseURL + 'task.php?email=' + this.getCookie('email'),
+	withCredentials: true,
+})
 }
 
 Vue.prototype.getCardIdByCardName = function (name) {

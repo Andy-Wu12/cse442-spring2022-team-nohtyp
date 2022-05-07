@@ -71,6 +71,11 @@
 						}
 						if (response.data.email) {
 							self.$store.commit('setEmail', response.data.email)
+							setTimeout(()=>{
+								self.getStacks()
+								self.getCards()
+								self.getTasks()
+							}, 1000)
 						}
 					})
 					.catch(function (error) {
