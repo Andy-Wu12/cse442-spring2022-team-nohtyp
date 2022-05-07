@@ -13,15 +13,15 @@
 			style="height: 93vh"
 			router
 		>
-			<el-menu-item index="/" v-show="isLoggedIn">
+			<el-menu-item index="/userhome" v-show="isLoggedIn">
 				<i class="el-icon-menu"></i>
 				<span slot="title">User Home</span>
 			</el-menu-item>
-			<el-menu-item index="charts" v-show="isLoggedIn">
+			<el-menu-item index="charts" v-show="isLoggedIn" id="v-step-1">
 				<i class="el-icon-s-data"></i>
 				<span slot="title">Charts</span>
 			</el-menu-item>
-			<el-submenu index="1" v-show="isLoggedIn"  class="v-step-1">
+			<el-submenu index="1" v-show="isLoggedIn" id="v-step-2">
 				<template slot="title">
 					<i class="el-icon-location"></i>
 					<span slot="title">Edit</span>
@@ -36,7 +36,7 @@
 				<i class="el-icon-menu"></i>
 				<span slot="title">Introduction</span>
 			</el-menu-item>
-			<el-menu-item index="settings" route="settings" v-show="isLoggedIn">
+			<el-menu-item index="settings" route="settings" v-show="isLoggedIn" id="v-step-3">
 				<i class="el-icon-setting"></i>
 				<span slot="title">Settings</span>
 			</el-menu-item>
