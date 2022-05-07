@@ -5,6 +5,7 @@
 <script>
 	export default {
 		mounted() {
+      // setInterval(()=>console.log(this.$store.state.user.tasks), 500)
 			this.links.pop()
 			let myChart = this.$echarts.init(document.getElementById('myChart'))
 
@@ -25,7 +26,7 @@
           const task = taskData[i];
           // Each retData entry is a list of ['2022-04-01', 260] format
           retDataEntry.push(task['due_date'].split(" ")[0], 0);
-          console.log(retDataEntry);
+          retData.push(retDataEntry);
         }
         return retData;
       },
@@ -63,18 +64,18 @@
 						range: ['2022-04', '2022-05-31'],
 					},
           // This part controls the color "LEGEND" under the chart, which is unnecessary for our uses
-					// visualMap: {
-					// 	min: 0,
-					// 	max: 10,
-					// 	type: 'piecewise',
-					// 	left: 'center',
-					// 	bottom: 20,
-					// 	inRange: {
-					// 		color: ['#5291FF', '#C7DBFF'],
-					// 	},
-					// 	seriesIndex: [1],
-					// 	orient: 'horizontal',
-					// },
+					visualMap: {
+						min: 1,
+						max: 31,
+						type: 'piecewise',
+						left: 'center',
+						bottom: 20,
+						inRange: {
+							color: ['#5291FF', '#C7DBFF'],
+						},
+						seriesIndex: [1],
+						orient: 'horizontal',
+					},
 					series: [
 						{
 							type: 'graph',
