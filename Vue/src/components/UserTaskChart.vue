@@ -36,20 +36,29 @@
 			//     return this.$store.state.user.tasks
 			//   },
 			graphData() {
+        let dateCount = {}
 				let retData = []
-				const taskData = this.tasks
+				let taskData = this.tasks
 				console.log('Tasks: ', taskData)
+        taskData = this.sortDates(taskData);
+        // At this point, taskData is only Date, which we can covert back to YYYY-MM-DD using .toISOString() and .split('T')[0]
 				for (let i = 0; i < taskData.length; i++) {
-					let retDataEntry = []
-					const task = taskData[i]
-          if(task['due_date'] != null) {
+					let retDataEntry = [];
+					const taskDateTime = taskData[i];
+          let date = taskDateTime.toISOString().split('T')[0];
+          if(date in dateCount) {
             // Each retData entry is a list of ['2022-04-01', # of tasks due that day] format
-            retDataEntry.push(task['due_date'].split(' ')[0], 0)
-            console.log(retDataEntry)
-            retData.push(retDataEntry);
+            dateCount[date]++;
           }
+          else {
+            dateCount[date] = 0;
+          }
+          // This still pushes duplicate entries.
+          retDataEntry.push(date, dateCount[date]);
+          // console.log(retDataEntry);
+          retData.push(retDataEntry);
 				}
-        console.log(retData);
+        console.log("Return data to graph: " + retData);
 				return retData
 			},
 			links() {
@@ -132,6 +141,16 @@
 			}
 		},
 		methods: {
+      sortDates(dateList) {
+        let dateObjs = [];
+        for(let i = 0; i < dateList.length; i++) {
+          // console.log(dateList[i]['due_date']);
+          if(dateList[i]['due_date'] != null) {
+            dateObjs.push(new Date(dateList[i]['due_date']));
+          }
+        }
+        return dateObjs.sort((d1, d2) => d1 - d2);
+      },
 			getVirtulData(year) {
 				year = year || '2022'
 				var date = +this.$echarts.number.parseDate(year + '-01-01')
