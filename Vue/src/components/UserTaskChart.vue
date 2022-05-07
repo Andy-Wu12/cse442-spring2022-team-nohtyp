@@ -42,10 +42,14 @@
 				for (let i = 0; i < taskData.length; i++) {
 					let retDataEntry = []
 					const task = taskData[i]
-					// Each retData entry is a list of ['2022-04-01', 260] format
-					retDataEntry.push(task['due_date'].split(' ')[0], 0)
-					console.log(retDataEntry)
+          if(task['due_date'] != null) {
+            // Each retData entry is a list of ['2022-04-01', # of tasks due that day] format
+            retDataEntry.push(task['due_date'].split(' ')[0], 0)
+            console.log(retDataEntry)
+            retData.push(retDataEntry);
+          }
 				}
+        console.log(retData);
 				return retData
 			},
 			links() {
