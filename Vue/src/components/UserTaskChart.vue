@@ -51,7 +51,7 @@
             dateCount[date]++;
           }
           else {
-            dateCount[date] = 0;
+            dateCount[date] = 1;
           }
           // This still pushes duplicate entries.
           retDataEntry.push(date, dateCount[date]);
