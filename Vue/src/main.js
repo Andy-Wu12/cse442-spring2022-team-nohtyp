@@ -12,9 +12,10 @@ import apiConfigDev from '../apiConfig/apiConfigDev.json'
 import apiConfigProd from '../apiConfig/apiConfigProd.json'
 import locale from '../node_modules/element-ui/lib/locale/lang/en.js'
 import Carousel3d from 'vue-carousel-3d'
-// import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 import * as echarts from 'echarts'
+import VueTour from 'vue-tour'
 
+require('vue-tour/dist/vue-tour.css')
 
 Vue.config.productionTip = false
 Vue.use(ElementUI, { locale })
@@ -22,6 +23,7 @@ Vue.use(vuetify)
 Vue.use(VueRouter)
 Vue.use(Carousel3d)
 Vue.prototype.$echarts = echarts
+Vue.use(VueTour)
 
 Vue.prototype.getStacks = function () {
 	let self = this
@@ -41,7 +43,6 @@ Vue.prototype.getCards = function () {
 		.get(axios.defaults.baseURL + 'card.php' + '?email=' + this.$store.state.user.email)
 		.then(function (response) {
 			self.$store.commit('setCards', response.data.cards)
-			console.log('cards', self.$store.state.user.cards)
 		})
 		.catch(function (error) {
 			console.log(error)
@@ -62,7 +63,6 @@ Vue.prototype.getTasks = function () {
 			for (let i = 0; i < tasks.length; i++) {
 				tasks[i]['color'] = getRandomColor()
 			}
-			console.log('processed tasks', tasks)
 			self.$store.commit('setTasks', tasks)
 			self.$store.commit('setDisplayingTasks', tasks)
 			self.$store.commit('setDisplayingCardID', 0)
@@ -138,28 +138,25 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 router.beforeEach((to, from, next) => {
-	console.log('redirected from: ', from, ' to:', to)
 	store.commit('getToken')
 	// UserHome, SignupPage, LoginPage
-	const token = store.state.user.token
-	if (typeof token === 'undefined' || token === null || token.length === 0) {
-		if (to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome') {
+	const email = store.state.user.email
+	if (typeof email === 'undefined' || email === null || email.length === 0) {
+		if (to.name !== 'LoginPage' && to.name !== 'SignupPage' && to.name !== 'UserHome' && to.name !== 'LandingPage') {
 			next({ name: 'LoginPage' })
-			console.log('blocked without token')
 		} else {
 			next()
 		}
-	} else if (token) {
-		if (to.name === 'SignupPage' || to.name === 'LoginPage') {
-			next({ name: 'UserHome' })
-			console.log('blocked with token', token)
-		} else if (from.name === 'UserHome' && to.name !== 'UserHome') {
-			store.commit('setDisplayingCardID', undefined)
-			next()
-		} else {
-			next()
-		}
+	} else if (email) {
+	if (to.name === 'SignupPage' || to.name === 'LoginPage') {
+		next({ name: 'UserHome' })
+	} else if (from.name === 'UserHome' && to.name !== 'UserHome') {
+		store.commit('setDisplayingCardID', undefined)
+		next()
+	} else {
+		next()
 	}
+}
 })
 
 export default {

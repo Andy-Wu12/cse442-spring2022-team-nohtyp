@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<LandingPage v-if="!this.$store.state.user.isLoggedIn"></LandingPage>
 		<el-result
 			icon="success"
 			style="padding-top: 200px"
@@ -9,15 +8,17 @@
 		>
 		</el-result>
 
-		<AnotherStack
-			:displayTasksNumber="displayTasksNumber"
-			:angle="angle"
-			:height="height"
-			:width="width"
-			:border="border"
-			v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
-		></AnotherStack>
-
+		<div id="v-step-0"></div>
+		<div>
+			<AnotherStack
+				:displayTasksNumber="displayTasksNumber"
+				:angle="angle"
+				:height="height"
+				:width="width"
+				:border="border"
+				v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
+			></AnotherStack>
+		</div>
 		<el-row v-show="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0">
 			<div style="float: left; margin-bottom: 10px">
 				<el-radio-group v-model="filter" @change="show">
@@ -48,23 +49,26 @@
 			v-if="this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length > 0"
 		></TaskCascader>
 		<DockContainer v-if="this.$store.state.user.isLoggedIn"></DockContainer>
+		<v-tour name="myTour" :steps="steps" :callbacks="tourCallback"></v-tour>
 	</div>
 </template>
 
 <script>
+	import Cookies from 'js-cookie'
+
 	import DockContainer from '@/components/Dock/DockContainer'
-	import LandingPage from '../page/LandingPage'
 	import TaskCascader from '@/components/TaskCascader'
 	import AnotherStack from '@/components/AnotherStack'
 
 	export default {
 		components: {
 			DockContainer,
-			LandingPage,
 			TaskCascader,
 			AnotherStack,
 		},
 		mounted() {
+			if(this.steps.length > 0)
+				this.$tours['myTour'].start()
 			this.updateAllData()
 			setInterval(() => {
 				this.showTasksFinishedResult = this.$store.state.user.isLoggedIn && this.$store.state.user.tasks.length === 0
@@ -72,6 +76,10 @@
 		},
 		data() {
 			return {
+				tourCallback: {
+					onSkip: this.endTour,
+					onFinish: this.endTour,
+				},
 				filter: '',
 				selectionCleared: true,
 				showTasksFinishedResult: false,
@@ -83,6 +91,9 @@
 			}
 		},
 		methods: {
+			endTour(){
+				Cookies.remove('tour')
+			},
 			handleChildOneClick() {
 				this.filter = ''
 			},
@@ -132,6 +143,32 @@
 					(this.$store.state.user.isLoggedIn && this.$store.state.user.displayingCardID === undefined) ||
 					this.$store.state.user.displayingTasks.length > 0
 				)
+			},
+			steps() {
+				if (Cookies.get('tour') !== undefined && Cookies.get('tour') === 'true') {
+					return [
+						{
+							target: '#v-step-0',
+							content: `You will see your tasks here`,
+						},
+						{
+							target: '#v-step-1',
+							content: 'Check the chart of you tasks here',
+						},
+						{
+							target: '#v-step-2',
+							content: 'Manage your data here',
+						},
+						{
+							target: '#v-step-3',
+							content: 'You can access settings page here',
+						},
+						{
+							target: '#v-step-4',
+							content: 'You can also modify your settings here and log out',
+						},
+					]
+				} else return []
 			},
 		},
 	}

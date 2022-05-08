@@ -115,7 +115,6 @@
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
         this.isDialogShown = true
         this.operateType = 'edit'
         this.form.cardName = row.name

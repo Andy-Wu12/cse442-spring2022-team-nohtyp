@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "postbuild": "mkdir -p ./dist/php/php && cp ./src/php/* ./dist/php/php/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "vue-carousel-3d": "^1.0.1",
     "vue-echarts": "^6.0.2",
     "vue-router": "^3.5.3",
+    "vue-tour": "^2.0.0",
     "vuetify": "^2.6.4",
     "vuex": "^3.6.2"
   },
@@ -57,6 +59,6 @@
     "not dead"
   ],
   "resolutions": {
-  "@vueuse/**/vue-demi": "0.11.4"
-}
+    "@vueuse/**/vue-demi": "0.11.4"
+  }
 }

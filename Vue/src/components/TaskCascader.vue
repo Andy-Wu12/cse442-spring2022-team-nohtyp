@@ -1,5 +1,6 @@
 <template>
-	<el-cascader-panel :options="stackOption" :show-all-levels="false" @change="handleChange"> </el-cascader-panel>
+	<el-cascader-panel :options="stackOption" :show-all-levels="false" @change="handleChange">
+	</el-cascader-panel>
 </template>
 <script>
 	export default {
@@ -51,10 +52,7 @@
 					setTimeout(() => {
 						this.$store.commit('setLoading', false)
 						this.$store.commit('setDisplayingCardID', 0)
-						this.$store.commit(
-							'setDisplayingTasks',
-							this.$store.state.user.tasks
-						)
+						this.$store.commit('setDisplayingTasks', this.$store.state.user.tasks)
 					}, 400)
 					return
 				}
