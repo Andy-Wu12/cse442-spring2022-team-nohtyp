@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-card class="box-card"
-       style="margin-left:auto; margin-right:auto; width:50%; margin-top:10vh">
+       style="margin-left:auto; margin-right:auto; width:750px; margin-top:10vh">
         <div slot="header" class="clearfix">
           <span>Login</span>
         </div>
