@@ -9,13 +9,11 @@
                     @click="clicked[card.data] = true"
                     @mouseleave="clicked[card.data] = false"
                 >
-                   
                    <card
                     :name="card.data.name"
                     :extra_notes="card.data.extra_notes"
                     :due_date="card.data.due_date"
                    />
-
                 </div>
             </template>
         </vue-card-stack>

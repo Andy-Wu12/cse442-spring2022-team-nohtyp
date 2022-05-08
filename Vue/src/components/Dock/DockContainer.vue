@@ -78,7 +78,7 @@
       },
     },
     mounted() {
-      getTasks();
+      this.getTasks();
     }
   }
 </script>
