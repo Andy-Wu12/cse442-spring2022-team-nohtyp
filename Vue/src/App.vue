@@ -28,6 +28,7 @@
 	import Vue from 'vue'
 	import axios from 'axios'
 	import VueAxios from 'vue-axios'
+	// import passwordMeter from './components/passwordMeter.vue'
 
 	Vue.use(VueAxios, axios)
 
@@ -38,9 +39,12 @@
 			// CardsStack,
 			NavBar,
 			NavMenu,
+			//  passwordMeter
+
 		},
 		data: () => ({
 			selection: 1,
+			
 		}),
 		computed: {
 			loading() {

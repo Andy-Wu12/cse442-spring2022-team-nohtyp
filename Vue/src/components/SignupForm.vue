@@ -8,7 +8,7 @@
 					</el-form-item>
 				</el-col>
 			</el-row>
-			<el-row type="flex" justify="center" align="middle">
+			<el-row type="flex" justify="center" align="middle" style="padding-top:30px; padding-bottom: 30px">
 				<el-col :span="12">
 					<el-form-item label="Password" prop="Password">
 						<el-input
@@ -18,6 +18,7 @@
 							show-password
 							:style="{ width: '100%' }"
 						></el-input>
+						<el-progress :percentage="passwordPercent"></el-progress>
 					</el-form-item>
 				</el-col>
 			</el-row>
@@ -52,7 +53,65 @@
 		components: {},
 		props: [],
 		data() {
+			const validatePassword = (rule, value, callback) => {
+				if (value === '') {
+					callback(new Error('Password cannot be empty'))
+				} else {
+					var complexity = 0
+					if (this.formData.Password !== '') {
+						if (this.formData.Password.match(/([a-z])+/)) {
+							complexity++
+						}
+						if (this.formData.Password.match(/([0-9])+/)) {
+							complexity++
+						}
+						if (this.formData.Password.match(/([A-Z])+/)) {
+							complexity++
+						}
+						if (this.formData.Password.match(/([\W])+/)) {
+							complexity++
+						}
+						if (this.formData.Password.length < 6) {
+							callback(new Error('The password has to more than 6 characters'))
+							complexity = 0
+						}
+						switch (complexity) {
+							case 0:
+								this.passwordPercent = 0
+								callback(new Error('At least include 1 uppercase, 1 lowercase, 1 symbol and 1 number'))
+								break
+							case 1:
+								this.passwordPercent = 33
+								callback(new Error('At least include 1 uppercase, 1 lowercase, 1 symbol and 1 number'))
+								break
+							case 2:
+								this.passwordPercent = 66
+								callback(new Error('At least include 1 uppercase, 1 lowercase, 1 symbol and 1 number'))
+								break
+							case 3:
+							case 4:
+								this.passwordPercent = 100
+								break
+							default:
+								this.passwordPercent = 0
+								break
+						}
+					}
+					callback()
+				}
+			}
+			const validateConfirmPassword = (rule, value, callback) => {
+				if (value === '') {
+					callback(new Error('Confirm your password'))
+				} else {
+					if (this.formData.ConfirmPassword !== this.formData.Password) {
+						callback(new Error('Passwords do not match'))
+					}
+					callback()
+				}
+			}
 			return {
+				passwordPercent: 0,
 				formData: {
 					Email: undefined,
 					Password: undefined,
@@ -72,18 +131,10 @@
 						},
 					],
 					Password: [
-						{
-							required: true,
-							message: 'Password is required',
-							trigger: 'blur',
-						},
+						{ required: true, validator: validatePassword, trigger: ['blur', 'change'] },
 					],
 					ConfirmPassword: [
-						{
-							required: true,
-							message: 'Password cannot be empty',
-							trigger: 'blur',
-						},
+						{ required: true, validator: validateConfirmPassword, trigger: ['blur', 'change'] },
 					],
 				},
 			}
