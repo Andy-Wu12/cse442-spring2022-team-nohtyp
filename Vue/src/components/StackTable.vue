@@ -75,7 +75,6 @@
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
         this.isDialogShown = true
         this.operateType = 'edit'
         this.form.stackName = row.name

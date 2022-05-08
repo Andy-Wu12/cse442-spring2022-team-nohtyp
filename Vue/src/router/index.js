@@ -7,13 +7,20 @@ import StackEditPage from '../page/StackEditPage'
 import CardEditPage from '../page/CardEditPage'
 import TaskEditPage from '../page/TaskEditPage'
 import ChartsPage from '../page/ChartsPage'
+import LandingPage from '../page/LandingPage'
 
 export default new VueRouter({
 	routes: [
 		{
 			name: 'UserHome',
-			path: '/',
+			path: '/userhome',
 			component: UserHome,
+			meta: { transition: 'slide-left' },
+		},
+		{
+			name: 'LandingPage',
+			path: '/',
+			component: LandingPage,
 			meta: { transition: 'slide-left' },
 		},
 		{

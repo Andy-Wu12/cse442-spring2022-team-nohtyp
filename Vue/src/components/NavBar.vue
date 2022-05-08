@@ -25,7 +25,7 @@
             </el-submenu> -->
 			<el-menu-item index="signup" route="signup" v-show="!this.$store.state.user.isLoggedIn"> Sign Up </el-menu-item>
 			<el-menu-item index="login" route="login" v-show="!this.$store.state.user.isLoggedIn"> Log In </el-menu-item>
-			<el-menu-item style="float: right" v-show="this.$store.state.user.isLoggedIn">
+			<el-menu-item style="float: right" v-show="this.$store.state.user.isLoggedIn" id="v-step-4">
 				<el-dropdown>
 					<el-button type="primary" style="float: right; color: white">
 						{{ this.$store.state.user.email }}
@@ -71,7 +71,7 @@
 						this.$store.commit('clearStacks')
 						this.$store.commit('clearDisplayingCardID')
 						this.$store.commit('clearDisplayingTasks')
-						this.$router.push({ name: 'UserHome' })
+						this.$router.push({ name: 'LandingPage' })
 						setTimeout(() => {
 							this.$store.commit('setLoading', false)
 							this.$message({

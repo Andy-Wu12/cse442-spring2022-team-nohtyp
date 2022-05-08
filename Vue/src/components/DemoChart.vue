@@ -21,12 +21,13 @@
 		mounted() {
 			this.links.pop()
 			let myChart = this.$echarts.init(document.getElementById('myChart'))
-
 			this.option && myChart.setOption(this.option)
-
 			// this.drawLine()
 		},
 		computed: {
+			tasks(){
+				return this.$store.state.user.tasks
+			},
 			links() {
 				const res = this.graphData.map(function (item, idx) {
 					return {
@@ -61,8 +62,8 @@
 						range: ['2022-04', '2022-05-31'],
 					},
 					visualMap: {
-						min: 0,
-						max: 10,
+						min: 1,
+						max: 31,
 						type: 'piecewise',
 						left: 'center',
 						bottom: 20,
@@ -113,7 +114,8 @@
 				var dayTime = 3600 * 24 * 1000
 				var data = []
 				for (var time = date; time < end; time += dayTime) {
-					data.push([this.$echarts.format.formatTime('yyyy-MM-dd', time), Math.floor(Math.random() * 10)])
+					const timeStr = this.$echarts.format.formatTime('yyyy-MM-dd', time)
+					data.push([timeStr, parseInt(timeStr.slice(-2))])
 				}
 				return data
 			},
